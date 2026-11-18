@@ -4,9 +4,10 @@ import { DeviceSimulator } from "./components/DeviceSimulator";
 import { IntegrationGuide } from "./components/IntegrationGuide";
 import { ProjectBoard } from "./components/ProjectBoard";
 import { ReferenceGallery } from "./components/ReferenceGallery";
+import { WokwiLiveEmbed } from "./components/WokwiLiveEmbed";
 import { applyTheme, readStoredTheme, toggleTheme, type Theme } from "./theme";
 
-type Tab = "board" | "simulator" | "gallery" | "integration";
+type Tab = "board" | "simulator" | "gallery" | "integration" | "wokwi";
 
 export default function App() {
   const [theme, setTheme] = useState<Theme>("light");
@@ -43,7 +44,7 @@ export default function App() {
         <div className="brand">
           <h1 className="brand-name">Svaraa V0 Lab</h1>
           <p className="brand-sub">
-            Project board · device simulator · BLE integration · references
+            Project board · Wokwi live · device simulator · BLE · references
           </p>
         </div>
         <div className="header-actions">
@@ -78,6 +79,14 @@ export default function App() {
         <button
           type="button"
           className="tab"
+          aria-current={tab === "wokwi" ? "page" : undefined}
+          onClick={() => setTab("wokwi")}
+        >
+          Wokwi Live
+        </button>
+        <button
+          type="button"
+          className="tab"
           aria-current={tab === "simulator" ? "page" : undefined}
           onClick={() => setTab("simulator")}
         >
@@ -104,6 +113,8 @@ export default function App() {
       <div className="tab-body">
         {tab === "board" ? (
           <ProjectBoard />
+        ) : tab === "wokwi" ? (
+          <WokwiLiveEmbed />
         ) : tab === "simulator" ? (
           <DeviceSimulator />
         ) : tab === "integration" ? (

@@ -1086,3 +1086,58 @@
   border: 1px solid color-mix(in srgb, var(--c-danger, #b42318) 28%, transparent);
   font-size: 0.9rem;
 }
+
+/* —— Wokwi live embed (Pages) —— */
+.wokwi-live {
+  padding: 1rem 1.5rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.wokwi-live-toolbar,
+.wokwi-live-phases {
+  flex-wrap: wrap;
+}
+
+.wokwi-live-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.9fr);
+  gap: 1rem;
+  align-items: stretch;
+}
+
+@media (max-width: 960px) {
+  .wokwi-live-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.wokwi-live-frame-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.wokwi-live-iframe {
+  width: 100%;
+  height: min(72vh, 720px);
+  min-height: 480px;
+  border: 1px solid var(--c-line);
+  border-radius: 0.85rem;
+  background: #0b1220;
+}
+
+.wokwi-live-serial {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.wokwi-live-serial-pre {
+  flex: 1;
+  min-height: 480px;
+  max-height: min(72vh, 720px);
+}

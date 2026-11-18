@@ -2,6 +2,8 @@
 
 Run the **actual** ESP32-S3 firmware binary in Wokwi with a wired board that mirrors the pendant UI/sensors as far as Wokwi parts allow (like a full Wokwi.com project canvas).
 
+**On the website:** open the **Wokwi Live** tab on the Lab workbench / GitHub Pages. It embeds Wokwi’s experimental simulator, uploads `apps/workbench/public/wokwi/{diagram.json,firmware.bin,firmware.elf}`, and exposes Start / SOS / phase inject + serial. Sync assets with `scripts/sync_wokwi_public.sh` after a firmware rebuild.
+
 ## Open the simulator (like the example image)
 
 1. Install [Wokwi for VS Code](https://docs.wokwi.com/vscode/getting-started).

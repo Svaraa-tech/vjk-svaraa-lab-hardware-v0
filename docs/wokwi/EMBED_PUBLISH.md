@@ -2,6 +2,22 @@
 
 Lab Device Simulator stays the SOS authority. Publishing to Wokwi.com only enables an optional elements iframe.
 
+## GitHub Pages live embed (preferred for the public workbench)
+
+The **Wokwi Live** tab uses Wokwi’s experimental embed API (`https://wokwi.com/experimental/embed`) and uploads:
+
+- `apps/workbench/public/wokwi/diagram.json`
+- `apps/workbench/public/wokwi/firmware.bin`
+- `apps/workbench/public/wokwi/firmware.elf`
+
+Sync after a firmware rebuild:
+
+```bash
+scripts/sync_wokwi_public.sh
+```
+
+No published `project_id` is required for that path. It works on static Pages without the Lab API.
+
 ## Prerequisites
 
 1. Open `simulation/wokwi` in VS Code with **Wokwi for VS Code**.

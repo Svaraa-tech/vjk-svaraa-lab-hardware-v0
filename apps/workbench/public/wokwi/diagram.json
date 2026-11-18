@@ -1,0 +1,515 @@
+{
+  "version": 1,
+  "author": "Svaraa V0 Lab \u2014 pendant-face visual harness (SIM)",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "wokwi-text",
+      "id": "title",
+      "top": -70.0,
+      "left": 200.0,
+      "attrs": {
+        "text": "Svaraa pendant face (SIM) \u00b7 Lab engine = SOS authority\nno BLE \u00b7 no I2S \u00b7 no Nicla target"
+      }
+    },
+    {
+      "type": "board-esp32-s3-devkitc-1",
+      "id": "esp",
+      "top": 40.0,
+      "left": -180.0,
+      "attrs": {
+        "label": "ESP32-S3 (Nano stand-in)"
+      }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "cord",
+      "top": -20.0,
+      "left": 310.0,
+      "attrs": {
+        "text": "\u2503 lanyard"
+      }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "mesh",
+      "top": 10.0,
+      "left": 250.0,
+      "attrs": {
+        "text": "\u2501\u2501 audio mesh / mic grille \u2501\u2501"
+      }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "status_lbl",
+      "top": 40.0,
+      "left": 250.0,
+      "attrs": {
+        "text": "STATUS \u00b7 on / off / recording  (px0)"
+      }
+    },
+    {
+      "type": "wokwi-neopixel",
+      "id": "px0",
+      "top": 70.0,
+      "left": 330.0,
+      "attrs": {
+        "label": "status"
+      }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "sos",
+      "top": 130.0,
+      "left": 310.0,
+      "attrs": {
+        "color": "yellow",
+        "label": "S1 SOS \u00b7 flower center (D2/GPIO5)",
+        "bounce": "1"
+      }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "prog_lbl",
+      "top": 210.0,
+      "left": 230.0,
+      "attrs": {
+        "text": "PROGRAMMABLE bank \u00b7 phase UI  (px1\u2013px4)"
+      }
+    },
+    {
+      "type": "wokwi-neopixel",
+      "id": "px1",
+      "top": 250.0,
+      "left": 230.0,
+      "attrs": {
+        "label": "px1"
+      }
+    },
+    {
+      "type": "wokwi-neopixel",
+      "id": "px2",
+      "top": 265.0,
+      "left": 290.0,
+      "attrs": {
+        "label": "px2"
+      }
+    },
+    {
+      "type": "wokwi-neopixel",
+      "id": "px3",
+      "top": 265.0,
+      "left": 350.0,
+      "attrs": {
+        "label": "px3"
+      }
+    },
+    {
+      "type": "wokwi-neopixel",
+      "id": "px4",
+      "top": 250.0,
+      "left": 410.0,
+      "attrs": {
+        "label": "px4"
+      }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "face_note",
+      "top": 310.0,
+      "left": 220.0,
+      "attrs": {
+        "text": "Pendant face layout matches product render:\ntop status alone \u00b7 SOS center \u00b7 4 programmable lights in bottom arc\nDaisy-chain still GPIO18 \u2192 px0 \u2192 px1 \u2192 px2 \u2192 px3 \u2192 px4"
+      }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "side_hdr",
+      "top": -20.0,
+      "left": 520.0,
+      "attrs": {
+        "text": "Support circuitry (off-face)"
+      }
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "privacy",
+      "top": 20.0,
+      "left": 520.0,
+      "attrs": {
+        "label": "S2 Privacy (D10/GPIO21)",
+        "value": "1",
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_priv",
+      "top": 10.0,
+      "left": 640.0,
+      "attrs": {
+        "color": "orange",
+        "label": "Privacy active (GPIO13)"
+      }
+    },
+    {
+      "type": "wokwi-buzzer",
+      "id": "buzzer",
+      "top": 100.0,
+      "left": 520.0,
+      "attrs": {
+        "label": "Buzzer (A0/GPIO1)",
+        "volume": "0.6"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "haptic",
+      "top": 100.0,
+      "left": 640.0,
+      "attrs": {
+        "color": "magenta",
+        "label": "Haptic proxy (GPIO14)"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "rail3v3",
+      "top": 180.0,
+      "left": 520.0,
+      "attrs": {
+        "color": "limegreen",
+        "label": "3V3 rail"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "rail5v",
+      "top": 180.0,
+      "left": 600.0,
+      "attrs": {
+        "color": "red",
+        "label": "5V rail"
+      }
+    },
+    {
+      "type": "board-bmp180",
+      "id": "bmp",
+      "top": 240.0,
+      "left": 520.0,
+      "attrs": {
+        "label": "BMP180\u2248BMP390"
+      }
+    },
+    {
+      "type": "wokwi-mpu6050",
+      "id": "imu",
+      "top": 320.0,
+      "left": 520.0,
+      "attrs": {
+        "label": "MPU6050 stand-in (not Nicla)"
+      }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "unsupported",
+      "top": 420.0,
+      "left": -160.0,
+      "attrs": {
+        "text": "NOT in Wokwi (Lab typed mocks):\nBLE \u00b7 I2S mic/amp \u00b7 Nicla I2C target \u00b7 MAX-M10S \u00b7 AHCT125"
+      }
+    }
+  ],
+  "connections": [
+    [
+      "esp:5",
+      "sos:1.l",
+      "green",
+      [
+        "h30",
+        "v0"
+      ]
+    ],
+    [
+      "esp:GND.1",
+      "sos:2.l",
+      "black",
+      [
+        "h30",
+        "v0"
+      ]
+    ],
+    [
+      "esp:21",
+      "privacy:2",
+      "green",
+      [
+        "h0"
+      ]
+    ],
+    [
+      "privacy:1",
+      "esp:GND.2",
+      "black",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "privacy:3",
+      "esp:3V3",
+      "red",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "esp:13",
+      "led_priv:A",
+      "orange",
+      [
+        "h20"
+      ]
+    ],
+    [
+      "led_priv:C",
+      "esp:GND.2",
+      "black",
+      []
+    ],
+    [
+      "esp:1",
+      "buzzer:2",
+      "violet",
+      [
+        "h0"
+      ]
+    ],
+    [
+      "buzzer:1",
+      "esp:GND.3",
+      "black",
+      []
+    ],
+    [
+      "esp:14",
+      "haptic:A",
+      "magenta",
+      [
+        "h0"
+      ]
+    ],
+    [
+      "haptic:C",
+      "esp:GND.3",
+      "black",
+      []
+    ],
+    [
+      "esp:18",
+      "px0:DIN",
+      "green",
+      [
+        "h40",
+        "v20"
+      ]
+    ],
+    [
+      "px0:DOUT",
+      "px1:DIN",
+      "green",
+      [
+        "v40",
+        "h-20"
+      ]
+    ],
+    [
+      "px1:DOUT",
+      "px2:DIN",
+      "green",
+      []
+    ],
+    [
+      "px2:DOUT",
+      "px3:DIN",
+      "green",
+      []
+    ],
+    [
+      "px3:DOUT",
+      "px4:DIN",
+      "green",
+      []
+    ],
+    [
+      "esp:5V",
+      "px0:VDD",
+      "red",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "esp:5V",
+      "px1:VDD",
+      "red",
+      []
+    ],
+    [
+      "esp:5V",
+      "px2:VDD",
+      "red",
+      []
+    ],
+    [
+      "esp:5V",
+      "px3:VDD",
+      "red",
+      []
+    ],
+    [
+      "esp:5V",
+      "px4:VDD",
+      "red",
+      []
+    ],
+    [
+      "esp:GND.4",
+      "px0:VSS",
+      "black",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "esp:GND.4",
+      "px1:VSS",
+      "black",
+      []
+    ],
+    [
+      "esp:GND.4",
+      "px2:VSS",
+      "black",
+      []
+    ],
+    [
+      "esp:GND.4",
+      "px3:VSS",
+      "black",
+      []
+    ],
+    [
+      "esp:GND.4",
+      "px4:VSS",
+      "black",
+      []
+    ],
+    [
+      "esp:11",
+      "bmp:SDA",
+      "blue",
+      [
+        "v20",
+        "h30"
+      ]
+    ],
+    [
+      "esp:12",
+      "bmp:SCL",
+      "yellow",
+      [
+        "v20",
+        "h30"
+      ]
+    ],
+    [
+      "esp:3V3",
+      "bmp:VCC",
+      "red",
+      []
+    ],
+    [
+      "esp:GND.5",
+      "bmp:GND",
+      "black",
+      []
+    ],
+    [
+      "esp:11",
+      "imu:SDA",
+      "blue",
+      [
+        "v40",
+        "h50"
+      ]
+    ],
+    [
+      "esp:12",
+      "imu:SCL",
+      "yellow",
+      [
+        "v40",
+        "h50"
+      ]
+    ],
+    [
+      "esp:3V3",
+      "imu:VCC",
+      "red",
+      []
+    ],
+    [
+      "esp:GND.5",
+      "imu:GND",
+      "black",
+      []
+    ],
+    [
+      "esp:3V3",
+      "rail3v3:A",
+      "limegreen",
+      [
+        "h0"
+      ]
+    ],
+    [
+      "rail3v3:C",
+      "esp:GND.6",
+      "black",
+      []
+    ],
+    [
+      "esp:5V",
+      "rail5v:A",
+      "red",
+      [
+        "h0"
+      ]
+    ],
+    [
+      "rail5v:C",
+      "esp:GND.6",
+      "black",
+      []
+    ],
+    [
+      "esp:TX",
+      "$serialMonitor:RX",
+      "",
+      []
+    ],
+    [
+      "esp:RX",
+      "$serialMonitor:TX",
+      "",
+      []
+    ]
+  ],
+  "dependencies": {},
+  "serialMonitor": {
+    "display": "auto",
+    "newline": "lf",
+    "convertEol": true
+  }
+}
