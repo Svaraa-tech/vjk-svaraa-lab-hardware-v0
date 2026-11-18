@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import { api } from "../api";
 
 type WearerDash = {
   ok: boolean;
