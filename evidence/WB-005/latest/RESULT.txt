@@ -1,0 +1,9 @@
+profile=SIM
+notification_provider=mock
+scenario=manual_no_gps
+expect_ok=true
+test_sim_engine=passed
+host_bridge=passed
+product_ingest=accepted
+human_ack=HumanAck
+does_not=physical_button,BLE,real_provider,GPS

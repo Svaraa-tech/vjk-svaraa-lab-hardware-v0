@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="780" viewBox="0 0 1200 780"><rect width="1200" height="780" fill="#112d47"/>
+<path d="M25 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M55 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M85 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M115 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M145 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M175 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M205 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M235 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M265 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M295 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M325 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M355 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M385 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M415 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M445 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M475 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M505 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M535 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M565 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M595 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M625 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M655 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M685 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M715 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M745 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M775 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M805 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M835 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M865 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M895 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M925 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M955 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M985 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1015 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1045 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1075 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1105 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1135 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1165 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 110 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 140 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 170 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 200 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 230 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 260 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 290 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 320 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 350 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 380 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 410 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 440 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 470 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 500 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 530 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 560 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 590 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 620 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 650 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 680 H1180" stroke="#23445f" stroke-width=".5"/>
+<text x="30" y="45.0" font-size="26" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">BP-04 | Pixel level shifter and control outputs</text>
+<text x="30" y="82.0" font-size="15" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Use SN74AHCT125N PDIP-14. This is a 5V-powered TTL-input buffer, not a generic HC substitute.</text>
+<rect x="30" y="160" width="275" height="160" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="43" y="187.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">NANO D9 GPIO18</text>
+<text x="43" y="216.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Data -&gt; U4 pin2 / 1A</text>
+<text x="43" y="234.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">R6 10k: pin2 toGND</text>
+<text x="43" y="253.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Signal inactive until supplies ready</text>
+<text x="43" y="272.7" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">CommonGND first</text>
+<rect x="380" y="135" width="355" height="295" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="393" y="162.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">U4 SN74AHCT125N</text>
+<text x="393" y="191.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">14 VCC -&gt; EXT_5V</text>
+<text x="393" y="209.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">7 GND -&gt;commonGND</text>
+<text x="393" y="228.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">1 /OE1 -&gt;GND</text>
+<text x="393" y="247.7" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">2 1A &lt;- NanoD9</text>
+<text x="393" y="266.6" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">3 1Y -&gt; R5 330ohm -&gt; pixelDIN</text>
+<text x="393" y="285.5" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">C2 100nF across14/7</text>
+<text x="393" y="304.4" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Unused /OE4,10,13 -&gt;5V</text>
+<text x="393" y="323.3" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Unused A5,9,12 -&gt;GND</text>
+<text x="393" y="342.20000000000005" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Unused Y6,8,11 -&gt;NC</text>
+<rect x="835" y="160" width="335" height="245" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="848" y="187.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">PIXEL INPUT CONNECTOR</text>
+<text x="848" y="216.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">V+ -&gt; EXT_5V</text>
+<text x="848" y="234.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">GND -&gt;commonGND</text>
+<text x="848" y="253.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">DIN &lt;- R5 from U4 pin3</text>
+<text x="848" y="272.7" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">C4 470uF &gt;=10V across supply</text>
+<text x="848" y="291.6" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Use factory mating pigtail.</text>
+<text x="848" y="310.5" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Index0 top;1-4 lower lights</text>
+<text x="848" y="329.4" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Indices5-19 ALWAYS OFF.</text>
+<polyline points="305,235 380,235" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="735,315 835,315" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<rect x="35" y="490" width="540" height="165" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="48" y="517.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">GROVE VIBRATION</text>
+<text x="48" y="546.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">NanoD12 GPIO47 -&gt; SIG</text>
+<text x="48" y="564.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">EXT_5V -&gt;VCC; commonGND -&gt;GND</text>
+<text x="48" y="583.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Unused cable signal insulated</text>
+<text x="48" y="602.7" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Onboard driver required; do not connect bare motor toGPIO.</text>
+<rect x="625" y="490" width="545" height="165" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="638" y="517.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">GROVE BUZZER</text>
+<text x="638" y="546.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">NanoA0 GPIO1 -&gt;SIG</text>
+<text x="638" y="564.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">EXT_5V -&gt;VCC; commonGND -&gt;GND</text>
+<text x="638" y="583.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Bounded duty/time; independent of assistant playback</text>
+<text x="638" y="602.7" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">No assumption of Apple Find My acoustic compliance.</text>
+<polyline points="25,711 1175,711" fill="none" stroke="#829daf" stroke-width="1"/>
+<text x="30" y="736.0" font-size="12" font-family="DejaVu Sans" fill="#d3b575" font-weight="normal">Power loads through rated terminal distribution, not Nano3V3. Start with low brightness/volume and measure. [S16-S20]</text>
+<text x="30" y="762.0" font-size="10" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">SVARAA V0.1 / 17 NOV 2026 / PROPOSED MODULE-LEVEL DESIGN - PHYSICAL QUALIFICATION REQUIRED</text>
+</svg>

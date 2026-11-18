@@ -1,0 +1,1 @@
+PASS: 33 HAL mock/board-stub host checks; SIM adapters only

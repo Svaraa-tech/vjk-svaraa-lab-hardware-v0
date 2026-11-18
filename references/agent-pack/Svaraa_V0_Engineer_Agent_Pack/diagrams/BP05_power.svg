@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="780" viewBox="0 0 1200 780"><rect width="1200" height="780" fill="#112d47"/>
+<path d="M25 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M55 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M85 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M115 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M145 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M175 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M205 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M235 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M265 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M295 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M325 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M355 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M385 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M415 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M445 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M475 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M505 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M535 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M565 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M595 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M625 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M655 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M685 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M715 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M745 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M775 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M805 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M835 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M865 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M895 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M925 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M955 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M985 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1015 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1045 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1075 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1105 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1135 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1165 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 110 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 140 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 170 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 200 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 230 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 260 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 290 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 320 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 350 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 380 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 410 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 440 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 470 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 500 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 530 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 560 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 590 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 620 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 650 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 680 H1180" stroke="#23445f" stroke-width=".5"/>
+<text x="30" y="45.0" font-size="26" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">BP-05 | Power domains and forbidden ties</text>
+<text x="30" y="82.0" font-size="15" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">USB bench only. No LiPo, receiver coil or raw battery hookup is authorized by this sheet.</text>
+<rect x="30" y="155" width="300" height="150" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="43" y="182.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">POWERED USB DATA HUB</text>
+<text x="43" y="211.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">PortA -&gt; NanoUSB-C</text>
+<text x="43" y="229.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">PortB -&gt; NiclaMicro-USB</text>
+<text x="43" y="248.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Two board power feeds</text>
+<text x="43" y="267.7" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Verify total and per-port budget</text>
+<rect x="440" y="145" width="315" height="175" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="453" y="172.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">NANO REGULATED3V3</text>
+<text x="453" y="201.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Main sensor hub / BMP390 / GNSS</text>
+<text x="453" y="219.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">INMP441 microphone</text>
+<text x="453" y="238.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Pull-ups and switch inputs</text>
+<text x="453" y="257.7" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Measure available current headroom</text>
+<text x="453" y="276.6" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Do not power amplifier or pixels here.</text>
+<rect x="440" y="385" width="315" height="130" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="453" y="412.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">NICLA INTERNAL SUPPLIES</text>
+<text x="453" y="441.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Board powers own sensors/model</text>
+<text x="453" y="459.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">ESLOV VCC_IN unused</text>
+<text x="453" y="478.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Do not tie regulator outputs</text>
+<polyline points="330,210 440,210" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="330,270 380,270 380,450 440,450" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<rect x="30" y="505" width="300" height="160" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="43" y="532.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">REGULATED EXT_5V</text>
+<text x="43" y="561.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">&gt;=2A initial bench choice</text>
+<text x="43" y="579.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Fuse / rated factory terminals</text>
+<text x="43" y="598.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Separate positive power domain</text>
+<text x="43" y="617.7" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Measure simultaneous load peaks</text>
+<rect x="870" y="380" width="300" height="235" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="883" y="407.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">EXT_5V LOADS</text>
+<text x="883" y="436.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">AHCT125 and pixel strand</text>
+<text x="883" y="454.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">MAX98357 amplifier</text>
+<text x="883" y="473.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Grove vibration and buzzer</text>
+<text x="883" y="492.7" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal"></text>
+<text x="883" y="511.6" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">External negative -&gt;commonGND</text>
+<text x="883" y="530.5" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">External positive NEVER -&gt;</text>
+<text x="883" y="549.4" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">NanoVUSB, VIN or3V3</text>
+<polyline points="330,570 810,570 810,490 870,490" fill="none" stroke="#eac173" stroke-width="3"/>
+<rect x="870" y="145" width="300" height="160" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="883" y="172.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">PARTIAL-POWER CAUTION</text>
+<text x="883" y="201.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">No hot-plug guarantee.</text>
+<text x="883" y="219.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Check unpowered I/O back-feed.</text>
+<text x="883" y="238.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Keep data inactive until ready.</text>
+<text x="883" y="257.7" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Add reviewed isolation if needed.</text>
+<polyline points="40,690 1160,690" fill="none" stroke="#a1c5dd" stroke-width="4"/>
+<text x="450" y="677.0" font-size="17" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">COMMON SIGNAL GROUND</text>
+<polyline points="25,711 1175,711" fill="none" stroke="#829daf" stroke-width="1"/>
+<text x="30" y="736.0" font-size="12" font-family="DejaVu Sans" fill="#d3b575" font-weight="normal">Battery, charging, thermal limits, runtime and independent wake/reserve are later measured design gates.</text>
+<text x="30" y="762.0" font-size="10" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">SVARAA V0.1 / 17 NOV 2026 / PROPOSED MODULE-LEVEL DESIGN - PHYSICAL QUALIFICATION REQUIRED</text>
+</svg>

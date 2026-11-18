@@ -1,0 +1,5 @@
+digraph G{graph[bgcolor="white",pad=.3,nodesep=.3,ranksep=.5];node[shape=box,style="rounded,filled",fillcolor="#edf4f6",color="#35596b",fontname="Helvetica",fontsize=14,margin=".18,.12"];edge[color="#477c85",fontname="Helvetica",fontsize=11];rankdir=TB;a[label="BMI270 stream
+Verified rate/range/units"];b[label="Fresh / valid / unclipped?",shape=diamond];c[label="Degraded sensing
+Manual SOS remains available"];d[label="Windowed acceleration / gyro features
+Optional pressure trend"];e[label="Versioned experimental classifier"];f[label="Qualified candidate?",shape=diamond];g[label="Local prealert / cancellation
+No clinical claim"];h[label="Continue observations"];a->b;b->c[label="no"];b->d[label="yes"];d->e->f;f->g[label="yes"];f->h[label="no"];}

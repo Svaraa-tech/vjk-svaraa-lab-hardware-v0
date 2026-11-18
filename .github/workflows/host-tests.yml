@@ -1,0 +1,33 @@
+name: host-tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  host:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Setup project
+        run: |
+          python3 -m venv tests/host/.venv
+          tests/host/.venv/bin/pip install -r tests/host/requirements.txt
+          python3 -m venv services/api/.venv
+          services/api/.venv/bin/pip install -r services/api/requirements.txt
+          (cd apps/workbench && npm ci || npm install)
+      - name: Host tests
+        run: |
+          export PATH="$PATH"
+          export SVARAA_PYTHON=python3
+          bash scripts/test.sh
+        env:
+          SVARAA_EVIDENCE_DIR: evidence/ci_host
+      - name: Evidence profile guard
+        run: python3 scripts/check_evidence_profiles.py

@@ -1,0 +1,86 @@
+wokwi_smoke 2026-11-18T08:36:49Z
+root=/Users/svaraa_hq/Desktop/Svaraa Pendant/Hardware_V0/Svaraa_V0_Lab
+pio=/Users/svaraa_hq/Library/Python/3.9/bin/pio
+/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Processing sim (platform: espressif32; board: esp32-s3-devkitc-1; framework: arduino)
+--------------------------------------------------------------------------------
+PermissionError: Traceback (most recent call last):
+  File "/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/platformio/__main__.py", line 103, in main
+    cli()  # pylint: disable=no-value-for-parameter
+  File "/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/click/core.py", line 1161, in __call__
+    return self.main(*args, **kwargs)
+  File "/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/click/core.py", line 1082, in main
+    rv = self.invoke(ctx)
+  File "/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/platformio/cli.py", line 85, in invoke
+    return super().invoke(ctx)
+  File "/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/click/core.py", line 1697, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+  File "/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/click/core.py", line 1443, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+  File "/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/click/core.py", line 788, in invoke
+    return __callback(*args, **kwargs)
+  File "/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/click/decorators.py", line 33, in new_func
+    return f(get_current_context(), *args, **kwargs)
+  File "/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/platformio/run/cli.py", line 155, in cli
+    process_env(
+  File "/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/platformio/run/cli.py", line 208, in process_env
+    result["succeeded"] = EnvironmentProcessor(
+  File "/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/platformio/run/processor.py", line 81, in process
+    install_project_env_dependencies(
+  File "/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/platformio/package/commands/install.py", line 134, in install_project_env_dependencies
+    _install_project_env_platform(project_env, options),
+  File "/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/platformio/package/commands/install.py", line 151, in _install_project_env_platform
+    PlatformPackageManager().install(
+  File "/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/platformio/package/manager/platform.py", line 50, in install
+    pkg = super().install(spec, force=force, skip_dependencies=True)
+  File "/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/platformio/package/manager/_install.py", line 46, in install
+    self.lock()
+  File "/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/platformio/package/manager/base.py", line 99, in lock
+    self._lockfile.acquire()
+  File "/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/platformio/package/lockfile.py", line 95, in acquire
+    return self._lock()
+  File "/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/platformio/package/lockfile.py", line 65, in _lock
+    self._fp = open(  # pylint: disable=consider-using-with
+PermissionError: [Errno 1] Operation not permitted: '/Users/svaraa_hq/.platformio/platforms.lock'
+
+============================================================
+
+An unexpected error occurred. Further steps:
+
+* Verify that you have the latest version of PlatformIO using
+  `python -m pip install -U platformio` command
+
+* Try to find answer in FAQ Troubleshooting section
+  https://docs.platformio.org/page/faq/index.html
+
+* Report this problem to the developers
+  https://github.com/platformio/platformio-core/issues
+
+============================================================
+
+Error in atexit._run_exitfuncs:
+Traceback (most recent call last):
+  File "/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/platformio/app.py", line 131, in _lock_state_file
+    self._lockfile.acquire()
+  File "/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/platformio/package/lockfile.py", line 95, in acquire
+    return self._lock()
+  File "/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/platformio/package/lockfile.py", line 65, in _lock
+    self._fp = open(  # pylint: disable=consider-using-with
+PermissionError: [Errno 1] Operation not permitted: '/Users/svaraa_hq/.platformio/.cache/telemetry.json.lock'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/platformio/app.py", line 102, in __enter__
+    self._lock_state_file()
+  File "/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/platformio/app.py", line 133, in _lock_state_file
+    raise exception.HomeDirPermissionsError(os.path.dirname(self.path)) from exc
+platformio.exception.HomeDirPermissionsError: The directory `/Users/svaraa_hq/.platformio/.cache` or its parent directory is not owned by the current user and PlatformIO can not store configuration data.
+Please check the permissions and owner of that directory.
+Otherwise, please remove manually `/Users/svaraa_hq/.platformio/.cache` directory and PlatformIO will create new from the current user.
+pio_run=FAILED
+firmware_present=0
+wokwi_cli=missing
+api_smoke=skipped
+evidence=/Users/svaraa_hq/Desktop/Svaraa Pendant/Hardware_V0/Svaraa_V0_Lab/evidence/WB-020/latest

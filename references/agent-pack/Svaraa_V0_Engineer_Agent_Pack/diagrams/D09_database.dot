@@ -1,0 +1,4 @@
+digraph G{graph[bgcolor="white",pad=.3,nodesep=.3,ranksep=.5];node[shape=box,style="rounded,filled",fillcolor="#edf4f6",color="#35596b",fontname="Helvetica",fontsize=14,margin=".18,.12"];edge[color="#477c85",fontname="Helvetica",fontsize=11];rankdir=TB;u[label="Users / households / assignments"];d[label="Devices / credentials / consent"];e[label="Device events
+UNIQUE(device,event)"];i[label="Incidents
+mode / state / revision / cancel flag"];o[label="Transactional notification outbox"];a[label="Provider attempts
+NOT human ACK"];c[label="Expiring device commands"];t[label="Tags / location provenance"];au[label="Append-only action audit"];u->d;d->e->i;i->o->a;i->c;d->t;u->au;i->au;}

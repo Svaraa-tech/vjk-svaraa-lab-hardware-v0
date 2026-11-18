@@ -1,0 +1,704 @@
+[
+  {
+    "key": "SV0-S01",
+    "id": 101,
+    "title": "Baseline and reproducible workspace",
+    "owner": "Lead / firmware",
+    "dependencies": "None",
+    "tasks": [
+      {
+        "key": "SV0-01.01",
+        "id": 1011,
+        "title": "Freeze scope and evidence vocabulary",
+        "implementation": "Record SIM, USB BENCH and gated extensions in docs/decisions.md.",
+        "acceptance": "Every capability has implemented/mocked/blocked status; no implied certification.",
+        "evidence": "evidence/SV0-01.01/"
+      },
+      {
+        "key": "SV0-01.02",
+        "id": 1012,
+        "title": "Create reproducible repository",
+        "implementation": "Create core, board adapters, contracts, apps, backend, tests and evidence folders; pin qualified tool versions.",
+        "acceptance": "Clean checkout reproduces host tests and records actual compiler/core versions.",
+        "evidence": "evidence/SV0-01.02/"
+      },
+      {
+        "key": "SV0-01.03",
+        "id": 1013,
+        "title": "Define typed HAL ports",
+        "implementation": "Define Clock, MotionSample, LocationFix, Journal, Audio, Ui and Transport without SDK types in the core.",
+        "acceptance": "The same deterministic core runs under mock and board adapters.",
+        "evidence": "evidence/SV0-01.03/"
+      },
+      {
+        "key": "SV0-01.04",
+        "id": 1014,
+        "title": "Create requirement traceability",
+        "implementation": "Map R01-R18 to tasks and tests; version BOM, pins, wires and protocol.",
+        "acceptance": "Every electrical or payload change updates all affected artifacts.",
+        "evidence": "evidence/SV0-01.04/"
+      },
+      {
+        "key": "SV0-01.05",
+        "id": 1015,
+        "title": "Set CI and evidence rules",
+        "implementation": "Run schemas, native compilation and contract tests; separate physical gates.",
+        "acceptance": "CI cannot mark a mocked sensor or radio as physically passed.",
+        "evidence": "evidence/SV0-01.05/"
+      }
+    ]
+  },
+  {
+    "key": "SV0-S02",
+    "id": 102,
+    "title": "Solder-free electrical bring-up",
+    "owner": "Hardware / firmware",
+    "dependencies": "01",
+    "tasks": [
+      {
+        "key": "SV0-02.01",
+        "id": 1021,
+        "title": "Verify exact received parts",
+        "implementation": "Match part revisions, headers, connectors, cable polarity and terminal assembly.",
+        "acceptance": "No item requires user soldering; receiving photos and continuity results retained.",
+        "evidence": "evidence/SV0-02.01/"
+      },
+      {
+        "key": "SV0-02.02",
+        "id": 1022,
+        "title": "Assemble segregated power",
+        "implementation": "Build USB board feeds and fused EXT_5V load distribution.",
+        "acceptance": "No positive rail tie; measured idle/peak rails remain within selected ratings.",
+        "evidence": "evidence/SV0-02.02/"
+      },
+      {
+        "key": "SV0-02.03",
+        "id": 1023,
+        "title": "Wire main sensor bus",
+        "implementation": "Connect A4/A5, main QT hub, BMP390 and MAX-M10S at3.3V.",
+        "acceptance": "Only expected addresses; missing sensor does not hang startup.",
+        "evidence": "evidence/SV0-02.03/"
+      },
+      {
+        "key": "SV0-02.04",
+        "id": 1024,
+        "title": "Wire Nicla signal-only harness",
+        "implementation": "Use4483, isolated5625 and4209; leave V+ insulated; add reviewed pull-ups.",
+        "acceptance": "J5.1 not connected to Nano or sensor supply; logic levels physically checked.",
+        "evidence": "evidence/SV0-02.04/"
+      },
+      {
+        "key": "SV0-02.05",
+        "id": 1025,
+        "title": "Wire UI and level shifter",
+        "implementation": "Build S1/S2, AHCT125, five logical pixels and Grove outputs.",
+        "acceptance": "No5V input at Nano; unused AHCT pins defined; switch legs verified.",
+        "evidence": "evidence/SV0-02.05/"
+      },
+      {
+        "key": "SV0-02.06",
+        "id": 1026,
+        "title": "Approve electrical evidence",
+        "implementation": "Record measured rails, load current, wiring photographs and reviewed net schedule.",
+        "acceptance": "A second engineer signs off before integrated powered testing.",
+        "evidence": "evidence/SV0-02.06/"
+      }
+    ]
+  },
+  {
+    "key": "SV0-S03",
+    "id": 103,
+    "title": "Nicla motion and wake coprocessor",
+    "owner": "Embedded / ML",
+    "dependencies": "02",
+    "tasks": [
+      {
+        "key": "SV0-03.01",
+        "id": 1031,
+        "title": "Qualify dual I2C setup",
+        "implementation": "Nicla external controller to Nano target0x2A; independent Nano sensor controller.",
+        "acceptance": "10,000 frames with measured sequence/CRC results; core versions recorded.",
+        "evidence": "evidence/SV0-03.01/"
+      },
+      {
+        "key": "SV0-03.02",
+        "id": 1032,
+        "title": "Acquire and calibrate IMU",
+        "implementation": "Read BMI270 with supported driver; request100Hz,+/-16g,+/-2000dps and read back settings.",
+        "acceptance": "Units, axes, clipping, overrun and freshness are observable.",
+        "evidence": "evidence/SV0-03.02/"
+      },
+      {
+        "key": "SV0-03.03",
+        "id": 1033,
+        "title": "Implement binary frame codec",
+        "implementation": "Explicitly encode/decode fixed32-byte frames and CRC.",
+        "acceptance": "Golden fixtures and malformed frames tested; no struct-layout assumptions.",
+        "evidence": "evidence/SV0-03.03/"
+      },
+      {
+        "key": "SV0-03.04",
+        "id": 1034,
+        "title": "Implement control mailbox",
+        "implementation": "Poll8-byte mailbox10Hz; execute privacy/health commands idempotently.",
+        "acceptance": "Result frame confirms applied state; mute never silently disables motion.",
+        "evidence": "evidence/SV0-03.04/"
+      },
+      {
+        "key": "SV0-03.05",
+        "id": 1035,
+        "title": "Qualify custom wake model",
+        "implementation": "Train/license Hello Svaraa model through supported tooling; record model hash.",
+        "acceptance": "False/missed triggers tested in noise; model stub never labelled trained.",
+        "evidence": "evidence/SV0-03.05/"
+      }
+    ]
+  },
+  {
+    "key": "SV0-S04",
+    "id": 104,
+    "title": "Location and barometer adapters",
+    "owner": "Firmware / data",
+    "dependencies": "02,03",
+    "tasks": [
+      {
+        "key": "SV0-04.01",
+        "id": 1041,
+        "title": "Implement pressure adapter",
+        "implementation": "Read pressure/health with bounded timeout and baseline-aware relative altitude.",
+        "acceptance": "Internal temperature not presented as body temperature; stale/fault marked.",
+        "evidence": "evidence/SV0-04.01/"
+      },
+      {
+        "key": "SV0-04.02",
+        "id": 1042,
+        "title": "Implement GNSS quality",
+        "implementation": "Read0x42, valid fix, source, accuracy, timestamp and age.",
+        "acceptance": "No-fix and indoor cases preserve null coordinates; no invented live position.",
+        "evidence": "evidence/SV0-04.02/"
+      },
+      {
+        "key": "SV0-04.03",
+        "id": 1043,
+        "title": "Implement custom tags",
+        "implementation": "Store immutable tag with label, notes and location provenance; sync by ID.",
+        "acceptance": "Offline tag persists once; phone fix explicitly labelled phone.",
+        "evidence": "evidence/SV0-04.03/"
+      },
+      {
+        "key": "SV0-04.04",
+        "id": 1044,
+        "title": "Implement later SOS location",
+        "implementation": "SendSOS first; enrich same incident with a new event ID when fix arrives.",
+        "acceptance": "No GPS wait in trigger path; late stale observation cannot replace newer fix.",
+        "evidence": "evidence/SV0-04.04/"
+      }
+    ]
+  },
+  {
+    "key": "SV0-S05",
+    "id": 105,
+    "title": "Physical interaction and feedback",
+    "owner": "Firmware / UX",
+    "dependencies": "02,07",
+    "tasks": [
+      {
+        "key": "SV0-05.01",
+        "id": 1051,
+        "title": "Implement debounced manual hold",
+        "implementation": "Nonblocking20ms debounce and proposed2s hold; boot-held input must release.",
+        "acceptance": "One qualified hold creates one live incident; bounce cannot duplicate it.",
+        "evidence": "evidence/SV0-05.01/"
+      },
+      {
+        "key": "SV0-05.02",
+        "id": 1052,
+        "title": "Implement five-pixel states",
+        "implementation": "Map index0 top,1-4 lower; force all remaining bench pixels off.",
+        "acceptance": "Distinct pending/received/humanACK patterns; color not sole feedback.",
+        "evidence": "evidence/SV0-05.02/"
+      },
+      {
+        "key": "SV0-05.03",
+        "id": 1053,
+        "title": "Implement buzzer/haptic",
+        "implementation": "Use onboard-driver modules with bounded duration/duty.",
+        "acceptance": "Assistant audio failure does not remove independent local alarm.",
+        "evidence": "evidence/SV0-05.03/"
+      },
+      {
+        "key": "SV0-05.04",
+        "id": 1054,
+        "title": "Implement privacy request",
+        "implementation": "Stop PCM/upload, request Nicla mute and display pending/applied state.",
+        "acceptance": "Physical switch dominates remote unmute; no hard-isolation claim.",
+        "evidence": "evidence/SV0-05.04/"
+      },
+      {
+        "key": "SV0-05.05",
+        "id": 1055,
+        "title": "Review accessible gestures",
+        "implementation": "Specify short prealert cancel, longSOS override and active cancellation request.",
+        "acceptance": "No deletion of already-delivered incident; no voice-only critical action.",
+        "evidence": "evidence/SV0-05.05/"
+      }
+    ]
+  },
+  {
+    "key": "SV0-S06",
+    "id": 106,
+    "title": "Audio and assistant integration",
+    "owner": "Audio / backend",
+    "dependencies": "02,03,12",
+    "tasks": [
+      {
+        "key": "SV0-06.01",
+        "id": 1061,
+        "title": "Qualify I2S timing",
+        "implementation": "Shared BCLK/WS, separateRX/TX;16kHz stereo32-bit slots.",
+        "acceptance": "Clock measurements and signed left-channel conversion correct.",
+        "evidence": "evidence/SV0-06.01/"
+      },
+      {
+        "key": "SV0-06.02",
+        "id": 1062,
+        "title": "Implement bounded PCM buffers",
+        "implementation": "DMA rings and bounded upload/playback queues below safety priority.",
+        "acceptance": "Stalled network cannot exhaust heap or blockSOS.",
+        "evidence": "evidence/SV0-06.02/"
+      },
+      {
+        "key": "SV0-06.03",
+        "id": 1063,
+        "title": "Implement half-duplex session",
+        "implementation": "Explicit authorized voice session; local wake; Wi-Fi upload; turn timeout.",
+        "acceptance": "No non-triggering background audio upload; privacy ends session.",
+        "evidence": "evidence/SV0-06.03/"
+      },
+      {
+        "key": "SV0-06.04",
+        "id": 1064,
+        "title": "Implement tool allowlist",
+        "implementation": "Validate tag/status intents and authorization; isolate safety authority.",
+        "acceptance": "LLM cannot suppressSOS, acknowledge as human or change ownership.",
+        "evidence": "evidence/SV0-06.04/"
+      },
+      {
+        "key": "SV0-06.05",
+        "id": 1065,
+        "title": "Stress audio and emergency path",
+        "implementation": "Run audio, GNSS and radio while triggeringSOS and sensor faults.",
+        "acceptance": "Measured latency and queue limits pass; reduce audio load if needed.",
+        "evidence": "evidence/SV0-06.05/"
+      }
+    ]
+  },
+  {
+    "key": "SV0-S07",
+    "id": 107,
+    "title": "Safety reducer, journal and route policy",
+    "owner": "Embedded lead",
+    "dependencies": "01,03",
+    "tasks": [
+      {
+        "key": "SV0-07.01",
+        "id": 1071,
+        "title": "Implement deterministic reducer",
+        "implementation": "Use reference core, immutable IDs, monotonic time and server revisions.",
+        "acceptance": "Tests cover precedence, cancellation and non-regressing acknowledgment.",
+        "evidence": "evidence/SV0-07.01/"
+      },
+      {
+        "key": "SV0-07.02",
+        "id": 1072,
+        "title": "Implement experimental fall candidate",
+        "implementation": "Version feature/model configuration and input quality gates.",
+        "acceptance": "Synthetic positives/negatives pass without a clinical accuracy claim.",
+        "evidence": "evidence/SV0-07.02/"
+      },
+      {
+        "key": "SV0-07.03",
+        "id": 1073,
+        "title": "Implement bounded durable journal",
+        "implementation": "Append/CRC/commit/replay; reserve critical capacity; do not persist raw100Hz forever.",
+        "acceptance": "Power-cut replay preserves committed events; write failure remains visible.",
+        "evidence": "evidence/SV0-07.03/"
+      },
+      {
+        "key": "SV0-07.04",
+        "id": 1074,
+        "title": "Implement retry and routing",
+        "implementation": "Reuse original event bytes/ID across available routes and bounded jittered retry.",
+        "acceptance": "Lost receipt and dual-route delivery create one backend incident.",
+        "evidence": "evidence/SV0-07.04/"
+      },
+      {
+        "key": "SV0-07.05",
+        "id": 1075,
+        "title": "Isolate drills and live events",
+        "implementation": "Server-issued drill ID and test-only recipients; real physicalSOS preempts.",
+        "acceptance": "New live incident ID on preemption; no drill into live provider.",
+        "evidence": "evidence/SV0-07.05/"
+      },
+      {
+        "key": "SV0-07.06",
+        "id": 1076,
+        "title": "Implement health/watchdog",
+        "implementation": "Track source/task/storage/link freshness and reboot cause independently.",
+        "acceptance": "Stalled required task is not hidden by unconditional watchdog feed.",
+        "evidence": "evidence/SV0-07.06/"
+      }
+    ]
+  },
+  {
+    "key": "SV0-S08",
+    "id": 108,
+    "title": "BLE gateway and ownership",
+    "owner": "Mobile / embedded",
+    "dependencies": "07,12",
+    "tasks": [
+      {
+        "key": "SV0-08.01",
+        "id": 1081,
+        "title": "Implement GATT/fragments",
+        "implementation": "Versioned service, MTU-aware fragments,2048-byte bound and timeout.",
+        "acceptance": "MTU23 and malformed sequences tested; no unbounded allocation.",
+        "evidence": "evidence/SV0-08.01/"
+      },
+      {
+        "key": "SV0-08.02",
+        "id": 1082,
+        "title": "Implement ownership proof",
+        "implementation": "Reviewed physical-presence/OOB enrollment; scoped credentials and revocation.",
+        "acceptance": "Device ID or Just Works alone cannot grant ownership.",
+        "evidence": "evidence/SV0-08.02/"
+      },
+      {
+        "key": "SV0-08.03",
+        "id": 1083,
+        "title": "Implement phone relay queue",
+        "implementation": "Persist original device event; relay under assigned-device authority.",
+        "acceptance": "Gateway cannot impersonate another device or rewrite event identity.",
+        "evidence": "evidence/SV0-08.03/"
+      },
+      {
+        "key": "SV0-08.04",
+        "id": 1084,
+        "title": "Authenticate return path",
+        "implementation": "Return verified backend receipts/commands and explicit executionACK.",
+        "acceptance": "ATT acknowledgment never becomes caregiver acknowledgment.",
+        "evidence": "evidence/SV0-08.04/"
+      },
+      {
+        "key": "SV0-08.05",
+        "id": 1085,
+        "title": "Test real phone lifecycle",
+        "implementation": "Native iOS restoration/Android supported background design on physical phones.",
+        "acceptance": "Termination, reboot and revoked permissions show degraded status honestly.",
+        "evidence": "evidence/SV0-08.05/"
+      }
+    ]
+  },
+  {
+    "key": "SV0-S09",
+    "id": 109,
+    "title": "Backend and escalation",
+    "owner": "Backend / SRE",
+    "dependencies": "01,07,12",
+    "tasks": [
+      {
+        "key": "SV0-09.01",
+        "id": 1091,
+        "title": "Implement contract validation",
+        "implementation": "Typed models plus size, semantic, mode and authorization checks.",
+        "acceptance": "Invalid/wrong-tenant events fail without actionable side effects.",
+        "evidence": "evidence/SV0-09.01/"
+      },
+      {
+        "key": "SV0-09.02",
+        "id": 1092,
+        "title": "Implement event transaction",
+        "implementation": "Unique device/event, canonical hash, incident update and outbox in one commit.",
+        "acceptance": "Identical duplicate returns receipt; changed duplicate409; race-safe.",
+        "evidence": "evidence/SV0-09.02/"
+      },
+      {
+        "key": "SV0-09.03",
+        "id": 1093,
+        "title": "Implement human actions",
+        "implementation": "Assigned guardian permissions, unique actionID and expected revision.",
+        "acceptance": "ConcurrentACK/resolve actions audited; no optimistic false success.",
+        "evidence": "evidence/SV0-09.03/"
+      },
+      {
+        "key": "SV0-09.04",
+        "id": 1094,
+        "title": "Implement notification worker",
+        "implementation": "Configurable contact order and timers; mock adapter first.",
+        "acceptance": "Provider submit/delivery/humanACK remain distinct; drill cannot dispatch.",
+        "evidence": "evidence/SV0-09.04/"
+      },
+      {
+        "key": "SV0-09.05",
+        "id": 1095,
+        "title": "Implement reconciliation",
+        "implementation": "Current snapshot plus expiring command cursor and execution acknowledgment.",
+        "acceptance": "Offline pendant converges; expired command does not execute later.",
+        "evidence": "evidence/SV0-09.05/"
+      },
+      {
+        "key": "SV0-09.06",
+        "id": 1096,
+        "title": "Implement consent and audit",
+        "implementation": "Household roles, location retention/revocation and immutable action history.",
+        "acceptance": "Cross-household access denied; sensitive debug logging controlled.",
+        "evidence": "evidence/SV0-09.06/"
+      }
+    ]
+  },
+  {
+    "key": "SV0-S10",
+    "id": 110,
+    "title": "Wearer and guardian apps",
+    "owner": "Mobile / UX",
+    "dependencies": "08,09",
+    "tasks": [
+      {
+        "key": "SV0-10.01",
+        "id": 1101,
+        "title": "Build wearer dashboard",
+        "implementation": "Routes, source freshness, actual battery source, privacy and current incident.",
+        "acceptance": "Unknown/mocked values labelled; app-open does not imply hardware health.",
+        "evidence": "evidence/SV0-10.01/"
+      },
+      {
+        "key": "SV0-10.02",
+        "id": 1102,
+        "title": "Build guardian incident view",
+        "implementation": "Trigger, time, fix source/age/accuracy and explicit acknowledgment.",
+        "acceptance": "Received, humanACK and resolved distinguishable.",
+        "evidence": "evidence/SV0-10.02/"
+      },
+      {
+        "key": "SV0-10.03",
+        "id": 1103,
+        "title": "Build drill flow",
+        "implementation": "Test input/feedback/guardian acknowledgment with persistentDRILL labels.",
+        "acceptance": "RealSOS interrupts; unavailable component checks remain untested.",
+        "evidence": "evidence/SV0-10.03/"
+      },
+      {
+        "key": "SV0-10.04",
+        "id": 1104,
+        "title": "Build tags and history",
+        "implementation": "Labels/categories with preserved coordinate provenance and sync state.",
+        "acceptance": "No-fix tag allowed; optional geofence dwell/hysteresis tested.",
+        "evidence": "evidence/SV0-10.04/"
+      },
+      {
+        "key": "SV0-10.05",
+        "id": 1105,
+        "title": "Build recovery/accessibility",
+        "implementation": "Large controls, non-color cues, permission/pairing reconnect recovery.",
+        "acceptance": "Core tasks usable without voice; elderly-facing usability evidence retained.",
+        "evidence": "evidence/SV0-10.05/"
+      }
+    ]
+  },
+  {
+    "key": "SV0-S11",
+    "id": 111,
+    "title": "Simulation and automated QA",
+    "owner": "QA / embedded",
+    "dependencies": "01,07,09",
+    "tasks": [
+      {
+        "key": "SV0-11.01",
+        "id": 1111,
+        "title": "Create Wokwi adapter",
+        "implementation": "S3 button/pixels and typed mocks for unsupported hardware.",
+        "acceptance": "Separate rawGPIO map; no claim BLE/I2S/Nicla target simulated.",
+        "evidence": "evidence/SV0-11.01/"
+      },
+      {
+        "key": "SV0-11.02",
+        "id": 1112,
+        "title": "Create deterministic traces",
+        "implementation": "Timestamped synthetic/recorded motion, pressure and GPS with units/source.",
+        "acceptance": "Repeatable outcomes; synthetic traces never labelled clinical validation.",
+        "evidence": "evidence/SV0-11.02/"
+      },
+      {
+        "key": "SV0-11.03",
+        "id": 1113,
+        "title": "Inject communication faults",
+        "implementation": "No-route, lost response, duplicate, reorder, clock jump and reconnect fixtures.",
+        "acceptance": "Idempotency and monotonic deadlines hold.",
+        "evidence": "evidence/SV0-11.03/"
+      },
+      {
+        "key": "SV0-11.04",
+        "id": 1114,
+        "title": "Build end-to-end drill test",
+        "implementation": "Virtual device -> actual local backend -> bothUI roles -> return acknowledgment.",
+        "acceptance": "Correlated event log and zero real emergency-provider calls.",
+        "evidence": "evidence/SV0-11.04/"
+      },
+      {
+        "key": "SV0-11.05",
+        "id": 1115,
+        "title": "Fuzz and stress resources",
+        "implementation": "Malformed frames, queue full, low heap and slow audio consumer.",
+        "acceptance": "Explicit bounded failures; no silent emergency state loss.",
+        "evidence": "evidence/SV0-11.05/"
+      },
+      {
+        "key": "SV0-11.06",
+        "id": 1116,
+        "title": "Build evidence report",
+        "implementation": "Record profile, commit, versions, scenario, actual result and reviewer.",
+        "acceptance": "Separate host/emulator/bench/field evidence; blockers visible.",
+        "evidence": "evidence/SV0-11.06/"
+      }
+    ]
+  },
+  {
+    "key": "SV0-S12",
+    "id": 112,
+    "title": "Security, privacy and update controls",
+    "owner": "Security / embedded",
+    "dependencies": "01",
+    "tasks": [
+      {
+        "key": "SV0-12.01",
+        "id": 1121,
+        "title": "Threat-model trust boundaries",
+        "implementation": "SpoofedSOS, unauthorized location, malicious commands, stolen device and provisioning.",
+        "acceptance": "Each risk has control, test and owner.",
+        "evidence": "evidence/SV0-12.01/"
+      },
+      {
+        "key": "SV0-12.02",
+        "id": 1122,
+        "title": "Provision development identity",
+        "implementation": "Unique test credentials, validatedTLS and future rotation design.",
+        "acceptance": "No shared fleet production secret or disabled certificate validation.",
+        "evidence": "evidence/SV0-12.02/"
+      },
+      {
+        "key": "SV0-12.03",
+        "id": 1123,
+        "title": "Design signed update recovery",
+        "implementation": "Image compatibility/signature, deferredOTA during incident and rollback.",
+        "acceptance": "Invalid/interrupted update cannot be accepted as successful.",
+        "evidence": "evidence/SV0-12.03/"
+      },
+      {
+        "key": "SV0-12.04",
+        "id": 1124,
+        "title": "Implement consent/retention",
+        "implementation": "Location/audio purpose, role revocation, audit and deletion policy.",
+        "acceptance": "No ambient audio upload; tests enforce access removal.",
+        "evidence": "evidence/SV0-12.04/"
+      }
+    ]
+  },
+  {
+    "key": "SV0-S13",
+    "id": 113,
+    "title": "Bench qualification and release",
+    "owner": "QA / hardware / product",
+    "dependencies": "02-12",
+    "tasks": [
+      {
+        "key": "SV0-13.01",
+        "id": 1131,
+        "title": "Run electrical/thermal matrix",
+        "implementation": "Measure peak combined loads and instrumented signal timing.",
+        "acceptance": "No unexplained rail, heat or reset issue; setup/limits recorded.",
+        "evidence": "evidence/SV0-13.01/"
+      },
+      {
+        "key": "SV0-13.02",
+        "id": 1132,
+        "title": "Run full communication fault matrix",
+        "implementation": "Physical phones, network loss, staleGPS, duplicateSOS and missed response.",
+        "acceptance": "Documented honest UI state in each failure; no false help confirmation.",
+        "evidence": "evidence/SV0-13.02/"
+      },
+      {
+        "key": "SV0-13.03",
+        "id": 1133,
+        "title": "Plan safe fall-data evaluation",
+        "implementation": "Use fixtures/dummies and reviewed normal-activity protocol, not dangerous human falls.",
+        "acceptance": "Report false/missed labelled events by context; avoid unsupported generalization.",
+        "evidence": "evidence/SV0-13.03/"
+      },
+      {
+        "key": "SV0-13.04",
+        "id": 1134,
+        "title": "Triage gates and defects",
+        "implementation": "Classify bench/pilot/manufacturing blockers with named owner.",
+        "acceptance": "Electrical, privacy or lostSOS issues are not cosmetic waivers.",
+        "evidence": "evidence/SV0-13.04/"
+      },
+      {
+        "key": "SV0-13.05",
+        "id": 1135,
+        "title": "Freeze V0 dossier",
+        "implementation": "Versions, wiring, tests, limits and engineering sign-off.",
+        "acceptance": "Release is bench demonstrator only, not a sole emergency lifeline.",
+        "evidence": "evidence/SV0-13.05/"
+      }
+    ]
+  },
+  {
+    "key": "SV0-S14",
+    "id": 114,
+    "title": "V1 PCB and manufacturing handoff",
+    "owner": "Hardware / manufacturer",
+    "dependencies": "13",
+    "tasks": [
+      {
+        "key": "SV0-14.01",
+        "id": 1141,
+        "title": "Quote architecture options",
+        "implementation": "Phone-assisted vs standalone dataSOS; measure before consolidating controllers.",
+        "acceptance": "SeparateBOM, assembly,NRE/tooling and service assumptions.",
+        "evidence": "evidence/SV0-14.01/"
+      },
+      {
+        "key": "SV0-14.02",
+        "id": 1142,
+        "title": "Engineer product power",
+        "implementation": "Select matched cell/NTC/protection/powerpath/gauge/coil/supervisor.",
+        "acceptance": "Reviewed schematic, thermal/current/runtime tests; magnets not protocol proof.",
+        "evidence": "evidence/SV0-14.02/"
+      },
+      {
+        "key": "SV0-14.03",
+        "id": 1143,
+        "title": "Engineer RF and enclosure",
+        "implementation": "Antenna/coil/metal keepouts, speaker/vent, bridge/flex and mechanical tests.",
+        "acceptance": "Determine fixed bridge vs moving hinge; final on-body tests before tooling.",
+        "evidence": "evidence/SV0-14.03/"
+      },
+      {
+        "key": "SV0-14.04",
+        "id": 1144,
+        "title": "Qualify cellular/Find My",
+        "implementation": "Actual carrier/data/voice choice and licensed MFi path with devkits.",
+        "acceptance": "No invented proprietary protocol or automatic approval claim.",
+        "evidence": "evidence/SV0-14.04/"
+      },
+      {
+        "key": "SV0-14.05",
+        "id": 1145,
+        "title": "Define production test and release",
+        "implementation": "NativeCAD, ERC/DRC,DFM/DFT, fixtures, unique identities,EVT/DVT/PVT and pilot evidence.",
+        "acceptance": "A quotation is not validation; no10k release without gates.",
+        "evidence": "evidence/SV0-14.05/"
+      }
+    ]
+  }
+]

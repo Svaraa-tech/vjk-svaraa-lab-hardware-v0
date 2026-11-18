@@ -1,0 +1,637 @@
+openapi: 3.1.0
+info:
+  title: Svaraa V0 design contract
+  version: 0.1.0
+  description: Implementation starter; no service is deployed by this package. Mock
+    notification provider by default.
+servers:
+- url: http://127.0.0.1:8000
+  description: Development only; production requires HTTPS.
+security:
+- bearerAuth: []
+paths:
+  /v1/device-events:
+    post:
+      operationId: ingestEvent
+      summary: Durably accept event; Idempotency-Key=event_id; commit event+incident+outbox
+        atomically.
+      parameters:
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema: &id001
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Success; application evidence semantics apply.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventReceipt'
+        '401':
+          description: Invalid identity
+        '403':
+          description: Unauthorized
+        '409':
+          description: Idempotency/revision conflict
+        '422':
+          description: Invalid contract/semantics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceEvent'
+  /v1/incidents/{incident_id}:
+    get:
+      operationId: readIncident
+      summary: Authorized current state/revision.
+      parameters:
+      - name: incident_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success; application evidence semantics apply.
+        '401':
+          description: Invalid identity
+        '403':
+          description: Unauthorized
+        '409':
+          description: Idempotency/revision conflict
+        '422':
+          description: Invalid contract/semantics
+  /v1/incidents/{incident_id}/ack:
+    post:
+      operationId: ackIncident
+      summary: Assigned caregiver, action_id and expected_revision; not provider delivery.
+      parameters:
+      - name: incident_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success; application evidence semantics apply.
+        '401':
+          description: Invalid identity
+        '403':
+          description: Unauthorized
+        '409':
+          description: Idempotency/revision conflict
+        '422':
+          description: Invalid contract/semantics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - action_id
+              - expected_revision
+              properties:
+                action_id: *id001
+                expected_revision:
+                  type: integer
+                  minimum: 0
+                note:
+                  type: string
+                  maxLength: 500
+              additionalProperties: false
+  /v1/incidents/{incident_id}/resolve:
+    post:
+      operationId: resolveIncident
+      summary: Explicit authorized resolution and audit.
+      parameters:
+      - name: incident_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success; application evidence semantics apply.
+        '401':
+          description: Invalid identity
+        '403':
+          description: Unauthorized
+        '409':
+          description: Idempotency/revision conflict
+        '422':
+          description: Invalid contract/semantics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - action_id
+              - expected_revision
+              properties:
+                action_id: *id001
+                expected_revision:
+                  type: integer
+                  minimum: 0
+                note:
+                  type: string
+                  maxLength: 500
+              additionalProperties: false
+  /v1/incidents/{incident_id}/cancel-request:
+    post:
+      operationId: requestCancel
+      summary: Set cancellation overlay; do not delete incident.
+      parameters:
+      - name: incident_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success; application evidence semantics apply.
+        '401':
+          description: Invalid identity
+        '403':
+          description: Unauthorized
+        '409':
+          description: Idempotency/revision conflict
+        '422':
+          description: Invalid contract/semantics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - action_id
+              - expected_revision
+              properties:
+                action_id: *id001
+                expected_revision:
+                  type: integer
+                  minimum: 0
+                note:
+                  type: string
+                  maxLength: 500
+              additionalProperties: false
+  /v1/devices/{device_id}/commands:
+    get:
+      operationId: listCommands
+      summary: Return bounded unexpired command cursor; reading is not execution.
+      parameters:
+      - name: device_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success; application evidence semantics apply.
+        '401':
+          description: Invalid identity
+        '403':
+          description: Unauthorized
+        '409':
+          description: Idempotency/revision conflict
+        '422':
+          description: Invalid contract/semantics
+  /v1/devices/{device_id}/commands/{command_id}/acks:
+    post:
+      operationId: ackCommand
+      summary: received/executed/rejected/expired and reason.
+      parameters:
+      - name: device_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: command_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success; application evidence semantics apply.
+        '401':
+          description: Invalid identity
+        '403':
+          description: Unauthorized
+        '409':
+          description: Idempotency/revision conflict
+        '422':
+          description: Invalid contract/semantics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Auxiliary endpoint payload must be frozen and security-reviewed
+                in story09 before stable client generation.
+  /v1/devices/{device_id}/snapshot:
+    get:
+      operationId: readDevice
+      summary: Freshness, actual capabilities and nullable measurements.
+      parameters:
+      - name: device_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success; application evidence semantics apply.
+        '401':
+          description: Invalid identity
+        '403':
+          description: Unauthorized
+        '409':
+          description: Idempotency/revision conflict
+        '422':
+          description: Invalid contract/semantics
+  /v1/location-tags:
+    post:
+      operationId: createTag
+      summary: tag_id, label, device and provenance; consent required.
+      parameters: []
+      responses:
+        '200':
+          description: Success; application evidence semantics apply.
+        '401':
+          description: Invalid identity
+        '403':
+          description: Unauthorized
+        '409':
+          description: Idempotency/revision conflict
+        '422':
+          description: Invalid contract/semantics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Auxiliary endpoint payload must be frozen and security-reviewed
+                in story09 before stable client generation.
+  /v1/drills:
+    post:
+      operationId: startDrill
+      summary: Server forces test-only mode and issues drill_id.
+      parameters: []
+      responses:
+        '200':
+          description: Success; application evidence semantics apply.
+        '401':
+          description: Invalid identity
+        '403':
+          description: Unauthorized
+        '409':
+          description: Idempotency/revision conflict
+        '422':
+          description: Invalid contract/semantics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Auxiliary endpoint payload must be frozen and security-reviewed
+                in story09 before stable client generation.
+  /v1/pairing-sessions:
+    post:
+      operationId: pair
+      summary: Short-lived physical-presence/ownership proof; device ID alone insufficient.
+      parameters: []
+      responses:
+        '200':
+          description: Success; application evidence semantics apply.
+        '401':
+          description: Invalid identity
+        '403':
+          description: Unauthorized
+        '409':
+          description: Idempotency/revision conflict
+        '422':
+          description: Invalid contract/semantics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Auxiliary endpoint payload must be frozen and security-reviewed
+                in story09 before stable client generation.
+  /v1/voice-sessions:
+    post:
+      operationId: voiceSession
+      summary: Explicit consent, short-lived authorization; no provider key in firmware.
+      parameters: []
+      responses:
+        '200':
+          description: Success; application evidence semantics apply.
+        '401':
+          description: Invalid identity
+        '403':
+          description: Unauthorized
+        '409':
+          description: Idempotency/revision conflict
+        '422':
+          description: Invalid contract/semantics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Auxiliary endpoint payload must be frozen and security-reviewed
+                in story09 before stable client generation.
+  /v1/health:
+    get:
+      operationId: health
+      summary: Minimal liveness only.
+      parameters: []
+      responses:
+        '200':
+          description: Success; application evidence semantics apply.
+        '401':
+          description: Invalid identity
+        '403':
+          description: Unauthorized
+        '409':
+          description: Idempotency/revision conflict
+        '422':
+          description: Invalid contract/semantics
+      security: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    DeviceEvent:
+      title: DeviceEvent
+      type: object
+      additionalProperties: false
+      required:
+      - schema_version
+      - event_id
+      - device_id
+      - boot_id
+      - seq
+      - mode
+      - kind
+      - occurred_at
+      - uptime_ms
+      - incident_id
+      - drill_id
+      - payload
+      properties:
+        schema_version:
+          const: '1.0'
+        event_id: *id001
+        device_id:
+          type: string
+          minLength: 1
+          maxLength: 64
+        boot_id: *id001
+        seq:
+          type: integer
+          minimum: 0
+        mode:
+          enum:
+          - live
+          - drill
+        kind:
+          enum:
+          - sos.created
+          - sos.cancel_requested
+          - device.heartbeat
+          - location.updated
+          - location.tagged
+          - drill.step
+        occurred_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        uptime_ms:
+          type: integer
+          minimum: 0
+        incident_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        drill_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        payload:
+          type: object
+      allOf:
+      - if:
+          properties:
+            mode:
+              const: drill
+        then:
+          properties:
+            drill_id: *id001
+      - if:
+          properties:
+            mode:
+              const: live
+        then:
+          properties:
+            drill_id:
+              type: 'null'
+      - if:
+          properties:
+            kind:
+              const: sos.created
+        then:
+          properties:
+            incident_id: *id001
+            payload:
+              type: object
+              additionalProperties: false
+              required:
+              - trigger
+              - location
+              properties:
+                trigger:
+                  enum:
+                  - manual_button
+                  - fall_candidate_confirmed
+                  - local_voice_intent
+                  - drill
+                location: &id002
+                  type: object
+                  additionalProperties: false
+                  required:
+                  - source
+                  - valid
+                  - latitude
+                  - longitude
+                  - accuracy_m
+                  - fix_at
+                  - age_ms
+                  properties:
+                    source:
+                      enum:
+                      - gnss
+                      - phone
+                      - none
+                    valid:
+                      type: boolean
+                    latitude:
+                      type:
+                      - number
+                      - 'null'
+                      minimum: -90
+                      maximum: 90
+                    longitude:
+                      type:
+                      - number
+                      - 'null'
+                      minimum: -180
+                      maximum: 180
+                    accuracy_m:
+                      type:
+                      - number
+                      - 'null'
+                      minimum: 0
+                    fix_at:
+                      type:
+                      - string
+                      - 'null'
+                      format: date-time
+                    age_ms:
+                      type:
+                      - integer
+                      - 'null'
+                      minimum: 0
+                  allOf:
+                  - if:
+                      properties:
+                        source:
+                          const: none
+                    then:
+                      properties:
+                        valid:
+                          const: false
+                        latitude:
+                          type: 'null'
+                        longitude:
+                          type: 'null'
+                  - if:
+                      properties:
+                        valid:
+                          const: true
+                    then:
+                      properties:
+                        source:
+                          enum:
+                          - gnss
+                          - phone
+                        latitude:
+                          type: number
+                        longitude:
+                          type: number
+                        accuracy_m:
+                          type: number
+                        age_ms:
+                          type: integer
+                battery_percent:
+                  type:
+                  - number
+                  - 'null'
+                  minimum: 0
+                  maximum: 100
+                model_version:
+                  type:
+                  - string
+                  - 'null'
+      - if:
+          properties:
+            kind:
+              const: location.updated
+        then:
+          properties:
+            incident_id: *id001
+            payload:
+              type: object
+              required:
+              - location
+              additionalProperties: false
+              properties:
+                location: *id002
+      - if:
+          properties:
+            kind:
+              const: sos.cancel_requested
+        then:
+          properties:
+            incident_id: *id001
+            payload:
+              type: object
+              required:
+              - reason
+              additionalProperties: false
+              properties:
+                reason:
+                  type: string
+                  maxLength: 200
+    Location: *id002
+    EventReceipt:
+      type: object
+      required:
+      - event_id
+      - incident_id
+      - mode
+      - accepted
+      - duplicate
+      - server_received_at
+      - state
+      - revision
+      - cancel_requested
+      properties:
+        event_id: *id001
+        incident_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        mode:
+          enum:
+          - live
+          - drill
+        accepted:
+          const: true
+        duplicate:
+          type: boolean
+        server_received_at:
+          type: string
+          format: date-time
+        state:
+          type:
+          - string
+          - 'null'
+          enum:
+          - server_accepted
+          - caregiver_acknowledged
+          - resolved
+          - null
+        revision:
+          type: integer
+          minimum: 0
+        cancel_requested:
+          type: boolean

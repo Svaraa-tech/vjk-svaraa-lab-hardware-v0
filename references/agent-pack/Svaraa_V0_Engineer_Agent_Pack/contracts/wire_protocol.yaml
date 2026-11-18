@@ -1,0 +1,27 @@
+version: 1
+status: proposed; bench qualification required
+bus0: 'Nano controller: A4/GPIO11 SDA, A5/GPIO12 SCL,100kHz,3.3V; BMP3900x77; MAX-M10S0x42'
+bus1: 'Nicla sole controller; Nano Wire1 target0x2A: D4/GPIO7 SDA,D3/GPIO6 SCL,100kHz,3.3V;
+  4.7k pulls to Nano3V3 after inspection'
+frame_length: 32
+endian: little
+fields:
+- 0 magic0x53 u8
+- 1 version1 u8
+- 2 type u8:1IMU,2wake,3health,4command_result
+- 3 flags u8:valid,saturated,overrun,privacy
+- 4 sequence u16
+- 6 uptime_ms u32
+- 10 payload_length u8 <=18
+- 11 payload18 bytes,unused paddingzero
+- 29 reservedzero
+- 30 CRC16 u16
+crc: CCITT-FALSE poly0x1021 init0xFFFF no reflection xorout0; bytes0..29
+imu: payload12 bytes:6 signedint16; accelerationmg, angularrate0.1deg/s
+mailbox: '8bytes: magic,version,command_seq,opcode,arg,health,reserved,CRC8; poly0x07
+  init0; poll10Hz; opcode0none,1privacy,2health; executeidempotently'
+constraints:
+- No PCM audio on this bus
+- Callbacks copy bounded buffers only
+- Mute must not silently disable motion
+- No Nano direct reads of Nicla internal sensor bus

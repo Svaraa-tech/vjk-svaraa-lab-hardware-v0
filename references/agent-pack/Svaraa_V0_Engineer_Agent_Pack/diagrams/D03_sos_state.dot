@@ -1,0 +1,8 @@
+digraph G{graph[bgcolor="white",pad=.3,nodesep=.3,ranksep=.5];node[shape=box,style="rounded,filled",fillcolor="#edf4f6",color="#35596b",fontname="Helvetica",fontsize=14,margin=".18,.12"];edge[color="#477c85",fontname="Helvetica",fontsize=11];rankdir=TB;ready[label="READY
+Health tracked separately"];pre[label="FALL PREALERT
+20s proposed cancel window"];p[label="PENDING
+Local feedback / journal / retries"];r[label="SERVER ACCEPTED
+Durable authenticated receipt"];ack[label="CAREGIVER ACKNOWLEDGED
+Named human action"];done[label="RESOLVED
+Authorized audited disposition"];c[label="cancel_requested overlay
+Underlying delivery state retained",style="rounded,dashed"];ready->pre[label="real candidate"];pre->ready[label="short cancel"];ready->p[label="qualified manual hold"];pre->p[label="timeout or manual override"];p->p[label="no route / lost response"];p->r->ack->done;p->ack[label="newer verified state"];p->c[style=dashed];r->c[style=dashed];ack->c[style=dashed];c->done[label="authorized disposition"];}

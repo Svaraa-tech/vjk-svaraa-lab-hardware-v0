@@ -1,0 +1,5 @@
+digraph G{graph[bgcolor="white",pad=.3,nodesep=.3,ranksep=.5];node[shape=box,style="rounded,filled",fillcolor="#edf4f6",color="#35596b",fontname="Helvetica",fontsize=14,margin=".18,.12"];edge[color="#477c85",fontname="Helvetica",fontsize=11];rankdir=TB;a[label="Authenticate device or scoped gateway
+Validate envelope and mode"];b[label="device_id + event_id exists?",shape=diamond];c[label="Same canonical payload hash?",shape=diamond];d[label="Return stored receipt
+No duplicate side effect"];e[label="409 conflict + audit"];f[label="ONE TRANSACTION
+Event / incident / receipt / outbox"];g[label="Commit succeeded?",shape=diamond];h[label="Return accepted receipt"];i[label="Retryable failure
+Never claim accepted"];a->b;b->c[label="yes"];c->d[label="yes"];c->e[label="no"];b->f[label="no"];f->g;g->h[label="yes"];g->i[label="no"];}

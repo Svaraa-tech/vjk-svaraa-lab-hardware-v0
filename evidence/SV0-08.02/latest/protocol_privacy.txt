@@ -1,0 +1,12 @@
+test_mtu23_reassemble_and_att_not_caregiver (tests.host.test_protocol_privacy.TestBleMtu.test_mtu23_reassemble_and_att_not_caregiver) ... ok
+test_reject_unbounded (tests.host.test_protocol_privacy.TestBleMtu.test_reject_unbounded) ... ok
+test_sos_produces_packet_journey (tests.host.test_protocol_privacy.TestInspectorEngine.test_sos_produces_packet_journey) ... ok
+test_mailbox_privacy_result (tests.host.test_protocol_privacy.TestNiclaCodec.test_mailbox_privacy_result) ... ok
+test_roundtrip_and_malformed (tests.host.test_protocol_privacy.TestNiclaCodec.test_roundtrip_and_malformed) ... ok
+test_no_delete_delivered_no_voice_critical (tests.host.test_protocol_privacy.TestPrivacyGestures.test_no_delete_delivered_no_voice_critical) ... ok
+test_physical_dominates_remote_unmute (tests.host.test_protocol_privacy.TestPrivacyGestures.test_physical_dominates_remote_unmute) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.001s
+
+OK

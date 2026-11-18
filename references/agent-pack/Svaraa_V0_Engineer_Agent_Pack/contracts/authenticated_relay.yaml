@@ -1,0 +1,13 @@
+status: proposed security contract; implementation and key-provisioning review required
+version: 1
+fields: [auth_version, key_id, audience_device_id, request_nonce, issued_at, expires_at, payload_b64, signature_b64]
+payload: existing canonical receipt or command JSON
+canonicalization: RFC 8785 of unsigned outer fields
+signature: Ed25519 using a reviewed library; server private key never placed on device
+validation:
+  - verify trusted key_id and signature
+  - bind device audience, request nonce, incident/event identity and mode
+  - enforce replay protection, expiry and monotonic acceptance policy
+  - apply only valid newer incident state; never regress human acknowledgment
+  - physical privacy-on switch overrides every remote privacy-off request
+  - no mock verifier in a real notification environment

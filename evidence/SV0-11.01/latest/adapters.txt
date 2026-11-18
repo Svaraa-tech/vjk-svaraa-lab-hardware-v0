@@ -1,0 +1,12 @@
+test_bounded_queue_and_privacy_ends (tests.host.test_adapters_sim.TestAudio.test_bounded_queue_and_privacy_ends) ... ok
+test_flood_does_not_block_sos (tests.host.test_adapters_sim.TestAudio.test_flood_does_not_block_sos) ... ok
+test_no_background_upload_and_llm_blocked (tests.host.test_adapters_sim.TestAudio.test_no_background_upload_and_llm_blocked) ... ok
+test_terminate_reboot_revoke_honest (tests.host.test_adapters_sim.TestLinkDegraded.test_terminate_reboot_revoke_honest) ... ok
+test_null_indoor_and_no_body_temp (tests.host.test_adapters_sim.TestLocation.test_null_indoor_and_no_body_temp) ... ok
+test_phone_labelled_tag_once (tests.host.test_adapters_sim.TestLocation.test_phone_labelled_tag_once) ... ok
+test_sos_first_stale_rejected (tests.host.test_adapters_sim.TestLocation.test_sos_first_stale_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.001s
+
+OK

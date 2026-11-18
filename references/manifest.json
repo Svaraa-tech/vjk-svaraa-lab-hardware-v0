@@ -1,0 +1,607 @@
+{
+  "schema_version": "1.0",
+  "project_root": "Svaraa_V0_Lab",
+  "purpose": "Cursor instruction and source-reference handoff; no implemented application is included",
+  "paths_relative_to": "project_root",
+  "readme_content_sha256": "e952e076e772ed705752c9b089de7794934b5926b94d953039b0c5d265fbed90",
+  "source_file_count": 96,
+  "extracted_agent_pack_file_count": 91,
+  "files": [
+    {
+      "path": "README_CURSOR_SVARAA_V0.md",
+      "kind": "cursor_build_instruction",
+      "size_bytes": 63684,
+      "sha256": "e952e076e772ed705752c9b089de7794934b5926b94d953039b0c5d265fbed90"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/AGENTS.md",
+      "kind": "extracted_reference",
+      "size_bytes": 2509,
+      "sha256": "633b3cc8a09d94b8e6ed372fe5c30d86e5d6b9c5da41bc1c380b88de70f3f05a"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/README.md",
+      "kind": "extracted_reference",
+      "size_bytes": 2819,
+      "sha256": "1e3f1f24419e1218563d2f303c350361bf7693b6e6c66e3140d096d303bd26f5"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/Svaraa_V0_Engineering_Handoff.pdf",
+      "kind": "extracted_reference",
+      "size_bytes": 618061,
+      "sha256": "6e4f2b55bd783a02dc5c7c8de939160df20e0ff2f613af9d1370f26c72c5df5f"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/backend/ingest.pseudo.py",
+      "kind": "extracted_reference",
+      "size_bytes": 1394,
+      "sha256": "06bde530d29f0248a5865e26b262eb02895b764729b2a4c8f875152da19f8c53"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/backend/schema.sql",
+      "kind": "extracted_reference",
+      "size_bytes": 1324,
+      "sha256": "eb75314e30325a83709699583f8f955d592b92e994308090c9d20012684edc8b"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/contracts/authenticated_relay.yaml",
+      "kind": "extracted_reference",
+      "size_bytes": 811,
+      "sha256": "c26a4ff47dc28772be51e2fe8683b8b392dff20b7bd387e9f8e034067224e740"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/contracts/ble_profile.yaml",
+      "kind": "extracted_reference",
+      "size_bytes": 831,
+      "sha256": "1554fb06eef4a144dc01c4234df4b9ed2a11babaeae9847c24e8f68edb899a88"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/contracts/device_event.schema.json",
+      "kind": "extracted_reference",
+      "size_bytes": 11326,
+      "sha256": "b1bb21ccb25becfd0e4706216503109ee4d07d1e0c78323e2220a6dc867f6ecc"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/contracts/example_event.json",
+      "kind": "extracted_reference",
+      "size_bytes": 666,
+      "sha256": "ddefe96b79c7721f7f98bc94b7856ab5bc1ef913d1553db369d187021a2c7799"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/contracts/openapi.yaml",
+      "kind": "extracted_reference",
+      "size_bytes": 17690,
+      "sha256": "5d015d686fd876abdb9ff69384fa10a1d84616dc71819275270fa9665a389e3c"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/contracts/reference_frame.py",
+      "kind": "extracted_reference",
+      "size_bytes": 1041,
+      "sha256": "78407568a0d07b51e671c5d3f2813ab5f28941d6e24e9f3b6d688307d12b4436"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/contracts/wire_protocol.yaml",
+      "kind": "extracted_reference",
+      "size_bytes": 1056,
+      "sha256": "46d6d906ae10e8503e22d2c50f35171c72a44666c7a5c97071c439e24d3a13a5"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/BP01_master.svg",
+      "kind": "extracted_reference",
+      "size_bytes": 11315,
+      "sha256": "11ef2d4c2b1727b921eaf2c0acd153aa6102c8fc694afb67eceae60962d0ff54"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/BP02_nicla.svg",
+      "kind": "extracted_reference",
+      "size_bytes": 10106,
+      "sha256": "85eeedee1b8388313e4f2e27ea8547c6e7312cb088c19dc809c935ea253fc9c6"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/BP03_audio.svg",
+      "kind": "extracted_reference",
+      "size_bytes": 10923,
+      "sha256": "7d118d237b8d4a175b1f1f4a78ab5477f926997bb3689f32af594676eb0bea2f"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/BP04_pixels.svg",
+      "kind": "extracted_reference",
+      "size_bytes": 9728,
+      "sha256": "fe53fed914b3ba4411128d1322755594df0971d92d606ab2c958821ef081bc07"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/BP05_power.svg",
+      "kind": "extracted_reference",
+      "size_bytes": 10102,
+      "sha256": "bc73c9f58b5f4b96067c5a8cef60e8c9562360baf76449e1657807707b21f2be"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/BP06_discrete.svg",
+      "kind": "extracted_reference",
+      "size_bytes": 10794,
+      "sha256": "1566b4730b1f28d67d09d92a6d28478ed3e82ca537e20014f65207d234d6f1ac"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/D01_system.dot",
+      "kind": "extracted_reference",
+      "size_bytes": 1306,
+      "sha256": "563e63fdf0c6f4f59036fdf8ec2460baf8c7a12632568cbb48f3850fe9a4b3be"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/D01_system.svg",
+      "kind": "extracted_reference",
+      "size_bytes": 12005,
+      "sha256": "70e4321aac277bb9a76fdd62476fa98ef0e28c8421bb0383ea0dbc770ca80067"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/D02_firmware.dot",
+      "kind": "extracted_reference",
+      "size_bytes": 832,
+      "sha256": "e364c962949b0630a7b1cf174c89cc3ce9ae789abc0951128e16477d79dc7be0"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/D02_firmware.svg",
+      "kind": "extracted_reference",
+      "size_bytes": 8668,
+      "sha256": "02549781f8741dcfb7235abb3fe205addf972057e9009d465e189df4df388fe6"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/D03_sos_state.dot",
+      "kind": "extracted_reference",
+      "size_bytes": 1011,
+      "sha256": "56f8cfde2819a12dae9e9612b71bf23d869237645b483fc04232739a913c33c6"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/D03_sos_state.svg",
+      "kind": "extracted_reference",
+      "size_bytes": 10421,
+      "sha256": "3fed95aaac46c2d5f0e4cea082283d1d41765892c25e7d8cfcb2f62fb2e81aa7"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/D04_delivery.dot",
+      "kind": "extracted_reference",
+      "size_bytes": 895,
+      "sha256": "394886d1db3a38a843e4a5eec05b23589dbe86f4e6443fde74537e4b8b2afc2c"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/D04_delivery.svg",
+      "kind": "extracted_reference",
+      "size_bytes": 9259,
+      "sha256": "3a3a920ce7ef592fa2d11480b4c8e2cbeab5ecaca12d35be904663e9a8c07606"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/D05_fall.dot",
+      "kind": "extracted_reference",
+      "size_bytes": 753,
+      "sha256": "288f0a15ac29025674bf0f83ce522a1ed793bc9144786df059085a239c79f932"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/D05_fall.svg",
+      "kind": "extracted_reference",
+      "size_bytes": 7689,
+      "sha256": "db311f1e2b062d1603dc834fe9eef8a5fa0ee23ee06ca8b375a986e3928a00a6"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/D06_location.dot",
+      "kind": "extracted_reference",
+      "size_bytes": 754,
+      "sha256": "b3df82cbca7c1bcb3a1001f6e7c3a6312bd3767ed6ddec557d6682b1669728cb"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/D06_location.svg",
+      "kind": "extracted_reference",
+      "size_bytes": 8432,
+      "sha256": "76c3d15c45134107ba44de44ad76861552e10376a684e0c1d9b23a3b789c812f"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/D07_drill.dot",
+      "kind": "extracted_reference",
+      "size_bytes": 713,
+      "sha256": "a011e962438b7c1e29e93e7786110ce47e9bb4f95162db9e3f6ce00970edf829"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/D07_drill.svg",
+      "kind": "extracted_reference",
+      "size_bytes": 6445,
+      "sha256": "a3edfbf3166e3bc75fbeadd1c48265e313bb341b80cfef400287a0b6725fef20"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/D08_backend.dot",
+      "kind": "extracted_reference",
+      "size_bytes": 834,
+      "sha256": "f856de996ef9023945637951fa2f025669f9f9330c299c89acb9a856cdf436ae"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/D08_backend.svg",
+      "kind": "extracted_reference",
+      "size_bytes": 8688,
+      "sha256": "21d440591ef300ed9ae93d6333f0201c76bde046ca178358da6e9b52112954d8"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/D09_database.dot",
+      "kind": "extracted_reference",
+      "size_bytes": 688,
+      "sha256": "f3b7d5930cd21ceb69075bb500f8970a1f48836066824dc7a93413b392a620fa"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/D09_database.svg",
+      "kind": "extracted_reference",
+      "size_bytes": 7848,
+      "sha256": "998039f00970049cd134a32b818857bfafc5ae2eb1a86e069e69730141aa87bc"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/D10_simulation.dot",
+      "kind": "extracted_reference",
+      "size_bytes": 764,
+      "sha256": "7dc9d48bfbd160c1a0af9e8749dfed49d46c1d6ce84007b34bdcf4a5ba09f1e6"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/D10_simulation.svg",
+      "kind": "extracted_reference",
+      "size_bytes": 6368,
+      "sha256": "0e022dc7c2ce73c8465bb0b7d04e09047dad4a929dba3644ca7b256c85f09aca"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/D11_voice.dot",
+      "kind": "extracted_reference",
+      "size_bytes": 719,
+      "sha256": "c112934980a5916bdf68e4e4af57b96ef09e299741ed42280b9d414f1ce484ce"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/D11_voice.svg",
+      "kind": "extracted_reference",
+      "size_bytes": 6722,
+      "sha256": "57431f3f7dc675a5fa3e5a3a88b330080c0c532fbdec480f2311c41523b648e8"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/D12_gates.dot",
+      "kind": "extracted_reference",
+      "size_bytes": 622,
+      "sha256": "0e43d9a5f4641199df3c4be2b497465c437342f01cbfc6cb4f000e66d415da6d"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/D12_gates.svg",
+      "kind": "extracted_reference",
+      "size_bytes": 5628,
+      "sha256": "2085ced16fea5b85fe319145535c076f27f43815d802fc9da82fac955ff91220"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/SEQ01_ack.svg",
+      "kind": "extracted_reference",
+      "size_bytes": 4592,
+      "sha256": "af7bca732fdedb2ac7031d19ae1b5c13942299c91414bc4bb38a5a8968a26a94"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/UI01_apps.svg",
+      "kind": "extracted_reference",
+      "size_bytes": 5082,
+      "sha256": "5cd1737a7ee06c35652a549c578a23f60eaf172d3d7d9a0ed56be89185fed40d"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/VA01_assembly.svg",
+      "kind": "extracted_reference",
+      "size_bytes": 25015,
+      "sha256": "1e3b5331c093f7b3c8eaaab9004028998a8515d82cc94c43daffc1bed5050a6c"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/pdf/BP01_master.pdf",
+      "kind": "extracted_reference",
+      "size_bytes": 25936,
+      "sha256": "4b4d8843c1d6b6dd1b748d8dd708c96bc3af19e2995574d622e47d662c18ef2e"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/pdf/BP02_nicla.pdf",
+      "kind": "extracted_reference",
+      "size_bytes": 26202,
+      "sha256": "6103e520b6254483ad1d8c64a4617c3a9796a4d53a5406d08ad194ee56176ce0"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/pdf/BP03_audio.pdf",
+      "kind": "extracted_reference",
+      "size_bytes": 26906,
+      "sha256": "0ac42911e17f45bd6790701acf69be59bfab93ae65fc128b46476c1549500e7c"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/pdf/BP04_pixels.pdf",
+      "kind": "extracted_reference",
+      "size_bytes": 26343,
+      "sha256": "7e029caf8c4731bb73b01bfcd01fd9a553a8b53e8f763631236bdcc5ff33dc33"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/pdf/BP05_power.pdf",
+      "kind": "extracted_reference",
+      "size_bytes": 25557,
+      "sha256": "d80bf0059355b2a586c7deab7b0d97f6f91942a624081ae671848f032443d6d5"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/pdf/BP06_discrete.pdf",
+      "kind": "extracted_reference",
+      "size_bytes": 23866,
+      "sha256": "2ce1be2b18e26677e3cadf6d26ea8e3b589b81a3d5f3ec4dbbab8555c0a83382"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/pdf/D01_system.pdf",
+      "kind": "extracted_reference",
+      "size_bytes": 15967,
+      "sha256": "69e2e004fb33895337070aa8b0829492c81a82c69dba6ff43894a9af7be04eb5"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/pdf/D02_firmware.pdf",
+      "kind": "extracted_reference",
+      "size_bytes": 14220,
+      "sha256": "613128db31df564e5f4dd15266a15954e0834f2ce970d2100db2b6b89aba87f3"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/pdf/D03_sos_state.pdf",
+      "kind": "extracted_reference",
+      "size_bytes": 14691,
+      "sha256": "8de5aa3e92d6481473e649e31c87bcb2393ff0a5b9041e2966aee6c05ef10447"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/pdf/D04_delivery.pdf",
+      "kind": "extracted_reference",
+      "size_bytes": 14420,
+      "sha256": "d56d2eeacc4d4958c217b4345c126ae76c9fb08cac0fae07698010044cbaba32"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/pdf/D05_fall.pdf",
+      "kind": "extracted_reference",
+      "size_bytes": 13883,
+      "sha256": "bff8a5e95e52cc80d3c05950dbca8c9208feb57f0f5b6d7ec93577ec39172a0e"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/pdf/D06_location.pdf",
+      "kind": "extracted_reference",
+      "size_bytes": 13834,
+      "sha256": "e39e5762f18967e8bd44651785bbb4705de5867e6e49251c8274f28e8c85b5fb"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/pdf/D07_drill.pdf",
+      "kind": "extracted_reference",
+      "size_bytes": 13457,
+      "sha256": "c83cf0957437f38d11f32fa2f70367183f1245253eb8c9d2e29437e54647b3c9"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/pdf/D08_backend.pdf",
+      "kind": "extracted_reference",
+      "size_bytes": 14081,
+      "sha256": "cbcd132f4a5af59377f3d67e6a51594425c8b40b4b0ac82807cc564653857326"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/pdf/D09_database.pdf",
+      "kind": "extracted_reference",
+      "size_bytes": 13798,
+      "sha256": "30d0f22745552e3d5e215261e25e9ff9313ee0716d4132190f7de9dad41b28df"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/pdf/D10_simulation.pdf",
+      "kind": "extracted_reference",
+      "size_bytes": 13858,
+      "sha256": "3c0e4ae88dc1751b3f22f8d0f9d9ae0be7cb7699ecfabbabd216f6961b521f7e"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/pdf/D11_voice.pdf",
+      "kind": "extracted_reference",
+      "size_bytes": 14187,
+      "sha256": "dcee980eb92e3a70ada58c298b6211952f11083e329d6f48962e3d88caf4a8be"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/pdf/D12_gates.pdf",
+      "kind": "extracted_reference",
+      "size_bytes": 13753,
+      "sha256": "085af83dd8f7a6b9f1faf58f97b13c0d8d18dbbc3431493b3e3dd00b4586f384"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/pdf/SEQ01_ack.pdf",
+      "kind": "extracted_reference",
+      "size_bytes": 22607,
+      "sha256": "f37d4fca7ab07adcd0da172e6b94d09574cd52e62f0822bf096441698e764d15"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/pdf/UI01_apps.pdf",
+      "kind": "extracted_reference",
+      "size_bytes": 23586,
+      "sha256": "4357e156d7cb7e0a43e6485e04207f062425af673bda6a33d0fec68cc5123847"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/diagrams/pdf/VA01_assembly.pdf",
+      "kind": "extracted_reference",
+      "size_bytes": 33573,
+      "sha256": "87e3e8b7f78e59728643484e09b24d8a0e610da0b61a785ed9922dea9d49032b"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/docs/HARDWARE_SOFTWARE_HANDOFF.md",
+      "kind": "extracted_reference",
+      "size_bytes": 109600,
+      "sha256": "ddc78c65e9f337c059ca5eac6e920876cefb561ec134860900690bd851241078"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/docs/blocks.json",
+      "kind": "extracted_reference",
+      "size_bytes": 136049,
+      "sha256": "9102017a6f26ac6823efd660826440bf23ebc5c0f77ac47479aea1de397cfef9"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/docs/bom.csv",
+      "kind": "extracted_reference",
+      "size_bytes": 4312,
+      "sha256": "a838ecde8bc1405a56a6c40e96334c455418bf31493bff4b78f2129d52b75003"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/docs/pinmap.csv",
+      "kind": "extracted_reference",
+      "size_bytes": 1167,
+      "sha256": "e2068276c907618c94e1b36d995c4920a9d0b168ac1079559f56b220587d1a14"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/docs/references.json",
+      "kind": "extracted_reference",
+      "size_bytes": 5871,
+      "sha256": "8cc7ffbf134774cc54f2cf56961aed3afcfae97f36758757b247aab8f993bd1f"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/docs/requirements.csv",
+      "kind": "extracted_reference",
+      "size_bytes": 814,
+      "sha256": "caf1ab7eda7af49d05ba7606331e234f84d24960154e02004b8e291e322470d0"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/docs/wire_schedule.csv",
+      "kind": "extracted_reference",
+      "size_bytes": 2120,
+      "sha256": "fbcc504417e98afb1c63b8932982ff7de70ef6d9745d1c52a4c679819f40b486"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/evidence/build_manifest.json",
+      "kind": "extracted_reference",
+      "size_bytes": 315,
+      "sha256": "264ad4301569d3ac1ebe3176909f0ebc6155a624686d8d4259c7e44ea8a24d7e"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/evidence/host_contract_tests.txt",
+      "kind": "extracted_reference",
+      "size_bytes": 1039,
+      "sha256": "157f0d1cb86ea7e1dfbde411298c37326059e75a6c14db95305a0a18d65b5dcb"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/evidence/host_core.txt",
+      "kind": "extracted_reference",
+      "size_bytes": 58,
+      "sha256": "eceaab87c01debe6b2b110718388278639a78c3897ac927751f44c8d7a112698"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/firmware/nano_integration.pseudo.cpp",
+      "kind": "extracted_reference",
+      "size_bytes": 2120,
+      "sha256": "d8bc666fd96627cea2922727449cf10659a223818eba29d388b6ed1507d58135"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/firmware/nicla_integration.pseudo.cpp",
+      "kind": "extracted_reference",
+      "size_bytes": 1032,
+      "sha256": "882bb7b4c548e9d5fc318309d9f719b3911adf3fa4f4bbd77aa3acf9cf6fd06c"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/firmware/sos_core.hpp",
+      "kind": "extracted_reference",
+      "size_bytes": 2377,
+      "sha256": "dfa4d9d621cea6b4c3cbdd26e221c468a8ae5b7b84ca32ed4baee4920df2911d"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/jira/plan.json",
+      "kind": "extracted_reference",
+      "size_bytes": 27550,
+      "sha256": "d07dafa0381a5e9943808d3de4f4b6d4d89b70facdc7e04962d4073f7bd6b727"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/jira/svaraa_v0_jira_import.csv",
+      "kind": "extracted_reference",
+      "size_bytes": 43333,
+      "sha256": "9d5702c0ee4a9c6e3e6064025b78c8528ef8af96ae6c1c56407649cd55be3b39"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/manifest.sha256",
+      "kind": "extracted_reference",
+      "size_bytes": 8279,
+      "sha256": "07f76f1e175212ddcc56b225196b8346aa3dd684040b1016bd5f7ccbace2f4ed"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/simulation/scenarios.json",
+      "kind": "extracted_reference",
+      "size_bytes": 1007,
+      "sha256": "45afc4c03a369aadb6523b969db5c8907204a1d27c8f80a3cf273659ff987a56"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/simulation/wokwi/diagram.json",
+      "kind": "extracted_reference",
+      "size_bytes": 2226,
+      "sha256": "27acb5295d23e40f48710d4c222f6f3d3859a79e77edcb7383e3f95acbc71ab1"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/simulation/wokwi/platformio.ini",
+      "kind": "extracted_reference",
+      "size_bytes": 304,
+      "sha256": "4ae4da8fa842318a876da0360175cdc80b6d4392e8e5b4c99d79164093850fe8"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/simulation/wokwi/src/main.cpp",
+      "kind": "extracted_reference",
+      "size_bytes": 1081,
+      "sha256": "331c2d2c130b45dabe58c8a38305f04edf610b2fa016b7657234dd9ca74139a8"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/simulation/wokwi/wokwi.toml",
+      "kind": "extracted_reference",
+      "size_bytes": 97,
+      "sha256": "18b38914cf450970a8108a3a7f84323702459d137ad7fa0a1ede4c4540326a03"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/tests/requirements.txt",
+      "kind": "extracted_reference",
+      "size_bytes": 18,
+      "sha256": "ea2ec52222f29d9cb1e88db678fc7c2b5f5526fa73a0a69c418d871a414735a4"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/tests/test_contracts.py",
+      "kind": "extracted_reference",
+      "size_bytes": 2690,
+      "sha256": "32081a68c1d58b0089ac650eadc48f10a66f1d4889e3d386d870614be631ddf5"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/tests/test_core.cpp",
+      "kind": "extracted_reference",
+      "size_bytes": 1796,
+      "sha256": "e4da0b7da722dc811c2c2f221472f90901e4cb553d5723c266dafb3371c6b9e8"
+    },
+    {
+      "path": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/tests/test_matrix.csv",
+      "kind": "extracted_reference",
+      "size_bytes": 9301,
+      "sha256": "5b823cfcd1bab65c208d5c5c3cb0c0f152dcec6e0a9e02003899124e059c6548"
+    },
+    {
+      "path": "references/original/Svaraa_V0_Engineer_Agent_Pack.zip",
+      "kind": "original_input",
+      "size_bytes": 1068308,
+      "sha256": "7f51247717a77f0a6cc0a45dfedd3a6f69d389e20c03d532a45c3d59772c8196"
+    },
+    {
+      "path": "references/original/Svaraa_V0_Engineering_Handoff.pdf",
+      "kind": "original_input",
+      "size_bytes": 618061,
+      "sha256": "6e4f2b55bd783a02dc5c7c8de939160df20e0ff2f613af9d1370f26c72c5df5f"
+    },
+    {
+      "path": "references/original/Svaraa_V0_Jira_Import.csv",
+      "kind": "original_input",
+      "size_bytes": 43333,
+      "sha256": "9d5702c0ee4a9c6e3e6064025b78c8528ef8af96ae6c1c56407649cd55be3b39"
+    },
+    {
+      "path": "references/original/image-1.png",
+      "kind": "original_input",
+      "size_bytes": 2807426,
+      "sha256": "f7696904bea57d0b1392bf8b05afbdd94186181eb4964ff7bb5cfc12501951b0"
+    }
+  ],
+  "generated_files": [
+    {
+      "path": "START_HERE.md",
+      "kind": "package_support",
+      "size_bytes": 3528,
+      "sha256": "edb945e9776968aba9c9ce7d97ca3c25027279f36fd1423a98eba13b5332b5a7"
+    },
+    {
+      "path": "FILE_INDEX.md",
+      "kind": "package_support",
+      "size_bytes": 10116,
+      "sha256": "2fe65f989f2a16150466a0120c165f72c4994c6ee8f6d279b78cf7919e956a3b"
+    }
+  ],
+  "manifest_self_hash": "omitted to avoid self-reference",
+  "validation_notes": [
+    "Original source inputs and README were copied byte-for-byte.",
+    "The source ZIP was already extracted before packaging.",
+    "No new app implementation, packages, credentials or deployment are included."
+  ]
+}

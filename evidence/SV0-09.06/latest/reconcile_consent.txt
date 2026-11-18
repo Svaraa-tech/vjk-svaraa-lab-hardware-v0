@@ -1,0 +1,10 @@
+test_consent_and_reconcile (test_watchdog_consent.TestConsentReconcile.test_consent_and_reconcile) ... /Users/svaraa_hq/Desktop/Svaraa Pendant/Hardware_V0/Svaraa_V0_Lab/services/api/.venv/lib/python3.12/site-packages/starlette/testclient.py:51: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+  _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+ok
+test_engine_starve (test_watchdog_consent.TestWatchdog.test_engine_starve) ... ok
+test_trip_and_clear (test_watchdog_consent.TestWatchdog.test_trip_and_clear) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.134s
+
+OK

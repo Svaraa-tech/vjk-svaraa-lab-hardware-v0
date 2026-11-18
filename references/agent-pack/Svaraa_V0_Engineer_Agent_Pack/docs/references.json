@@ -1,0 +1,197 @@
+[
+  {
+    "id": "S01",
+    "title": "Arduino Nano ESP32 with headers ABX00083",
+    "url": "https://store.arduino.cc/products/nano-esp32-with-headers"
+  },
+  {
+    "id": "S02",
+    "title": "Arduino Nano ESP32 full pinout",
+    "url": "https://docs.arduino.cc/resources/pinouts/ABX00083-full-pinout.pdf"
+  },
+  {
+    "id": "S03",
+    "title": "Arduino Nano ESP32 pin numbering",
+    "url": "https://support.arduino.cc/hc/en-us/articles/10483225565980-Select-pin-numbering-for-Nano-ESP32-in-Arduino-IDE"
+  },
+  {
+    "id": "S04",
+    "title": "Arduino Nicla Voice datasheet",
+    "url": "https://docs.arduino.cc/resources/datasheets/ABX00061-datasheet.pdf"
+  },
+  {
+    "id": "S05",
+    "title": "Arduino Nicla Voice manual",
+    "url": "https://docs.arduino.cc/tutorials/nicla-voice/user-manual/"
+  },
+  {
+    "id": "S06",
+    "title": "Nicla Voice full pinout",
+    "url": "https://docs.arduino.cc/resources/pinouts/ABX00061-full-pinout.pdf"
+  },
+  {
+    "id": "S07",
+    "title": "Adafruit ESLOV to QT adapter 4483",
+    "url": "https://www.adafruit.com/product/4483"
+  },
+  {
+    "id": "S08",
+    "title": "Adafruit QT to male cable 4209",
+    "url": "https://www.adafruit.com/product/4209"
+  },
+  {
+    "id": "S09",
+    "title": "Adafruit passive QT hub 5625",
+    "url": "https://learn.adafruit.com/qwiik-stemma-qt-5-port-hub"
+  },
+  {
+    "id": "S10",
+    "title": "Adafruit BMP390 pinouts",
+    "url": "https://learn.adafruit.com/adafruit-bmp388-bmp390-bmp3xx/pinouts"
+  },
+  {
+    "id": "S11",
+    "title": "SparkFun MAX-M10S hardware",
+    "url": "https://docs.sparkfun.com/SparkFun_u-blox_MAX-M10S/hardware_overview/"
+  },
+  {
+    "id": "S12",
+    "title": "SparkFun MAX-M10S antenna and assembly",
+    "url": "https://docs.sparkfun.com/SparkFun_u-blox_MAX-M10S/hardware_assembly/"
+  },
+  {
+    "id": "S13",
+    "title": "Pre-soldered INMP441 module",
+    "url": "https://shillehtek.com/products/inmp441-i2s-omnidirectional-microphone-module-with-soldering"
+  },
+  {
+    "id": "S14",
+    "title": "Pre-soldered MAX98357 amplifier manual",
+    "url": "https://shillehtek.com/blogs/shillehtek-product-manuals/max98357-i2s-class-d-amplifier-module-pre-soldered-manual"
+  },
+  {
+    "id": "S15",
+    "title": "Espressif Arduino I2S API",
+    "url": "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/i2s.html"
+  },
+  {
+    "id": "S16",
+    "title": "TI SN74AHCT125 datasheet",
+    "url": "https://www.ti.com/lit/ds/symlink/sn74ahct125.pdf"
+  },
+  {
+    "id": "S17",
+    "title": "Adafruit NeoPixel best practices",
+    "url": "https://learn.adafruit.com/adafruit-neopixel-uberguide/best-practices"
+  },
+  {
+    "id": "S18",
+    "title": "Adafruit prewired NeoPixel strand 3630",
+    "url": "https://www.adafruit.com/product/3630"
+  },
+  {
+    "id": "S19",
+    "title": "Seeed Grove vibration motor",
+    "url": "https://wiki.seeedstudio.com/Grove-Vibration_Motor/"
+  },
+  {
+    "id": "S20",
+    "title": "Seeed Grove buzzer",
+    "url": "https://wiki.seeedstudio.com/Grove-Buzzer/"
+  },
+  {
+    "id": "S21",
+    "title": "Espressif Arduino I2C API",
+    "url": "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/i2c.html"
+  },
+  {
+    "id": "S22",
+    "title": "ESP32-S3 I2C driver",
+    "url": "https://docs.espressif.com/projects/esp-idf/en/v5.1/esp32s3/api-reference/peripherals/i2c.html"
+  },
+  {
+    "id": "S23",
+    "title": "PlatformIO Nano ESP32 board",
+    "url": "https://docs.platformio.org/en/stable/boards/espressif32/arduino_nano_esp32.html"
+  },
+  {
+    "id": "S24",
+    "title": "Wokwi ESP32 support matrix",
+    "url": "https://docs.wokwi.com/guides/esp32"
+  },
+  {
+    "id": "S25",
+    "title": "Wokwi PlatformIO setup",
+    "url": "https://docs.wokwi.com/vscode/platformio"
+  },
+  {
+    "id": "S26",
+    "title": "Wokwi Wi-Fi gateways",
+    "url": "https://docs.wokwi.com/guides/esp32-wifi"
+  },
+  {
+    "id": "S27",
+    "title": "Wokwi editor setup and license",
+    "url": "https://docs.wokwi.com/vscode/getting-started"
+  },
+  {
+    "id": "S28",
+    "title": "Wokwi NeoPixel model",
+    "url": "https://docs.wokwi.com/parts/wokwi-neopixel"
+  },
+  {
+    "id": "S29",
+    "title": "Apple Core Bluetooth background behavior",
+    "url": "https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/CoreBluetoothBackgroundProcessingForIOSApps/PerformingTasksWhileYourAppIsInTheBackground.html"
+  },
+  {
+    "id": "S30",
+    "title": "Android BLE background behavior",
+    "url": "https://developer.android.com/develop/connectivity/bluetooth/ble/background"
+  },
+  {
+    "id": "S31",
+    "title": "Apple Find My accessory program",
+    "url": "https://developer.apple.com/find-my/"
+  },
+  {
+    "id": "S32",
+    "title": "Apple MFi development process",
+    "url": "https://mfi.apple.com/en/how-it-works"
+  },
+  {
+    "id": "S33",
+    "title": "Nordic Find My platform support",
+    "url": "https://www.nordicsemi.com/Products/Technologies/Apple-Find-My-network"
+  },
+  {
+    "id": "S34",
+    "title": "Nordic nRF9151 development kit",
+    "url": "https://www.nordicsemi.com/Products/Development-hardware/nRF9151-DK"
+  },
+  {
+    "id": "S35",
+    "title": "Jira hierarchical CSV preparation",
+    "url": "https://support.atlassian.com/jira-software-cloud/docs/prepare-a-csv-file-for-import/"
+  },
+  {
+    "id": "S36",
+    "title": "Jira bulk CSV importer limitations",
+    "url": "https://support.atlassian.com/jira-software-cloud/docs/create-issues-using-the-csv-importer/"
+  },
+  {
+    "id": "S37",
+    "title": "Arduino Nano ESP32 manual",
+    "url": "https://docs.arduino.cc/tutorials/nano-esp32/cheat-sheet/"
+  },
+  {
+    "id": "S38",
+    "title": "RFC 8785 JSON canonicalization",
+    "url": "https://www.rfc-editor.org/rfc/rfc8785"
+  },
+  {
+    "id": "S39",
+    "title": "RFC 8032 Ed25519 signatures",
+    "url": "https://www.rfc-editor.org/rfc/rfc8032"
+  }
+]

@@ -1,0 +1,19 @@
+ID,Requirement,Stories,Tests
+R01,Zero user soldering,02,T01-T04
+R02,Voltage and pin ownership,02,T01-T07
+R03,ManualSOS independent ofAI,"05,07",T08-T11
+R04,Experimental fall/prealert,"03,07",T12-T15
+R05,Location freshness/customtags,"04,10",T16-T19
+R06,Durable receipt vs humanACK,"07,09,10",T20-T23
+R07,Offline durable retry,"07,09",T24-T27
+R08,Privacy/boundedvoice,"06,12",T28-T30
+R09,FiveLEDs/multimodalfeedback,05,T31-T32
+R10,Honest phonegateway coverage,08,T33-T35
+R11,Drill/live isolation,"07,09,10",T36-T38
+R12,Ownership/authorization,"08,09,12",T39-T42
+R13,Reproducible evidence,"01,11",T43-T45
+R14,Cellular/power/FindMygates,14,T46-T48
+R15,Independent health/recovery,"07,13",T49-T52
+R16,Safeupdate/recovery,12,T53-T54
+R17,Manufacturerrequirements,14,T55
+R18,Accessible dualapps,10,T56

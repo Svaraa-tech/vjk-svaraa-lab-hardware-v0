@@ -1,0 +1,3 @@
+==> Running in non-interactive mode because `$NONINTERACTIVE` is set.
+==> Checking for `sudo` access...
+Insufficient permissions to install Homebrew to "/opt/homebrew".

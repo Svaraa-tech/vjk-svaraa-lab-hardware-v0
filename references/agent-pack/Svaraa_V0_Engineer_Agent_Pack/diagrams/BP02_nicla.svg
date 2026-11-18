@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="780" viewBox="0 0 1200 780"><rect width="1200" height="780" fill="#112d47"/>
+<path d="M25 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M55 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M85 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M115 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M145 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M175 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M205 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M235 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M265 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M295 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M325 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M355 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M385 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M415 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M445 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M475 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M505 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M535 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M565 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M595 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M625 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M655 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M685 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M715 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M745 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M775 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M805 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M835 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M865 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M895 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M925 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M955 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M985 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1015 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1045 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1075 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1105 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1135 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1165 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 110 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 140 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 170 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 200 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 230 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 260 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 290 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 320 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 350 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 380 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 410 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 440 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 470 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 500 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 530 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 560 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 590 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 620 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 650 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 680 H1180" stroke="#23445f" stroke-width=".5"/>
+<text x="30" y="45.0" font-size="26" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">BP-02 | Signal-only Nicla ESLOV harness</text>
+<text x="30" y="82.0" font-size="15" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">ESLOV pin1 is a 5V INPUT, not an output. The adapter is not a voltage converter.</text>
+<rect x="30" y="160" width="255" height="300" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="43" y="187.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">NICLA J5</text>
+<text x="43" y="216.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">1 VCC_IN: leave unfed</text>
+<text x="43" y="234.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">2 INT: unused</text>
+<text x="43" y="253.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">3 SCL -&gt; NanoD3</text>
+<text x="43" y="272.7" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">4 SDA -&gt; NanoD4</text>
+<text x="43" y="291.6" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">5 GND -&gt; commonGND</text>
+<text x="43" y="310.5" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal"></text>
+<text x="43" y="329.4" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Power by Micro-USB.</text>
+<text x="43" y="348.3" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Initialize nicla::begin().</text>
+<text x="43" y="367.20000000000005" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Verify external3.3V I/O.</text>
+<rect x="335" y="180" width="210" height="150" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="348" y="207.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">4483 CABLE</text>
+<text x="348" y="236.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">5-pin ESLOV to</text>
+<text x="348" y="254.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">4-pin QT adapter</text>
+<text x="348" y="273.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">No level conversion</text>
+<rect x="600" y="180" width="230" height="150" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="613" y="207.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">JH2 PASSIVE HUB</text>
+<text x="613" y="236.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Factory5625 sockets</text>
+<text x="613" y="254.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Only this signal link</text>
+<text x="613" y="273.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">NO sensors / power feed</text>
+<rect x="885" y="160" width="285" height="300" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="898" y="187.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">4209 TO NANO</text>
+<text x="898" y="216.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Verified SDA -&gt;D4 GPIO7</text>
+<text x="898" y="234.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Verified SCL -&gt;D3 GPIO6</text>
+<text x="898" y="253.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Verified GND -&gt;GND</text>
+<text x="898" y="272.7" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal"></text>
+<text x="898" y="291.6" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">V+ lead: NOT CONNECTED</text>
+<text x="898" y="310.5" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Insulate exposed male pin.</text>
+<text x="898" y="329.4" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Never join JH1 V+ or3V3.</text>
+<text x="898" y="348.3" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Color is not proof of pinout.</text>
+<polyline points="285,260 335,260" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="545,260 600,260" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="830,260 885,260" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<rect x="335" y="400" width="495" height="160" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="348" y="427.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">PRIVATE BUS RULES</text>
+<text x="348" y="456.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Nicla controller; Nano Wire1 target0x2A</text>
+<text x="348" y="474.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">R2/R3:4.7k from SDA/SCL to Nano3V3</text>
+<text x="348" y="493.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Inspect existing pull-ups before adding.</text>
+<text x="348" y="512.7" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">100kHz;32-byte frames;8-byte mailbox</text>
+<text x="348" y="531.6" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">No PCM audio; no direct remote IMU reads.</text>
+<rect x="30" y="590" width="1140" height="80" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="43" y="617.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">POWER AND QUALIFICATION</text>
+<text x="43" y="646.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Verify boards separately; power off to wire. No hot-plug or partial-power guarantee. Measure back-powering before allowing one side off.</text>
+<polyline points="25,711 1175,711" fill="none" stroke="#829daf" stroke-width="1"/>
+<text x="30" y="736.0" font-size="12" font-family="DejaVu Sans" fill="#d3b575" font-weight="normal">Use J5 pin numbers and continuity, not a guessed left/right cable view. [S04-S09, S21-S22]</text>
+<text x="30" y="762.0" font-size="10" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">SVARAA V0.1 / 17 NOV 2026 / PROPOSED MODULE-LEVEL DESIGN - PHYSICAL QUALIFICATION REQUIRED</text>
+</svg>

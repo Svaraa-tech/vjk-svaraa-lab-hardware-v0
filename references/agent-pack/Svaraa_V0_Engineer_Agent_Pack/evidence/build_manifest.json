@@ -1,0 +1,15 @@
+{
+  "prepared": "2026-11-17",
+  "python": "3.13.5",
+  "packages": {
+    "reportlab": "4.4.9",
+    "PyMuPDF": "1.26.7",
+    "PyYAML": "6.0.3",
+    "jsonschema": "4.26.0"
+  },
+  "host_reducer_checks": 31,
+  "python_tests": 15,
+  "physical_hardware_tested": false,
+  "wokwi_compiled_or_run": false,
+  "pdf_pages": 77
+}

@@ -1,0 +1,32 @@
+== C++ host core ==
+PASS: 31 host reducer checks; no physical hardware tested
+== C++ HAL mock ports ==
+PASS: 33 HAL mock/board-stub host checks; SIM adapters only
+== Python contracts ==
+test_api_refs (test_contracts.Tests.test_api_refs) ... ok
+test_corruption (test_contracts.Tests.test_corruption) ... ok
+test_crc_golden (test_contracts.Tests.test_crc_golden) ... ok
+test_drawings (test_contracts.Tests.test_drawings) ... ok
+test_example (test_contracts.Tests.test_example) ... ok
+test_id_format (test_contracts.Tests.test_id_format) ... ok
+test_jira_parent_integrity (test_contracts.Tests.test_jira_parent_integrity) ... ok
+test_latitude (test_contracts.Tests.test_latitude) ... ok
+test_length (test_contracts.Tests.test_length) ... ok
+test_live_drill_mismatch (test_contracts.Tests.test_live_drill_mismatch) ... ok
+test_padding (test_contracts.Tests.test_padding) ... ok
+test_path_parameters (test_contracts.Tests.test_path_parameters) ... ok
+test_range (test_contracts.Tests.test_range) ... ok
+test_roundtrip (test_contracts.Tests.test_roundtrip) ... ok
+test_unknown_field (test_contracts.Tests.test_unknown_field) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.024s
+
+OK
+date=2026-11-18T04:06:25Z
+c++=Apple clang version 21.0.0 (clang-2100.4.1.1)
+node=v22.21.1
+python=Python 3.12.16
+core_sha256=dfa4d9d621cea6b4c3cbdd26e221c468a8ae5b7b84ca32ed4baee4920df2911d
+hal_types_sha256=27219323c13aab3e0167c3a446fdf700d9ff983634cb757453335149fd386fb5
+tests OK — evidence in /Users/svaraa_hq/Desktop/Svaraa Pendant/Hardware_V0/Svaraa_V0_Lab/evidence/SV0-01.03/latest

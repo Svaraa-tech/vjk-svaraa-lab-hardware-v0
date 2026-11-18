@@ -1,0 +1,6 @@
+digraph G{graph[bgcolor="white",pad=.3,nodesep=.3,ranksep=.5];node[shape=box,style="rounded,filled",fillcolor="#edf4f6",color="#35596b",fontname="Helvetica",fontsize=14,margin=".18,.12"];edge[color="#477c85",fontname="Helvetica",fontsize=11];rankdir=TB;a[label="SOS or tag event"];b[label="Fresh qualifying pendant GNSS?",shape=diamond];c[label="Fresh permitted nearby phone fix?",shape=diamond];d[label="source=gnss
+Keep fix age / accuracy"];e[label="source=phone
+Do not call it pendant GNSS"];f[label="source=none, coordinates=null
+No current fix"];g[label="Send event now
+Do not wait for acquisition"];h[label="Later fix = NEW event ID
+Same incident ID"];a->b;b->d[label="yes"];b->c[label="no"];c->e[label="yes"];c->f[label="no"];d->g;e->g;f->g;g->h;}

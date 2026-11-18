@@ -1,0 +1,71 @@
+/* Svaraa.ai light/dark tokens — docs/architecture/ui_theme_svaraa.md */
+
+:root,
+[data-theme="light"] {
+  --c-canvas: #fbf7f2;
+  --c-heading: #4a1532;
+  --c-ink: #3a3340;
+  --c-muted: #6b6474;
+  --c-subtle: #9a93a1;
+  --c-primary: #6f1d47;
+  --c-primary-hover: #5a173a;
+  --c-on-primary: #fff8f2;
+  --c-accent: #c8505b;
+  --c-gold: #b88a44;
+  --c-tint: #fbefee;
+  --c-line: #6e1d471f;
+  --c-glass: #ffffff80;
+  --c-glass-border: #ffffffbf;
+  --c-glass-strong: #ffffffc7;
+  --c-shadow: #4a153233;
+  --c-success: #1f9d55;
+  --c-danger: #c53030;
+  --font-sans: "Inter", "Noto Sans Devanagari", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Newsreader", "Noto Serif Devanagari", ui-serif, Georgia, serif;
+}
+
+[data-theme="dark"] {
+  --c-canvas: #18171a;
+  --c-heading: #f5efe7;
+  --c-ink: #e9e3dc;
+  --c-muted: #b3aab3;
+  --c-subtle: #847c86;
+  --c-primary: #e2bd72;
+  --c-primary-hover: #edcb86;
+  --c-on-primary: #22180c;
+  --c-accent: #e6bf74;
+  --c-gold: #d9b065;
+  --c-tint: #e2bd7217;
+  --c-line: #ffffff1a;
+  --c-glass: #2422268c;
+  --c-glass-border: #ffffff14;
+  --c-glass-strong: #28262bd9;
+  --c-shadow: #0000008c;
+  --c-success: #4ccf80;
+  --c-danger: #f07272;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--c-ink);
+  background:
+    radial-gradient(ellipse 80% 50% at 10% -10%, var(--c-tint), transparent),
+    var(--c-canvas);
+}
+
+button {
+  font: inherit;
+}

@@ -1,0 +1,9 @@
+wokwi_smoke 2026-11-18T08:36:49Z
+root=/Users/svaraa_hq/Desktop/Svaraa Pendant/Hardware_V0/Svaraa_V0_Lab
+pio=/Users/svaraa_hq/Library/Python/3.9/bin/pio
+Processing sim (platform: espressif32; board: esp32-s3-devkitc-1; framework: arduino)
+--------------------------------------------------------------------------------
+pio_run=FAILED
+firmware_present=0
+wokwi_cli=missing
+api_smoke=skipped

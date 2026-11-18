@@ -1,0 +1,664 @@
+Work item ID,Work type,Summary,Description,Parent,Priority,Labels
+1,Epic,SVARAA V0 - solder-free pendant and full-stack demonstrator,"Outcome: reviewed physical prototype, contract-compatible apps/backend and evidence for V1. No production or medical claim.",,High,svaraa-v0
+101,Story,SV0-S01 | Baseline and reproducible workspace,"Owner: Lead / firmware. Prerequisites: None. Close only with implementation, negative tests and evidence.",1,High,svaraa-v0
+1011,Sub-task,SV0-01.01 | Freeze scope and evidence vocabulary,"Implementation: Record SIM, USB BENCH and gated extensions in docs/decisions.md.
+
+Acceptance: Every capability has implemented/mocked/blocked status; no implied certification.
+
+Owner role: Lead / firmware
+Dependencies: story 01 prerequisites None; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-01.01/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",101,High,svaraa-v0
+1012,Sub-task,SV0-01.02 | Create reproducible repository,"Implementation: Create core, board adapters, contracts, apps, backend, tests and evidence folders; pin qualified tool versions.
+
+Acceptance: Clean checkout reproduces host tests and records actual compiler/core versions.
+
+Owner role: Lead / firmware
+Dependencies: story 01 prerequisites None; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-01.02/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",101,High,svaraa-v0
+1013,Sub-task,SV0-01.03 | Define typed HAL ports,"Implementation: Define Clock, MotionSample, LocationFix, Journal, Audio, Ui and Transport without SDK types in the core.
+
+Acceptance: The same deterministic core runs under mock and board adapters.
+
+Owner role: Lead / firmware
+Dependencies: story 01 prerequisites None; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-01.03/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",101,High,svaraa-v0
+1014,Sub-task,SV0-01.04 | Create requirement traceability,"Implementation: Map R01-R18 to tasks and tests; version BOM, pins, wires and protocol.
+
+Acceptance: Every electrical or payload change updates all affected artifacts.
+
+Owner role: Lead / firmware
+Dependencies: story 01 prerequisites None; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-01.04/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",101,High,svaraa-v0
+1015,Sub-task,SV0-01.05 | Set CI and evidence rules,"Implementation: Run schemas, native compilation and contract tests; separate physical gates.
+
+Acceptance: CI cannot mark a mocked sensor or radio as physically passed.
+
+Owner role: Lead / firmware
+Dependencies: story 01 prerequisites None; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-01.05/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",101,High,svaraa-v0
+102,Story,SV0-S02 | Solder-free electrical bring-up,"Owner: Hardware / firmware. Prerequisites: 01. Close only with implementation, negative tests and evidence.",1,High,svaraa-v0
+1021,Sub-task,SV0-02.01 | Verify exact received parts,"Implementation: Match part revisions, headers, connectors, cable polarity and terminal assembly.
+
+Acceptance: No item requires user soldering; receiving photos and continuity results retained.
+
+Owner role: Hardware / firmware
+Dependencies: story 02 prerequisites 01; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-02.01/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",102,High,svaraa-v0
+1022,Sub-task,SV0-02.02 | Assemble segregated power,"Implementation: Build USB board feeds and fused EXT_5V load distribution.
+
+Acceptance: No positive rail tie; measured idle/peak rails remain within selected ratings.
+
+Owner role: Hardware / firmware
+Dependencies: story 02 prerequisites 01; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-02.02/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",102,High,svaraa-v0
+1023,Sub-task,SV0-02.03 | Wire main sensor bus,"Implementation: Connect A4/A5, main QT hub, BMP390 and MAX-M10S at3.3V.
+
+Acceptance: Only expected addresses; missing sensor does not hang startup.
+
+Owner role: Hardware / firmware
+Dependencies: story 02 prerequisites 01; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-02.03/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",102,High,svaraa-v0
+1024,Sub-task,SV0-02.04 | Wire Nicla signal-only harness,"Implementation: Use4483, isolated5625 and4209; leave V+ insulated; add reviewed pull-ups.
+
+Acceptance: J5.1 not connected to Nano or sensor supply; logic levels physically checked.
+
+Owner role: Hardware / firmware
+Dependencies: story 02 prerequisites 01; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-02.04/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",102,High,svaraa-v0
+1025,Sub-task,SV0-02.05 | Wire UI and level shifter,"Implementation: Build S1/S2, AHCT125, five logical pixels and Grove outputs.
+
+Acceptance: No5V input at Nano; unused AHCT pins defined; switch legs verified.
+
+Owner role: Hardware / firmware
+Dependencies: story 02 prerequisites 01; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-02.05/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",102,High,svaraa-v0
+1026,Sub-task,SV0-02.06 | Approve electrical evidence,"Implementation: Record measured rails, load current, wiring photographs and reviewed net schedule.
+
+Acceptance: A second engineer signs off before integrated powered testing.
+
+Owner role: Hardware / firmware
+Dependencies: story 02 prerequisites 01; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-02.06/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",102,High,svaraa-v0
+103,Story,SV0-S03 | Nicla motion and wake coprocessor,"Owner: Embedded / ML. Prerequisites: 02. Close only with implementation, negative tests and evidence.",1,High,svaraa-v0
+1031,Sub-task,SV0-03.01 | Qualify dual I2C setup,"Implementation: Nicla external controller to Nano target0x2A; independent Nano sensor controller.
+
+Acceptance: 10,000 frames with measured sequence/CRC results; core versions recorded.
+
+Owner role: Embedded / ML
+Dependencies: story 03 prerequisites 02; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-03.01/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",103,High,svaraa-v0
+1032,Sub-task,SV0-03.02 | Acquire and calibrate IMU,"Implementation: Read BMI270 with supported driver; request100Hz,+/-16g,+/-2000dps and read back settings.
+
+Acceptance: Units, axes, clipping, overrun and freshness are observable.
+
+Owner role: Embedded / ML
+Dependencies: story 03 prerequisites 02; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-03.02/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",103,High,svaraa-v0
+1033,Sub-task,SV0-03.03 | Implement binary frame codec,"Implementation: Explicitly encode/decode fixed32-byte frames and CRC.
+
+Acceptance: Golden fixtures and malformed frames tested; no struct-layout assumptions.
+
+Owner role: Embedded / ML
+Dependencies: story 03 prerequisites 02; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-03.03/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",103,High,svaraa-v0
+1034,Sub-task,SV0-03.04 | Implement control mailbox,"Implementation: Poll8-byte mailbox10Hz; execute privacy/health commands idempotently.
+
+Acceptance: Result frame confirms applied state; mute never silently disables motion.
+
+Owner role: Embedded / ML
+Dependencies: story 03 prerequisites 02; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-03.04/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",103,High,svaraa-v0
+1035,Sub-task,SV0-03.05 | Qualify custom wake model,"Implementation: Train/license Hello Svaraa model through supported tooling; record model hash.
+
+Acceptance: False/missed triggers tested in noise; model stub never labelled trained.
+
+Owner role: Embedded / ML
+Dependencies: story 03 prerequisites 02; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-03.05/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",103,High,svaraa-v0
+104,Story,SV0-S04 | Location and barometer adapters,"Owner: Firmware / data. Prerequisites: 02,03. Close only with implementation, negative tests and evidence.",1,High,svaraa-v0
+1041,Sub-task,SV0-04.01 | Implement pressure adapter,"Implementation: Read pressure/health with bounded timeout and baseline-aware relative altitude.
+
+Acceptance: Internal temperature not presented as body temperature; stale/fault marked.
+
+Owner role: Firmware / data
+Dependencies: story 04 prerequisites 02,03; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-04.01/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",104,High,svaraa-v0
+1042,Sub-task,SV0-04.02 | Implement GNSS quality,"Implementation: Read0x42, valid fix, source, accuracy, timestamp and age.
+
+Acceptance: No-fix and indoor cases preserve null coordinates; no invented live position.
+
+Owner role: Firmware / data
+Dependencies: story 04 prerequisites 02,03; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-04.02/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",104,High,svaraa-v0
+1043,Sub-task,SV0-04.03 | Implement custom tags,"Implementation: Store immutable tag with label, notes and location provenance; sync by ID.
+
+Acceptance: Offline tag persists once; phone fix explicitly labelled phone.
+
+Owner role: Firmware / data
+Dependencies: story 04 prerequisites 02,03; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-04.03/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",104,High,svaraa-v0
+1044,Sub-task,SV0-04.04 | Implement later SOS location,"Implementation: SendSOS first; enrich same incident with a new event ID when fix arrives.
+
+Acceptance: No GPS wait in trigger path; late stale observation cannot replace newer fix.
+
+Owner role: Firmware / data
+Dependencies: story 04 prerequisites 02,03; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-04.04/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",104,High,svaraa-v0
+105,Story,SV0-S05 | Physical interaction and feedback,"Owner: Firmware / UX. Prerequisites: 02,07. Close only with implementation, negative tests and evidence.",1,High,svaraa-v0
+1051,Sub-task,SV0-05.01 | Implement debounced manual hold,"Implementation: Nonblocking20ms debounce and proposed2s hold; boot-held input must release.
+
+Acceptance: One qualified hold creates one live incident; bounce cannot duplicate it.
+
+Owner role: Firmware / UX
+Dependencies: story 05 prerequisites 02,07; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-05.01/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",105,High,svaraa-v0
+1052,Sub-task,SV0-05.02 | Implement five-pixel states,"Implementation: Map index0 top,1-4 lower; force all remaining bench pixels off.
+
+Acceptance: Distinct pending/received/humanACK patterns; color not sole feedback.
+
+Owner role: Firmware / UX
+Dependencies: story 05 prerequisites 02,07; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-05.02/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",105,High,svaraa-v0
+1053,Sub-task,SV0-05.03 | Implement buzzer/haptic,"Implementation: Use onboard-driver modules with bounded duration/duty.
+
+Acceptance: Assistant audio failure does not remove independent local alarm.
+
+Owner role: Firmware / UX
+Dependencies: story 05 prerequisites 02,07; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-05.03/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",105,High,svaraa-v0
+1054,Sub-task,SV0-05.04 | Implement privacy request,"Implementation: Stop PCM/upload, request Nicla mute and display pending/applied state.
+
+Acceptance: Physical switch dominates remote unmute; no hard-isolation claim.
+
+Owner role: Firmware / UX
+Dependencies: story 05 prerequisites 02,07; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-05.04/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",105,High,svaraa-v0
+1055,Sub-task,SV0-05.05 | Review accessible gestures,"Implementation: Specify short prealert cancel, longSOS override and active cancellation request.
+
+Acceptance: No deletion of already-delivered incident; no voice-only critical action.
+
+Owner role: Firmware / UX
+Dependencies: story 05 prerequisites 02,07; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-05.05/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",105,High,svaraa-v0
+106,Story,SV0-S06 | Audio and assistant integration,"Owner: Audio / backend. Prerequisites: 02,03,12. Close only with implementation, negative tests and evidence.",1,High,svaraa-v0
+1061,Sub-task,SV0-06.01 | Qualify I2S timing,"Implementation: Shared BCLK/WS, separateRX/TX;16kHz stereo32-bit slots.
+
+Acceptance: Clock measurements and signed left-channel conversion correct.
+
+Owner role: Audio / backend
+Dependencies: story 06 prerequisites 02,03,12; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-06.01/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",106,High,svaraa-v0
+1062,Sub-task,SV0-06.02 | Implement bounded PCM buffers,"Implementation: DMA rings and bounded upload/playback queues below safety priority.
+
+Acceptance: Stalled network cannot exhaust heap or blockSOS.
+
+Owner role: Audio / backend
+Dependencies: story 06 prerequisites 02,03,12; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-06.02/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",106,High,svaraa-v0
+1063,Sub-task,SV0-06.03 | Implement half-duplex session,"Implementation: Explicit authorized voice session; local wake; Wi-Fi upload; turn timeout.
+
+Acceptance: No non-triggering background audio upload; privacy ends session.
+
+Owner role: Audio / backend
+Dependencies: story 06 prerequisites 02,03,12; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-06.03/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",106,High,svaraa-v0
+1064,Sub-task,SV0-06.04 | Implement tool allowlist,"Implementation: Validate tag/status intents and authorization; isolate safety authority.
+
+Acceptance: LLM cannot suppressSOS, acknowledge as human or change ownership.
+
+Owner role: Audio / backend
+Dependencies: story 06 prerequisites 02,03,12; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-06.04/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",106,High,svaraa-v0
+1065,Sub-task,SV0-06.05 | Stress audio and emergency path,"Implementation: Run audio, GNSS and radio while triggeringSOS and sensor faults.
+
+Acceptance: Measured latency and queue limits pass; reduce audio load if needed.
+
+Owner role: Audio / backend
+Dependencies: story 06 prerequisites 02,03,12; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-06.05/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",106,High,svaraa-v0
+107,Story,"SV0-S07 | Safety reducer, journal and route policy","Owner: Embedded lead. Prerequisites: 01,03. Close only with implementation, negative tests and evidence.",1,High,svaraa-v0
+1071,Sub-task,SV0-07.01 | Implement deterministic reducer,"Implementation: Use reference core, immutable IDs, monotonic time and server revisions.
+
+Acceptance: Tests cover precedence, cancellation and non-regressing acknowledgment.
+
+Owner role: Embedded lead
+Dependencies: story 07 prerequisites 01,03; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-07.01/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",107,High,svaraa-v0
+1072,Sub-task,SV0-07.02 | Implement experimental fall candidate,"Implementation: Version feature/model configuration and input quality gates.
+
+Acceptance: Synthetic positives/negatives pass without a clinical accuracy claim.
+
+Owner role: Embedded lead
+Dependencies: story 07 prerequisites 01,03; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-07.02/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",107,High,svaraa-v0
+1073,Sub-task,SV0-07.03 | Implement bounded durable journal,"Implementation: Append/CRC/commit/replay; reserve critical capacity; do not persist raw100Hz forever.
+
+Acceptance: Power-cut replay preserves committed events; write failure remains visible.
+
+Owner role: Embedded lead
+Dependencies: story 07 prerequisites 01,03; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-07.03/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",107,High,svaraa-v0
+1074,Sub-task,SV0-07.04 | Implement retry and routing,"Implementation: Reuse original event bytes/ID across available routes and bounded jittered retry.
+
+Acceptance: Lost receipt and dual-route delivery create one backend incident.
+
+Owner role: Embedded lead
+Dependencies: story 07 prerequisites 01,03; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-07.04/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",107,High,svaraa-v0
+1075,Sub-task,SV0-07.05 | Isolate drills and live events,"Implementation: Server-issued drill ID and test-only recipients; real physicalSOS preempts.
+
+Acceptance: New live incident ID on preemption; no drill into live provider.
+
+Owner role: Embedded lead
+Dependencies: story 07 prerequisites 01,03; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-07.05/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",107,High,svaraa-v0
+1076,Sub-task,SV0-07.06 | Implement health/watchdog,"Implementation: Track source/task/storage/link freshness and reboot cause independently.
+
+Acceptance: Stalled required task is not hidden by unconditional watchdog feed.
+
+Owner role: Embedded lead
+Dependencies: story 07 prerequisites 01,03; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-07.06/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",107,High,svaraa-v0
+108,Story,SV0-S08 | BLE gateway and ownership,"Owner: Mobile / embedded. Prerequisites: 07,12. Close only with implementation, negative tests and evidence.",1,High,svaraa-v0
+1081,Sub-task,SV0-08.01 | Implement GATT/fragments,"Implementation: Versioned service, MTU-aware fragments,2048-byte bound and timeout.
+
+Acceptance: MTU23 and malformed sequences tested; no unbounded allocation.
+
+Owner role: Mobile / embedded
+Dependencies: story 08 prerequisites 07,12; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-08.01/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",108,High,svaraa-v0
+1082,Sub-task,SV0-08.02 | Implement ownership proof,"Implementation: Reviewed physical-presence/OOB enrollment; scoped credentials and revocation.
+
+Acceptance: Device ID or Just Works alone cannot grant ownership.
+
+Owner role: Mobile / embedded
+Dependencies: story 08 prerequisites 07,12; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-08.02/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",108,High,svaraa-v0
+1083,Sub-task,SV0-08.03 | Implement phone relay queue,"Implementation: Persist original device event; relay under assigned-device authority.
+
+Acceptance: Gateway cannot impersonate another device or rewrite event identity.
+
+Owner role: Mobile / embedded
+Dependencies: story 08 prerequisites 07,12; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-08.03/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",108,High,svaraa-v0
+1084,Sub-task,SV0-08.04 | Authenticate return path,"Implementation: Return verified backend receipts/commands and explicit executionACK.
+
+Acceptance: ATT acknowledgment never becomes caregiver acknowledgment.
+
+Owner role: Mobile / embedded
+Dependencies: story 08 prerequisites 07,12; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-08.04/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",108,High,svaraa-v0
+1085,Sub-task,SV0-08.05 | Test real phone lifecycle,"Implementation: Native iOS restoration/Android supported background design on physical phones.
+
+Acceptance: Termination, reboot and revoked permissions show degraded status honestly.
+
+Owner role: Mobile / embedded
+Dependencies: story 08 prerequisites 07,12; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-08.05/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",108,High,svaraa-v0
+109,Story,SV0-S09 | Backend and escalation,"Owner: Backend / SRE. Prerequisites: 01,07,12. Close only with implementation, negative tests and evidence.",1,High,svaraa-v0
+1091,Sub-task,SV0-09.01 | Implement contract validation,"Implementation: Typed models plus size, semantic, mode and authorization checks.
+
+Acceptance: Invalid/wrong-tenant events fail without actionable side effects.
+
+Owner role: Backend / SRE
+Dependencies: story 09 prerequisites 01,07,12; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-09.01/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",109,High,svaraa-v0
+1092,Sub-task,SV0-09.02 | Implement event transaction,"Implementation: Unique device/event, canonical hash, incident update and outbox in one commit.
+
+Acceptance: Identical duplicate returns receipt; changed duplicate409; race-safe.
+
+Owner role: Backend / SRE
+Dependencies: story 09 prerequisites 01,07,12; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-09.02/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",109,High,svaraa-v0
+1093,Sub-task,SV0-09.03 | Implement human actions,"Implementation: Assigned guardian permissions, unique actionID and expected revision.
+
+Acceptance: ConcurrentACK/resolve actions audited; no optimistic false success.
+
+Owner role: Backend / SRE
+Dependencies: story 09 prerequisites 01,07,12; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-09.03/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",109,High,svaraa-v0
+1094,Sub-task,SV0-09.04 | Implement notification worker,"Implementation: Configurable contact order and timers; mock adapter first.
+
+Acceptance: Provider submit/delivery/humanACK remain distinct; drill cannot dispatch.
+
+Owner role: Backend / SRE
+Dependencies: story 09 prerequisites 01,07,12; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-09.04/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",109,High,svaraa-v0
+1095,Sub-task,SV0-09.05 | Implement reconciliation,"Implementation: Current snapshot plus expiring command cursor and execution acknowledgment.
+
+Acceptance: Offline pendant converges; expired command does not execute later.
+
+Owner role: Backend / SRE
+Dependencies: story 09 prerequisites 01,07,12; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-09.05/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",109,High,svaraa-v0
+1096,Sub-task,SV0-09.06 | Implement consent and audit,"Implementation: Household roles, location retention/revocation and immutable action history.
+
+Acceptance: Cross-household access denied; sensitive debug logging controlled.
+
+Owner role: Backend / SRE
+Dependencies: story 09 prerequisites 01,07,12; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-09.06/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",109,High,svaraa-v0
+110,Story,SV0-S10 | Wearer and guardian apps,"Owner: Mobile / UX. Prerequisites: 08,09. Close only with implementation, negative tests and evidence.",1,High,svaraa-v0
+1101,Sub-task,SV0-10.01 | Build wearer dashboard,"Implementation: Routes, source freshness, actual battery source, privacy and current incident.
+
+Acceptance: Unknown/mocked values labelled; app-open does not imply hardware health.
+
+Owner role: Mobile / UX
+Dependencies: story 10 prerequisites 08,09; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-10.01/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",110,High,svaraa-v0
+1102,Sub-task,SV0-10.02 | Build guardian incident view,"Implementation: Trigger, time, fix source/age/accuracy and explicit acknowledgment.
+
+Acceptance: Received, humanACK and resolved distinguishable.
+
+Owner role: Mobile / UX
+Dependencies: story 10 prerequisites 08,09; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-10.02/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",110,High,svaraa-v0
+1103,Sub-task,SV0-10.03 | Build drill flow,"Implementation: Test input/feedback/guardian acknowledgment with persistentDRILL labels.
+
+Acceptance: RealSOS interrupts; unavailable component checks remain untested.
+
+Owner role: Mobile / UX
+Dependencies: story 10 prerequisites 08,09; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-10.03/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",110,High,svaraa-v0
+1104,Sub-task,SV0-10.04 | Build tags and history,"Implementation: Labels/categories with preserved coordinate provenance and sync state.
+
+Acceptance: No-fix tag allowed; optional geofence dwell/hysteresis tested.
+
+Owner role: Mobile / UX
+Dependencies: story 10 prerequisites 08,09; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-10.04/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",110,High,svaraa-v0
+1105,Sub-task,SV0-10.05 | Build recovery/accessibility,"Implementation: Large controls, non-color cues, permission/pairing reconnect recovery.
+
+Acceptance: Core tasks usable without voice; elderly-facing usability evidence retained.
+
+Owner role: Mobile / UX
+Dependencies: story 10 prerequisites 08,09; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-10.05/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",110,High,svaraa-v0
+111,Story,SV0-S11 | Simulation and automated QA,"Owner: QA / embedded. Prerequisites: 01,07,09. Close only with implementation, negative tests and evidence.",1,High,svaraa-v0
+1111,Sub-task,SV0-11.01 | Create Wokwi adapter,"Implementation: S3 button/pixels and typed mocks for unsupported hardware.
+
+Acceptance: Separate rawGPIO map; no claim BLE/I2S/Nicla target simulated.
+
+Owner role: QA / embedded
+Dependencies: story 11 prerequisites 01,07,09; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-11.01/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",111,High,svaraa-v0
+1112,Sub-task,SV0-11.02 | Create deterministic traces,"Implementation: Timestamped synthetic/recorded motion, pressure and GPS with units/source.
+
+Acceptance: Repeatable outcomes; synthetic traces never labelled clinical validation.
+
+Owner role: QA / embedded
+Dependencies: story 11 prerequisites 01,07,09; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-11.02/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",111,High,svaraa-v0
+1113,Sub-task,SV0-11.03 | Inject communication faults,"Implementation: No-route, lost response, duplicate, reorder, clock jump and reconnect fixtures.
+
+Acceptance: Idempotency and monotonic deadlines hold.
+
+Owner role: QA / embedded
+Dependencies: story 11 prerequisites 01,07,09; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-11.03/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",111,High,svaraa-v0
+1114,Sub-task,SV0-11.04 | Build end-to-end drill test,"Implementation: Virtual device -> actual local backend -> bothUI roles -> return acknowledgment.
+
+Acceptance: Correlated event log and zero real emergency-provider calls.
+
+Owner role: QA / embedded
+Dependencies: story 11 prerequisites 01,07,09; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-11.04/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",111,High,svaraa-v0
+1115,Sub-task,SV0-11.05 | Fuzz and stress resources,"Implementation: Malformed frames, queue full, low heap and slow audio consumer.
+
+Acceptance: Explicit bounded failures; no silent emergency state loss.
+
+Owner role: QA / embedded
+Dependencies: story 11 prerequisites 01,07,09; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-11.05/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",111,High,svaraa-v0
+1116,Sub-task,SV0-11.06 | Build evidence report,"Implementation: Record profile, commit, versions, scenario, actual result and reviewer.
+
+Acceptance: Separate host/emulator/bench/field evidence; blockers visible.
+
+Owner role: QA / embedded
+Dependencies: story 11 prerequisites 01,07,09; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-11.06/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",111,High,svaraa-v0
+112,Story,"SV0-S12 | Security, privacy and update controls","Owner: Security / embedded. Prerequisites: 01. Close only with implementation, negative tests and evidence.",1,High,svaraa-v0
+1121,Sub-task,SV0-12.01 | Threat-model trust boundaries,"Implementation: SpoofedSOS, unauthorized location, malicious commands, stolen device and provisioning.
+
+Acceptance: Each risk has control, test and owner.
+
+Owner role: Security / embedded
+Dependencies: story 12 prerequisites 01; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-12.01/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",112,High,svaraa-v0
+1122,Sub-task,SV0-12.02 | Provision development identity,"Implementation: Unique test credentials, validatedTLS and future rotation design.
+
+Acceptance: No shared fleet production secret or disabled certificate validation.
+
+Owner role: Security / embedded
+Dependencies: story 12 prerequisites 01; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-12.02/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",112,High,svaraa-v0
+1123,Sub-task,SV0-12.03 | Design signed update recovery,"Implementation: Image compatibility/signature, deferredOTA during incident and rollback.
+
+Acceptance: Invalid/interrupted update cannot be accepted as successful.
+
+Owner role: Security / embedded
+Dependencies: story 12 prerequisites 01; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-12.03/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",112,High,svaraa-v0
+1124,Sub-task,SV0-12.04 | Implement consent/retention,"Implementation: Location/audio purpose, role revocation, audit and deletion policy.
+
+Acceptance: No ambient audio upload; tests enforce access removal.
+
+Owner role: Security / embedded
+Dependencies: story 12 prerequisites 01; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-12.04/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",112,High,svaraa-v0
+113,Story,SV0-S13 | Bench qualification and release,"Owner: QA / hardware / product. Prerequisites: 02-12. Close only with implementation, negative tests and evidence.",1,High,svaraa-v0
+1131,Sub-task,SV0-13.01 | Run electrical/thermal matrix,"Implementation: Measure peak combined loads and instrumented signal timing.
+
+Acceptance: No unexplained rail, heat or reset issue; setup/limits recorded.
+
+Owner role: QA / hardware / product
+Dependencies: story 13 prerequisites 02-12; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-13.01/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",113,High,svaraa-v0
+1132,Sub-task,SV0-13.02 | Run full communication fault matrix,"Implementation: Physical phones, network loss, staleGPS, duplicateSOS and missed response.
+
+Acceptance: Documented honest UI state in each failure; no false help confirmation.
+
+Owner role: QA / hardware / product
+Dependencies: story 13 prerequisites 02-12; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-13.02/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",113,High,svaraa-v0
+1133,Sub-task,SV0-13.03 | Plan safe fall-data evaluation,"Implementation: Use fixtures/dummies and reviewed normal-activity protocol, not dangerous human falls.
+
+Acceptance: Report false/missed labelled events by context; avoid unsupported generalization.
+
+Owner role: QA / hardware / product
+Dependencies: story 13 prerequisites 02-12; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-13.03/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",113,High,svaraa-v0
+1134,Sub-task,SV0-13.04 | Triage gates and defects,"Implementation: Classify bench/pilot/manufacturing blockers with named owner.
+
+Acceptance: Electrical, privacy or lostSOS issues are not cosmetic waivers.
+
+Owner role: QA / hardware / product
+Dependencies: story 13 prerequisites 02-12; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-13.04/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",113,High,svaraa-v0
+1135,Sub-task,SV0-13.05 | Freeze V0 dossier,"Implementation: Versions, wiring, tests, limits and engineering sign-off.
+
+Acceptance: Release is bench demonstrator only, not a sole emergency lifeline.
+
+Owner role: QA / hardware / product
+Dependencies: story 13 prerequisites 02-12; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-13.05/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",113,High,svaraa-v0
+114,Story,SV0-S14 | V1 PCB and manufacturing handoff,"Owner: Hardware / manufacturer. Prerequisites: 13. Close only with implementation, negative tests and evidence.",1,High,svaraa-v0
+1141,Sub-task,SV0-14.01 | Quote architecture options,"Implementation: Phone-assisted vs standalone dataSOS; measure before consolidating controllers.
+
+Acceptance: SeparateBOM, assembly,NRE/tooling and service assumptions.
+
+Owner role: Hardware / manufacturer
+Dependencies: story 14 prerequisites 13; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-14.01/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",114,High,svaraa-v0
+1142,Sub-task,SV0-14.02 | Engineer product power,"Implementation: Select matched cell/NTC/protection/powerpath/gauge/coil/supervisor.
+
+Acceptance: Reviewed schematic, thermal/current/runtime tests; magnets not protocol proof.
+
+Owner role: Hardware / manufacturer
+Dependencies: story 14 prerequisites 13; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-14.02/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",114,High,svaraa-v0
+1143,Sub-task,SV0-14.03 | Engineer RF and enclosure,"Implementation: Antenna/coil/metal keepouts, speaker/vent, bridge/flex and mechanical tests.
+
+Acceptance: Determine fixed bridge vs moving hinge; final on-body tests before tooling.
+
+Owner role: Hardware / manufacturer
+Dependencies: story 14 prerequisites 13; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-14.03/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",114,High,svaraa-v0
+1144,Sub-task,SV0-14.04 | Qualify cellular/Find My,"Implementation: Actual carrier/data/voice choice and licensed MFi path with devkits.
+
+Acceptance: No invented proprietary protocol or automatic approval claim.
+
+Owner role: Hardware / manufacturer
+Dependencies: story 14 prerequisites 13; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-14.04/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",114,High,svaraa-v0
+1145,Sub-task,SV0-14.05 | Define production test and release,"Implementation: NativeCAD, ERC/DRC,DFM/DFT, fixtures, unique identities,EVT/DVT/PVT and pilot evidence.
+
+Acceptance: A quotation is not validation; no10k release without gates.
+
+Owner role: Hardware / manufacturer
+Dependencies: story 14 prerequisites 13; execute listed integration order unless reviewed.
+Evidence: evidence/SV0-14.05/ commit, profile, versions, logs, result and reviewer.
+Estimate: team to estimate after environment/hardware qualification.
+Physical gates cannot be closed by mocks.",114,High,svaraa-v0

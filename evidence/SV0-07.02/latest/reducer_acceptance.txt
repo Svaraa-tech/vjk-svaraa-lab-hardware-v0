@@ -1,0 +1,16 @@
+test_cancellation_prealert (tests.host.test_reducer_acceptance.TestReducerAcceptance.test_cancellation_prealert) ... ok
+test_drill_preempted_by_live (tests.host.test_reducer_acceptance.TestReducerAcceptance.test_drill_preempted_by_live) ... ok
+test_non_regressing_ack (tests.host.test_reducer_acceptance.TestReducerAcceptance.test_non_regressing_ack) ... ok
+test_precedence_manual_over_second_sos (tests.host.test_reducer_acceptance.TestReducerAcceptance.test_precedence_manual_over_second_sos) ... ok
+test_unverified_rejected (tests.host.test_reducer_acceptance.TestReducerAcceptance.test_unverified_rejected) ... ok
+test_corrupt_tail_stops_replay (tests.host.test_journal_durable.TestDurableJournal.test_corrupt_tail_stops_replay) ... ok
+test_critical_reserve (tests.host.test_journal_durable.TestDurableJournal.test_critical_reserve) ... ok
+test_power_cut_preserves_committed (tests.host.test_journal_durable.TestDurableJournal.test_power_cut_preserves_committed) ... ok
+test_write_failure_visible (tests.host.test_journal_durable.TestDurableJournal.test_write_failure_visible) ... ok
+test_manual_no_gps_path (tests.host.test_sim_engine.TestManualNoGps.test_manual_no_gps_path) ... ok
+test_short_hold_rejected (tests.host.test_sim_engine.TestManualNoGps.test_short_hold_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.002s
+
+OK

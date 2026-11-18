@@ -1,0 +1,460 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DeviceEvent",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "event_id",
+    "device_id",
+    "boot_id",
+    "seq",
+    "mode",
+    "kind",
+    "occurred_at",
+    "uptime_ms",
+    "incident_id",
+    "drill_id",
+    "payload"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "event_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "device_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "boot_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "seq": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "mode": {
+      "enum": [
+        "live",
+        "drill"
+      ]
+    },
+    "kind": {
+      "enum": [
+        "sos.created",
+        "sos.cancel_requested",
+        "device.heartbeat",
+        "location.updated",
+        "location.tagged",
+        "drill.step"
+      ]
+    },
+    "occurred_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "uptime_ms": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "incident_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    },
+    "drill_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    },
+    "payload": {
+      "type": "object"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "mode": {
+            "const": "drill"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "drill_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "mode": {
+            "const": "live"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "drill_id": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "sos.created"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "payload": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "trigger",
+              "location"
+            ],
+            "properties": {
+              "trigger": {
+                "enum": [
+                  "manual_button",
+                  "fall_candidate_confirmed",
+                  "local_voice_intent",
+                  "drill"
+                ]
+              },
+              "location": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "source",
+                  "valid",
+                  "latitude",
+                  "longitude",
+                  "accuracy_m",
+                  "fix_at",
+                  "age_ms"
+                ],
+                "properties": {
+                  "source": {
+                    "enum": [
+                      "gnss",
+                      "phone",
+                      "none"
+                    ]
+                  },
+                  "valid": {
+                    "type": "boolean"
+                  },
+                  "latitude": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": -90,
+                    "maximum": 90
+                  },
+                  "longitude": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": -180,
+                    "maximum": 180
+                  },
+                  "accuracy_m": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": 0
+                  },
+                  "fix_at": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "date-time"
+                  },
+                  "age_ms": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
+                    "minimum": 0
+                  }
+                },
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "source": {
+                          "const": "none"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "valid": {
+                          "const": false
+                        },
+                        "latitude": {
+                          "type": "null"
+                        },
+                        "longitude": {
+                          "type": "null"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "valid": {
+                          "const": true
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "source": {
+                          "enum": [
+                            "gnss",
+                            "phone"
+                          ]
+                        },
+                        "latitude": {
+                          "type": "number"
+                        },
+                        "longitude": {
+                          "type": "number"
+                        },
+                        "accuracy_m": {
+                          "type": "number"
+                        },
+                        "age_ms": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "battery_percent": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 100
+              },
+              "model_version": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "location.updated"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "payload": {
+            "type": "object",
+            "required": [
+              "location"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "location": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "source",
+                  "valid",
+                  "latitude",
+                  "longitude",
+                  "accuracy_m",
+                  "fix_at",
+                  "age_ms"
+                ],
+                "properties": {
+                  "source": {
+                    "enum": [
+                      "gnss",
+                      "phone",
+                      "none"
+                    ]
+                  },
+                  "valid": {
+                    "type": "boolean"
+                  },
+                  "latitude": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": -90,
+                    "maximum": 90
+                  },
+                  "longitude": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": -180,
+                    "maximum": 180
+                  },
+                  "accuracy_m": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": 0
+                  },
+                  "fix_at": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "date-time"
+                  },
+                  "age_ms": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
+                    "minimum": 0
+                  }
+                },
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "source": {
+                          "const": "none"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "valid": {
+                          "const": false
+                        },
+                        "latitude": {
+                          "type": "null"
+                        },
+                        "longitude": {
+                          "type": "null"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "valid": {
+                          "const": true
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "source": {
+                          "enum": [
+                            "gnss",
+                            "phone"
+                          ]
+                        },
+                        "latitude": {
+                          "type": "number"
+                        },
+                        "longitude": {
+                          "type": "number"
+                        },
+                        "accuracy_m": {
+                          "type": "number"
+                        },
+                        "age_ms": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "sos.cancel_requested"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "payload": {
+            "type": "object",
+            "required": [
+              "reason"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "reason": {
+                "type": "string",
+                "maxLength": 200
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

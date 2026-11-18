@@ -1,0 +1,10 @@
+PASS diagram_present 
+PASS firmware_built 
+PASS parts 
+PASS pixels 
+PASS api_status 
+PASS api_diagram 
+PASS create_run 
+PASS api_view 
+PASS api_sync 
+RESULT PASSED 0

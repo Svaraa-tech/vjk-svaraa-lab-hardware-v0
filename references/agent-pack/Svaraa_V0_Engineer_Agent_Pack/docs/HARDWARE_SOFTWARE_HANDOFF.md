@@ -1,0 +1,1623 @@
+# 01. Engineering baseline and evidence status
+
+This is the Svaraa AI Pendant V0.1 hardware and software engineering handoff, prepared 17 November 2026. It is for embedded, application, backend, QA and manufacturing engineers and a Cursor/VS Code coding agent. It covers both software simulation and the physical parts the user will later buy and assemble without soldering.
+
+The selected physical baseline is Arduino Nano ESP32 with factory headers plus Arduino Nicla Voice, powered separately through USB. Nano owns the emergency state machine, event journal, local feedback and network routing. Nicla owns its internal motion sensors and local wake-model experiment. A main sensor I2C bus and a separate Nicla-to-Nano bus avoid ambiguous ownership. Conversational PCM audio has its own explicitly wired microphone and I2S amplifier.
+
+This is a proposed module-level V0 design, not fabrication artwork, a finished emergency-response product or a certified medical device. No physical board was connected, powered, flashed or measured for this handoff. The supplied pure C++ reducer passed 31 host checks; 15 Python contract/framing/hierarchy checks passed. These are the only executed checks claimed. The Wokwi starter, complete apps/backend and all real-hardware tests remain implementation work.
+
+The package includes 32 BOM entries, 38 connection records, 21 vector drawings, API/wire contracts, integration pseudocode, a Jira hierarchy of one epic/14 stories/72 sub tasks, and 56 specified acceptance scenarios. The SVG/DOT files are editable. They are not KiCad/Altium source files or Gerbers.
+
+| Evidence label | Meaning |
+| --- | --- |
+| Vendor fact | Component/interface documented by the cited primary reference. Check the received revision. |
+| Proposed V0 design | Our selected pin map, protocol, timing or workflow. Implement and qualify it. |
+| Host tested | Only the included reference checks actually executed; see evidence/. |
+| Physical gate | Requires real boards, instruments, phones or field evidence. A mock cannot pass it. |
+| Licensed / V1 gate | Requires product engineering, supplier validation or a program such as MFi. |
+
+## How to use the document
+
+Read the scope, BOM, pin/wire schedules and power rules before connecting anything. Use the blueprint atlas together with the connection table; apparent wire proximity is not a net. Firmware engineers then follow the HAL, timing and state contracts. App/backend engineers use the event identity, receipt and authorization rules. Execute Jira tasks with measured evidence, then take the V1 dossier to the manufacturer. Never guess an unverified voltage, driver API, battery connection or proprietary Apple requirement.
+
+## Reconciliation with the original brief
+
+The project input is the three-page Svaraa_AI_Pendant_Visual_One_Pager.pdf dated 15 November 2026 and the later conversation requirements. The original listed a generic ESP32-S3 dev board and separate BMI270; the later choice is Nano ESP32 and Nicla Voice. This document deliberately expands and corrects that prototype brief, rather than pretending these detailed schematics were already present in it.
+
+| Earlier ambiguity | V0 resolution |
+| --- | --- |
+| Generic ESP32-S3 | Nano ESP32 with headers ABX00083; not a classic AT mega328 Nano. [S01-S03] |
+| Duplicate BMI270 | Use the sensor already on Nicla; Nano receives typed samples from Nicla. [S04-S06] |
+| Wake mic vs conversational mic | Nicla handles wake; INMP441 is a separate explicit PCM path until consolidation is proven. |
+| ESLOV/QT interchange ability | Use a signal-only adapter hub; isolate ESLOV VCC_IN. [S04, S07-S09] |
+| Five versus seven lights | Five logical external lights: one top and four lower; unused bench strand pixels stay off. |
+| Reset as SOS | Dedicated S1 switch; reset/programming pins are not the emergency input. |
+| Physical mute | S2 requests software privacy in V0; hard mic isolation is a V1 gate. |
+
+# 02. Profiles, scope and acceptance targets
+
+| Profile | What it demonstrates | Not proven |
+| --- | --- | --- |
+| V0-A SIM | Host core, fixtures, supported Wokwi widgets and mock end-to-end software | BLE, S3 I2S, Nicla target link, RF, batteries, clinical falls or Find My |
+| V0-B BENCH | USB Nano/Nicla, actual sensors, controls, audio, Wi-Fi and later native phone BLE | Wearable runtime, standalone cellular, public emergency dispatch or production readiness |
+| V0-C EXTENSION | Separate dev-kit studies for cellular, licensed Find My and approved power/charging | Automatic product integration or approval from buying a board |
+| V1 PRODUCT | Professionally assembled custom PCB, final enclosure and measured product performance | A breadboard copied directly into a 10,000-unit order |
+
+Manual SOS must not require a wake word, GPS fix, cloud-AI response or an open app screen. With no reachable communication path, sensing and local alarms can continue, but remote delivery cannot be promised. Show pending/not delivered, preserve the event where possible and retry. Server receipt, human acknowledgment and resolution are separate evidence-backed facts.
+
+Custom place names are software labels, not another sensor. Apple Find My remains a licensed lost-item recovery domain, separate from Svaraa geotags and SOS. No automatic Find My-to-Svaraa location feed is assumed. [S31-S33] No HR/Sp O2 sensor, UWB or NFC is required for this baseline; such additions would introduce new placement, validation and approval work.
+
+| Measure | Initial design target | Qualification |
+| --- | --- | --- |
+| Button | 20 ms debounce; 2 s hold | Actual switch and user interaction review; no extra delay after qualification |
+| Feedback | Within 150 ms after qualified input | Measure under maximum permitted combined load |
+| Event scheduling | Within 200 ms; no GPS/AI wait | Bounded journal/queue and immediate transmission scheduling |
+| Fall prealert | 20 s cancellation window | Experimental product-policy setting, not clinical recommendation |
+| IMU | 100 Hz target; +/-16g; +/-2000deg/s | Read back configuration, measure clipping/rate/gaps |
+| Fresh GNSS | Initial policy age<=30s, estimated accuracy<=50m | Con figura ble criteria, not guaranteed positioning accuracy |
+| Retry | 2,4,8,16,30s ceiling plus jitter | Reconcile IDs; review cellular/battery implications later |
+| Health | 30s normal;5s during incident | Independent freshness for each source |
+| BLE payload | 2048-byte maximum;5s reassembly timeout | Test MTU23 and malformed fragments |
+
+## Traceability
+
+| ID | Requirement | Stories / tests |
+| --- | --- | --- |
+| R01 | Zero user soldering | 02 / T01-T04 |
+| R02 | Voltage and pin ownership | 02 / T01-T07 |
+| R03 | Manual SOS independent ofAI | 05,07 / T08-T11 |
+| R04 | Experimental fall/prealert | 03,07 / T12-T15 |
+| R05 | Location freshness/custom tags | 04,10 / T16-T19 |
+| R06 | Durable receipt vs human ACK | 07,09,10 / T20-T23 |
+| R07 | Offline durable retry | 07,09 / T24-T27 |
+| R08 | Privacy/bounded voice | 06,12 / T28-T30 |
+| R09 | Five LEDs/multi modal feedback | 05 / T31-T32 |
+| R10 | Honest phone gateway coverage | 08 / T33-T35 |
+| R11 | Drill/live isolation | 07,09,10 / T36-T38 |
+| R12 | Ownership/authorization | 08,09,12 / T39-T42 |
+| R13 | Re produc i ble evidence | 01,11 / T43-T45 |
+| R14 | Cellular/power/FindMy gates | 14 / T46-T48 |
+| R15 | Independent health/recovery | 07,13 / T49-T52 |
+| R16 | Safe update/recovery | 12 / T53-T54 |
+| R17 | Manufacturer requirements | 14 / T55 |
+| R18 | Accessible dual apps | 10 / T56 |
+
+# 03. Complete solder-free procurement list
+
+The exact module variant matters. A breakout shipped with loose headers is not solder-free. Factory-fitted headers, pre-attached speaker leads, compatible pigtails and terminal blocks are part of the selection. Through-hole resistors, capacitors, buttons and the PDIP buffer insert directly into the breadboard. Connector names such as JST do not establish pitch, pin order or electrical compatibility.
+
+The baseline is a desk prototype, not pendant-sized hardware. Buy only after checking the exact listing/revision and assembly photographs. Reconfirm the sensor/antenna connection and module logic levels on receipt. The later battery, charger, coil and supervisor rows are design gates, not approved purchase-ready part numbers.
+
+| Ref / Qty | Part | Connection / restriction |
+| --- | --- | --- |
+| B01 / 1 | Arduino Nano ESP32 WITH HEADERS ABX00083 | USB / installed pins. Not classic Nano; not header less ABX00092. Main ESP32-S3 controller. [S01-S03] |
+| B02 / 1 | Arduino Nicla Voice ABX00061 | Micro-USB / ESLOV. Includes BMI270, BMM150, wake microphone and NDP120. Do not buy a duplicate IMU. [S04-S06] |
+| B03 / 1 | Ada fruit BMP390 STEMMA QT breakout | Factory QT connector. Main 3.3 V I2C bus; address 0x77. [S10] |
+| B04 / 1 | Spark Fun MAX-M10S Qwiic GPS-18037 | Factory QT connector. 3.3 V I2C; address 0x42. Requires antenna. [S11] |
+| B05 / 1 | Matched L1 GNSS antenna; GPS-14986 example | Matching SMA connector. Verify connector sex and active/passive support for exact board revision. [S12] |
+| B06 / 1 | Shill eh Tek INMP441, pre-solder ed headers | Factory headers. Separate conversational PCM microphone; Nicla remains wake/motion coprocessor. [S13] |
+| B07 / 1 | Shill eh Tek MAX98357, pre-solder ed version | Installed header / speaker terminal. No loose-header substitute. [S14] |
+| B08 / 1 | 8 ohm speaker, >=2 W bench rating | Factory attached, stripped leads. Screw terminal connection; neither speaker output goes to GND. Limit volume. [S14] |
+| B09 / 1 | Ada fruit 3630 prewired 20-pixel strand | Factory connector / mating pigtail. Use only five logical pixels; indices 5-19 always off. No cutting or soldering. [S18] |
+| B10 / 1 | TI SN74AHCT125N, PDIP-14 | Through-hole breadboard. 3.3-to-5 V LED data buffer. Not a generic HC125 or SMD-only package. [S16] |
+| B11 / 1 | Seeed Grove vibration motor 105020003 | Grove-to-male cable. Onboard driver; never connect bare motor to a GPIO. [S19] |
+| B12 / 1 | Seeed Grove buzzer 107020000 | Grove-to-male cable. Independent local alarm; not automatically Find My compliant. [S20] |
+| B13 / 1 | Normally-open tactile switch | Through-hole breadboard legs. S1 dedicated SOS. Verify connected leg pairs before wiring. |
+| B14 / 1 | Latching SPST/SPDT switch | Through-hole or pre assembled module. S2 prototype software-privacy request, not hard microphone isolation. |
+| B15 / 2 | Ada fruit passive QT hub 5625 | Factory sockets. One main sensor hub; one segregated Nicla signal-only adapter hub. [S09] |
+| B16 / 2 | Ada fruit QT-to-male cable 4209 | Factory crimped male pins. Nicla cable V+ lead is insulated and unused. [S08] |
+| B17 / 1 | Ada fruit ESLOV-to-QT adapter 4483 | Factory connector ends. Not a voltage converter. Connect via segregated hub. [S07] |
+| B18 / 2 + spare | Short QT-to-QT cables, 50-100 mm | Factory JST-SH 4-pin. Sensor hub to barometer and GNSS. |
+| B19 / 2 | Grove-to-individual-male cables | Factory crimped. Grove is not Qwiic. Verify SIG/VCC/GND; insulate unused lead. |
+| B20 / 1 set | Matching pixel input pigtail and screw adapters | Factory crimped / terminals. Verify polarity and DIN direction, not just connector appearance. |
+| B21 / 1 set | 330 ohm x1; 10k x3; 4.7k x2; 100nF x3; 470uF >=10V x1 | Through-hole passives. Pull-ups, input pull down, data resistor and decoupling; capacitor polarity matters. |
+| B22 / 2 | 830-point solder less breadboards | Direct insertion. Some power rails are split. Verify continuity. |
+| B23 / 1 kit | Short M-M / M-F / F-F jumpers | Factory crimped. No bare-wire soldering. Initial I2S lead target about 10 cm or less. |
+| B24 / 1 each | USB-C and Micro-USB DATA cables | USB. Not charge-only cables. |
+| B25 / 1 | Powered USB data hub | USB. Budget both board ports; does not prove battery behavior. |
+| B26 / 1 set | Regulated 5 V >=2 A supply, fused terminal distribution | Factory USB / screw-terminal cables. Separate external load rail; NEVER tie positive rail to Nano VUSB/3V3. |
+| B27 / 1 | Multi meter with continuity and voltage | Test probes. Required before power. Instrument ratings must match measurements. |
+| B28 / Optional | 3.3 V-compatible USB logic analyzer / power meter | Factory probes. Recommended for bus timing, current and fault diagnosis. |
+| B29 / Later | Nordic nRF9151 DK + SIM/service | USB first. Data-SOS extension. UART/power qualification required; no conventional voice promise. [S34] |
+| B30 / Later | Nordic nRF52840 DK | Independent USB development. Licensed Find My work; not certified merely by purchase. [S31-S33] |
+| B31 / Later, gated | Protected LiPo, NTC, power-path charger, gauge, receiver/coil | Matched pre assembled system only. Not an approved battery hookup. Select exact parts with a power engineer. |
+| B32 / V1, gated | Supervisor/watchdog; optional wear sensor | Manufacturer-assembled PCB. Select from failure analysis; not a vital-sign or medical-performance claim. |
+
+## Avoiding accidental duplicates and substitutions
+
+Nicla already carries BMI270, BMM150 and its wake microphone. Do not buy another IMU unless a separate integration experiment is explicitly approved. The BMM150 is not a required baseline fall input and must not become an unexplained dependency near charging magnets. [S04-S06]
+
+The external INMP441 is not hidden duplication: it supplies general conversational PCM directly to Nano. Raw audio extraction/forwarding from Nicla is not assumed. The amplifier needs factory-installed signal headers and a fitted speaker terminal. A bare motor must never replace the Grove motor module without an appropriate driver design.
+
+The 20-pixel prewired strand avoids cutting and soldering. Only indices 0-4 are used; send zeros to 5-19 every update. V1 has the intended five actual LEDs. The strand can still draw quiescent current when unused pixels are visually off. [S18] S2 is a V0 engineering privacy switch, not approval for a second exterior button on the final pendant.
+
+# 04. Architecture and communication ownership
+
+**Drawing reference: D01_system** - Full hardware/app/backend architecture, including the separately gated extensions. The full-size vector sheet is in the drawing atlas and PDF bookmarks.
+
+| Interface | Owner / protocol | Purpose |
+| --- | --- | --- |
+| Sensor I2C | Nano controller; A4/A5;100kHz;3.3V;0x77/0x42 | Pressure/GNSS observations with bounded read timeouts |
+| Private Nicla I2C | Nicla controller; Nano Wire1 target0x2A; D4/D3 | Fixed frames and reverse mailbox, no raw PCM |
+| I2S | Nano clock source; shared BCLK/WS; separate RX/TX | INMP capture/MAX98357 playback |
+| GPIO | S1/S2 inputs, translated pixel data, driven hap tic/buzzer | Local interaction independent of cloud |
+| BLE | Custom GATT, encrypted/bonded plus reviewed ownership | Nearby gateway events/control, not headset audio |
+| HTTP S | Original event IDs and scoped identity | Direct Wi-Fi or phone relay to backend |
+| Backend database | Transaction and outbox | Durable acceptance, human actions, escalation and audit |
+| Cellular / Find My | Separate approved development paths | Independent data SOS / licensed lost-item recovery |
+
+Nano owns emergency state, event identity, health, journal ing and local response. Nicla owns its internal sensors; it does not expose those sensors as if they were directly plugged into Nano. The phone is a gateway and interface, not the only place where a button or fall can be recognized. Backend state is authoritative for durable receipt, authorized caregiver actions and escalation.
+
+READY means no active incident, not that every capability is healthy. Track separate states for motion, GNSS, barometer, audio, storage, power and routes: implemented, mocked, disabled, missing, stale or faulted. A healthy Wi-Fi connection cannot hide a stale IMU. Battery percentage is null when not measured; USB power is not a measured100% battery.
+
+# 05. Pin-by-pin allocation and connection schedule
+
+Use Arduino D/A aliases in Arduino-level APIs and raw GPIO numbers only where the chosen low-level API explicitly requires them. D9 is GPIO18, not GPIO9. The Wokwi S3 adapter has its own raw-GPIO mapping. Check the official Nano pin out and pin-numbering setting. [S02, S03]
+
+| Header / GPIO | Net | Connection |
+| --- | --- | --- |
+| D0 / 44 | UART_RX_RESERVE | NC; future qualified modem interface |
+| D1 / 43 | UART_TX_RESERVE | NC; future qualified modem interface |
+| D2 / 5 | SOS_N | S1 to GND; R1 10k to 3V3; C1 100nF toGND |
+| D3 / 6 | NICLA_SCL | J5.3 through isolated harness; R3 4.7k to 3V3 |
+| D4 / 7 | NICLA_SDA | J5.4 through isolated harness; R2 4.7k to 3V3 |
+| D5 / 8 | AUDIO_BCLK | INMP SCK and amp BCLK |
+| D6 / 9 | AUDIO_WS | INMP WS and amp LRC |
+| D7 / 10 | AUDIO_RX | INMP SD -> Nano input |
+| D8 / 17 | AUDIO_TX | Nano output -> amp DIN |
+| D9 / 18 | PIXEL_3V3 | AHCT125 pin 2, R6 10k pull down |
+| D10 / 21 | PRIVACY_N | S2 toGND; R4 10k to 3V3 |
+| D11 / 38 | RESERVED | NC; no Micro SD baseline |
+| D12 / 47 | HAPTIC_EN | Grove motor SIG |
+| D13 / 48 | RESERVED | NC; shares onboard LED |
+| A0 / 1 | BUZZER_EN | Grove buzzer SIG |
+| A1 / 2 | RESERVED | NC |
+| A2 / 3 | STRAP_RESERVE | NC; no boot-state-changing load |
+| A3 / 4 | RESERVED | NC |
+| A4 / 11 | SENSOR_SDA | Main QT bus SDA |
+| A5 / 12 | SENSOR_SCL | Main QT bus SCL |
+| A6 / 13 | RESERVED | NC |
+| A7 / 14 | RESERVED | NC |
+| 3V3 / - | 3V3_NANO | Main hub, INMP VCC, pulls only |
+| GND / - | GND_COMMON | All signal grounds and external5V negative |
+| VUSB / - | USB_5V | Header NC; use USB-C |
+| VIN / - | VIN_NANO | NC in USB profile |
+| B0 / B1 / RESET / 46 / 0 / - | BOOT_RESET | Leave untouched; never use as SOS |
+
+## Connection records
+
+Assemble with supplies disconnected. Cable colors are clues only; connector pin numbers and continuity determine the net. JH1 is the 3.3V sensor hub. JH2 is segregated for the Nicla signal adapter. Never connect their V+ nets together. Power and partial-power behavior require review before hot-plugging or switching one domain off.
+
+| Wire | From -> To | Electrical / assembly rule |
+| --- | --- | --- |
+| W01 | Nano USB-C -> Powered hub | USB data/power; VIN/VUSB header NC |
+| W02 | Nicla Micro-USB -> Powered hub | Independent USB power |
+| W03 | Nano3V3 -> JH1 V+ | 4209 red, continuity verified |
+| W04 | Nano GND -> JH1 GND | 4209 black, continuity verified |
+| W05 | Nano A4/GPIO11 -> JH1 SDA | 4209 blue, verify |
+| W06 | Nano A5/GPIO12 -> JH1 SCL | 4209 yellow, verify |
+| W07 | JH1 QT -> BMP390 QT | QT cable, address 0x77 |
+| W08 | JH1 QT -> MAX-M10S QT | QT cable, address 0x42 |
+| W09 | GNSS SMA -> Matched antenna | Factory RF connector, correct gender |
+| W10 | Nicla J5 -> JH2 segregated hub | 4483; INT unused |
+| W11 | JH2 SDA -> Nano D4/GPIO7 | 4209 signal lead, target0x2A |
+| W12 | JH2 SCL -> Nano D3/GPIO6 | Nicla sole bus controller |
+| W13 | JH2 GND -> Common GND | Nicla J5.5 |
+| W14 | JH2 V+ -> NC / insulated | J5.1 is 5V INPUT; do not feed or join sensor hub |
+| W15 | Nano3V3 via R2 4.7k -> NICLA_SDA | Check actual fitted pull-ups |
+| W16 | Nano3V3 via R3 4.7k -> NICLA_SCL | Never tie regulator outputs |
+| W17 | Nano3V3 -> INMP VCC | Not5V |
+| W18 | Common GND -> INMP GND and L/R | Select left slot |
+| W19 | Nano D5/GPIO8 -> INMP SCK + amp BCLK | Shared output clock |
+| W20 | Nano D6/GPIO9 -> INMP WS + amp LRC | Shared frame clock |
+| W21 | INMP SD -> Nano D7/GPIO10 | Audio RX |
+| W22 | Nano D8/GPIO17 -> Amp DIN | Audio TX |
+| W23 | EXT_5V / GND -> Amp VIN / GND | Terminal power, not3V3 |
+| W24 | Amp OUT+ / OUT- -> Speaker two leads | Neither speaker lead toGND |
+| W25 | Nano D2/GPIO5 -> S1 toGND | R1 10k pull-up; C1 100nF toGND |
+| W26 | Nano D10/GPIO21 -> S2 toGND | R4 10k pull-up; software privacy only |
+| W27 | Nano D9/GPIO18 -> AHCT pin 2 | R6 10k toGND |
+| W28 | AHCT pin 3 via R5 330ohm -> Pixel DIN | Input connector, not DOUT |
+| W29 | EXT_5V / GND -> AHCT pins 14 / 7 | C2 100nF across supply |
+| W30 | GND -> AHCT pin 1 | Active-low enable |
+| W31 | EXT_5V -> AHCT pins 4,10,13 | Disable unused channels |
+| W32 | GND -> AHCT pins 5,9,12 | Unused inputs; outputs6,8,11NC |
+| W33 | EXT_5V / GND -> Pixel V+ / GND | C4 470uF >=10V, correct polarity |
+| W34 | Nano D12/GPIO47 -> Grove motor SIG | Factory cable; other signal NC |
+| W35 | Nano A0/GPIO1 -> Grove buzzer SIG | Factory cable; other signal NC |
+| W36 | EXT_5V / GND -> Both Grove VCC / GND | Onboard drivers required |
+| W37 | External supply negative -> Common GND | NEVER join positive to Nano USB/3V3 |
+| W38 | Reserved pins -> NC | No implied modem/SPI wiring |
+
+D0/D1 are reserved, not a completed cellular connection. D12 is allocated to hap tic control; adding a standard SPI module therefore requires a revised map. No Micro SD is wired in the baseline. Leave A2/GPIO3 boot-related behavior and B0/B1/reset untouched. The onboard LED and reset control do not replace external pendant lights and SOS. [S02, S37]
+
+# 06. Schematics and physical assembly method
+
+**Drawing reference: BP01_master through BP06_discrete** - Six complete module-level/electrical sheets with power domains, connector pins, audio, level shifting and discrete input symbols. The full-size vector sheet is in the drawing atlas and PDF bookmarks.
+
+**Drawing reference: VA01_assembly** - A pictorial solder-free assembly arrangement. It is not a photograph or breadboard-row-accurate Fritz ing file. The full-size vector sheet is in the drawing atlas and PDF bookmarks.
+
+| Sheet | Review focus |
+| --- | --- |
+| BP01_master | Ownership of every selected interface and Nano pins |
+| BP02_nicla | ESLOV supply isolation, signal-only adapter and private bus |
+| BP03_audio | Shared clocks, separate data, microphone3.3V and floating speaker pair |
+| BP04_pixels | Exact AHCT pins, unused channels, decoupling and driven outputs |
+| BP05_power | Independent positive supplies with common signal ground |
+| BP06_discrete | S1/S2, pull-ups, capacitor and actual connection junctions |
+
+Mount Nano across the breadboard center gap with factory headers seated. Orient the AHCT PDIP notch before counting pins. Use factory header jumpers for audio and factory crimped pigtails into screw terminals for the speaker, LEDs and power. Tighten terminals, inspect exposed strands and provide strain relief.
+
+Use short terminal distribution for amplifier/pixel current rather than long breadboard power tracks. Keep I2S leads initially around10cm or shorter and verify signal integrity. Label each hub and supply. Do not infer a circuit connection from objects being adjacent in the picture. A dot on the discrete schematic marks a junction.
+
+These sheets do not reproduce every internal component of each vendor board. They do not include impedance-controlled RF artwork, ESD/EMC design, PCB stack-up, final battery/coil, mechanical flex or production antenna matching. V1 needs native engineer-reviewed schematics and PCB files based on the selected silicon/module reference designs; these PDF s do not authorize fabrication.
+
+# 07. Nicla interface and binary protocol
+
+Nicla ESLOV J5 is pin 1 VCC_IN (5V input), pin 2 INT, pin 3 SCL, pin 4 SDA and pin 5 GND. Pin 1 is not a5V output. The 4483 adapter is physical pin adaptation, not level conversion. [S04, S06, S07]
+
+Use4483 into a dedicated passive5625 hub, then4209 to Nano. Connect verified SDA to D4/GPIO7, SCL to D3/GPIO6 and GND to common GND. Insulate the unused V+ male lead; do not connect it to Nano3V3, VUSB or the sensor hub. The hub allows the factory cable ends to interconnect. [S07-S09]
+
+Nicla is separately USB-powered. Initialize its supported external I/O setting through nicla::begin(), then verify the exposed3.3V domain before connecting. Do not tie two regulator outputs together. No hot-plug or one-board-un powered guarantee is made. Partial-power/back-feed behavior is a hardware gate. [S05]
+
+Nicla is the sole private-bus controller; Nano Wire1 is target0x2A. Nano separately controls the sensor bus. Start100kHz with reviewed4.7k pull-ups to Nano3V3 on private SDA/SCL after inspecting existing pulls. ESP32-S3 has two I2C controllers, but the exact pinned core and dual-bus driver combination still needs compilation and bench traffic qualification. [S21, S22]
+
+| Byte offset | Bytes | Field / rule |
+| --- | --- | --- |
+| 0 | 1 | Magic0x53 |
+| 1 | 1 | Protocol version 1 |
+| 2 | 1 | Type 1IMU /2wake /3health /4command result |
+| 3 | 1 | Flags: valid, saturated, overrun, software privacy |
+| 4 | 2 | Sequence uint16; wrap-aware gap counting |
+| 6 | 4 | Nicla uptime_ms uint32; handle reboot/wrap |
+| 10 | 1 | Payload length <=18 |
+| 11 | 18 | Payload; unused bytes zero |
+| 29 | 1 | Reserved zero |
+| 30 | 2 | CRC16-CCITT-FALSE over bytes0..29 |
+
+All multi byte fields are little-end ian. CRC polynomial0x1021, initial 0xFFFF, no reflection, XOR-out0; stored little-end ian. Encode explicit bytes, not compiler-dependent packed structs. IMU payload is six signedint16 values: acceleration mg and angular velocity0.1deg/s. Requested100Hz,+/-16g,+/-2000deg/s are targets to read back and measure, not assumed defaults.
+
+Define wake payload as model I Du16, class I Du16, confidence_per_milleu16. Health may carry sample rate/range, status and bounded dropped/saturation counters; freeze its exact payload before implementation. Command result carries command sequence, op code, result and actual privacy state. Source model/firmware hashes belong in the release manifest.
+
+Reverse mailbox is8bytes: magic, version, command_seq, op code, arg, health_bits, reserved0, CRC8. CRC8 uses poly0x07, init0, no reflection/XOR-out, over first 7bytes. Poll10Hz. Op code0none,1software privacy,2health. Repeated command sequence/op code is idempotent; return a command-result frame. I2C ACK alone does not prove execution.
+
+Callbacks only copy fixed-size buffers or return prebuilt responses. No HTTP, flash writes, long logging or dynamic unbounded allocation inside callbacks. Count queue loss and stale frames. Never put raw PCM on this100kHz link or directly address Nicla internal BMI270 from Nano.
+
+```
+// Separate Arduino/Mbed Nicla build. Placeholder driver calls require qualification.
+setup() {
+  nicla::begin(); // verify exposed I/O is 3.3 V before wiring
+  Wire.begin();  // Nicla is controller on external ESLOV bus
+  load_supported_ndp_firmware_and_verified_model();
+  configure_bmi270_and_read_back(100_HZ, RANGE_16G, RANGE_2000_DPS);
+}
+loop() {
+  if(new_imu_sample()) {
+    Frame32 f=encode_imu_units_and_crc(next_seq(), monotonic_ms(), read_motion());
+    Wire.beginTransmission(0x2A); Wire.write(f.bytes,32);
+    count_transfer_result(Wire.endTransmission());
+  }
+  if(wake_event() && !privacy) send_frame(WAKE, model_id_class_confidence());
+  if(mailbox_due_10hz()) {
+    auto cmd=read_exact_8_bytes(0x2A);
+    if(crc_valid(cmd) && new_command(cmd)) {
+      execute_bounded_idempotent_command(cmd);
+      send_frame(COMMAND_RESULT, actual_applied_state());
+    }
+  }
+  if(health_due()) send_frame(HEALTH, rate_range_drops_saturation_privacy());
+}
+// No raw audio PCM on this I2C link; Nano uses its own INMP441 I2S path.
+
+```
+
+# 08. Audio, lights and local controls
+
+**Drawing reference: D11_voice** - Local wake, authorization, bounded audio and half-duplex playback; safety takes priority. The full-size vector sheet is in the drawing atlas and PDF bookmarks.
+
+Nicla wake inference and the Nano conversational PCM input are distinct. The pre-solder ed INMP441 connects VCC to Nano3V3, GND and L/R toGND for the left slot, SCK to D5, WS to D6 and SD to D7. MAX98357 takes the same BCLK/WS, separate DIN from D8 and external5V supply. [S13-S15]
+
+Proposed format is Philips I2S at 16kHz with two32-bit slots:16,000x2x32=1.024MHz BCLK. Test the significant signed microphone bits and left-slot alignment before converting toPCM16. Do not reinterpret raw words as unsigned amplitude. V0 is half-duplex; echo cancellation and standalone telephone audio are separate work.
+
+Speaker leads connect only between OUT+ and OUT-. Neither goes toGND or a grounded headphone connector. Use the factory-solder ed module and attached speaker leads. Start at low volume and measure supply droop, clipping, heat and intelligibility. Respect the actual selected module SD/GAIN defaults; do not connect an un reviewed5V pull-up to Nano. [S14]
+
+For pixels use AHCT125 at 5V: pin 14 VCC,7GND,1OE-low,2input from D9,3output through330ohm toDIN. R6=10k from input toGND;100nF across14/7. Unused enables4/10/13 to 5V; inputs5/9/12 toGND; outputs6/8/11NC. Add correctly polarized470uF>=10V at pixel supply. Use AHCT, not arbitraryHC. [S16-S18]
+
+Five logical lights map index 0top,1-4lower. All remaining prewired-strand values are zero. Begin with low brightness and measure actual current. Hap tic/buzzer use onboard-driver Grove modules, never a bare actuator on GPIO. Their status/timing is independent of assistant playback.
+
+| Interaction | Behavior |
+| --- | --- |
+| Short tap in READY | Optional status cue; no SOS |
+| 2s qualified hold | One live SOS; interrupt drill |
+| Short tap during fall prealert | Cancel un-escalated candidate with audit |
+| Manual hold during prealert | Escalate after hold qualifies; do not wait countdown |
+| Held at boot | Require release toarm; expose stuck-input fault |
+| Active incident cancellation | Record request/overlay, not deletion |
+| S2 closed | Stop capture/upload; request Nicla privacy; physical switch dominates remote off |
+
+Use non-color feedback and accessible language. Pending, server received and human acknowledgment have different patterns and wording. Do not tell the wearer help is coming solely because a packet was sent. S2 is software-enforced privacy in V0; hard microphone isolation that preserves motion sensing is required engineering work for V1.
+
+# 09. Power and staged real-world bring-up
+
+Nano is powered over USB-C and Nicla over Micro-USB. Nano3V3 feeds sensors, microphone and low-current pulls only. EXT_5V feeds amplifier, AHCT/pixels and Grove outputs. Common signal ground is required, but EXT_5V positive must never tie to Nano VUSB/VIN/3V3. The>=2A external supply is a starting bench choice, not a proven power budget. [S02, S04]
+
+No LiPo or wireless receiver hookup is authorized here. A gauge is not a protector; a magnet is not a charging receiver. Stop for an engineer-reviewed matched system before batteries/charging are introduced. Check partial-power back-feed and add approved isolation/sequencing where one domain must be off while another drives it.
+
+| Order | Procedure | Stop condition |
+| --- | --- | --- |
+| 1 | Inspect exact parts, headers, terminals, polarity, AHCT notch | Any unverified/substituted assembly |
+| 2 | Un powered continuity and split rail check | Short, wrong positive join or exposed V+ |
+| 3 | USB flash each board separately; verify Nicla I/O | Unexpected voltage, heat or enumeration failure |
+| 4 | Power off; assemble labelled harnesses | Unknown wire/contact/connector |
+| 5 | Controlled power with outputs inactive; measure rails | Brownout, backfeed, heat or current outside budget |
+| 6 | Read0x77/0x42 with timeouts | Bus stuck or wrong logic/pulls |
+| 7 | Private Nicla frames and sequence/CRC metrics | Silent corruption or unbounded queue |
+| 8 | Test S1/S2, one pixel, then five, hap tic/buzzer | Inverted input,5VGPIO or unexpected load |
+| 9 | Audio clocks, quiet capture/playback | Grounded speaker, clipping/instability |
+| 10 | Run combined load plus manual SOS/faults | Timing, health or power criteria fail |
+
+V0-B stays awake onUSB. Report power_source=usb, battery_percent=null. Simulated low-battery fields must be marked simulated. This does not validate deep-sleep wake, reserve energy or multi-day runtime. The extra100nF passive is spare/local microphone bypass only after checking existing decoupling.
+
+Buy/validate in groups: core boards/connectors/tools first; barometer/GNSS sensing next; external audio/pixels/actuators third; gated cellular/FindMy/battery systems last. A visually working demo does not close electrical qualification. Keep receiving photos, continuity evidence, current/voltage traces and firmware versions. Initial supervised soak target can be eight hours, then extended by the risk owner; it is not a reliability guarantee.
+
+# 10. Embedded architecture and integration pseudocode
+
+**Drawing reference: D02_firmware** - Task boundaries and bounded queues. The full-size vector sheet is in the drawing atlas and PDF bookmarks.
+
+Use a platform-independent C++17 core and a Nano-specific Arduino C++ HAL. Nicla is a separate Arduino/Mbed build; Nordic extensions use their supported SDK, not the Nano tool chain. Pin tool chain/core/library versions after a successful clean build, not by blindly installing latest packages. [S23]
+
+A high-priority short-running safety task handles button qualification, candidate/prealert timers and state transitions. Sensor callbacks copy bounded data into queues. Sensor workers decode/validate samples; transport and audio run at lower priority. UI patterns are timer-based. Never block the safety task waiting on network, flash recovery, GNSS orAI.
+
+Use mono tonic time for deadlines, freshness and backoff. UTC may be absent or corrected. Each sample carries units, source acquisition time, validity and saturation. Queue sizes are bounded and measured; an initial 32-64IMU-frame candidate queue must be qualified, not assumed sufficient. Drop/flag excess non critical data rather than consuming emergency memory.
+
+| Port / module | Contract |
+| --- | --- |
+| Clock | Mono tonic ms always; optional trusted UTC |
+| Motion Sample | Accel mg[3], gyro0.1deg/s[3], valid/saturated/overrun, time |
+| Location Fix | Source, null able coordinates, accuracy, time, age, valid |
+| Journal | Bounded immutable append/commit/replay; explicit failure |
+| Transport | Reach ability/authentication/attempt/receipt separate; retry same identity |
+| Audio | Bounded capture/playback, privacy, session timeout; lower priority |
+| UI | Render actual phase plus independent health; no optimistic success |
+| Supervisor | Useful task progress, source TTL s, reboot cause and recovery |
+
+```
+// Integration pseudocode, not a compiling Arduino sketch. Inspect and pin APIs.
+setup() {
+  set_outputs_safe(); init_clock_and_boot_identity(); restore_journal();
+  Wire.begin(A4, A5, 100000);           // Nano controller: sensors
+  Wire1.onReceive(copy_to_bounded_queue);
+  Wire1.onRequest(return_prebuilt_mailbox);
+  bool ok=Wire1.begin(uint8_t(0x2A), D4, D3, 100000); // Nano target
+  if(!ok) mark_nicla_link_fault();      // manual SOS still available
+  initialize_qualified_i2s_driver();
+  start_safety_task(); start_sensor_task(); start_network_task();
+  start_audio_task_at_lower_priority();
+}
+safety_tick_every_10ms() {
+  auto now=monotonic_ms();
+  auto input=debounce_and_qualify_button(now);
+  if(input==QUALIFIED_HOLD) apply(core.manual_sos(new_incident_uuid()));
+  if(input==SHORT_TAP && core.state().phase==Phase::Prealert) apply(core.cancel());
+  auto samples=drain_bounded_sensor_queue();
+  if(real_fall_candidate(samples)) apply(core.fall_candidate(now));
+  apply(core.tick(now, reserved_next_incident_id()));
+  expire_health_ttls(now); render_evidence_backed_feedback();
+  report_watchdog_progress_only_if_required_work_ran();
+}
+apply(actions) {
+  if(actions & CreateEvent) {
+    const auto event=freeze_canonical_event(new_event_uuid(), core.state(), location_or_null());
+    if(!journal.append_commit_bounded(event)) {
+      mark_storage_degraded(); volatile_critical_queue.push(event);
+      schedule_separate_health_fault(); // never mutate queued body under same ID
+    }
+    transport.wake(); // do not wait for GPS, cloud AI or network acquisition
+  }
+  render_local_feedback(actions);
+}
+network_worker() {
+  for(auto record: pending_critical_first()) {
+    auto result=send_same_bytes_and_idempotency_key(record);
+    if(verify_matching_backend_receipt(result)) {
+      store_receipt(record.id,result); apply_authoritative_revision(result);
+    } else retry_same_id_with_bounded_backoff(record);
+  }
+}
+privacy_asserted() {
+  stop_capture_and_upload(); discard_unsent_audio();
+  nicla_mailbox.request_software_privacy(true);
+  // Closed physical S2 cannot be overridden by remote privacy-off.
+}
+
+```
+
+The board pseudocode intentionally uses place holder adapter calls. Inspect the pinned official driver APIs before implementing them. The provided pure reducer is executable host C++; the pseudocode files are not finished Arduino sketches. Keep real device adapters separate from SIM adapters so fake values cannot silently ship as measurements.
+
+# 11. SOS state, journal, drills and failures
+
+**Drawing reference: D03_sos_state** - Authoritative phases and cancellation overlay. The full-size vector sheet is in the drawing atlas and PDF bookmarks.
+
+**Drawing reference: D04_delivery** - End-to-end event delivery without a GPS/AI dependency. The full-size vector sheet is in the drawing atlas and PDF bookmarks.
+
+| Phase / fact | Evidence and user wording |
+| --- | --- |
+| READY | No active incident; health is still independent |
+| PREALERT | Qualified experimental fall candidate;20s proposed cancellation |
+| PENDING | Local incident recorded/queued; delivery not confirmed |
+| SERVER ACCEPTED | Matching authenticated receipt after database commit |
+| HUMAN ACKNOWLEDGED | Assigned human performed explicit authenticated action |
+| RESOLVED | Authorized audited disposition |
+| cancel_requested | Overlay/request; underlying delivery phase retained |
+
+Allocate one incidentID and a new eventID for each immutable observation. Retry the same event bytes andID. BootID changes on reboot, but replayed records keep their original boot/eventIDs. Location enrichment and cancellation are new events linked to the same incident.
+
+Journal records need version, length, identity, CRC and commit marker. Replay only committed valid records; isolate partial tail and report corruption. Reserve critical capacity; coalesce/evict low-priority telemetry under an explicit policy. Do not write every100Hz raw sample to flash indefinitely.
+
+If storage fails, show degradation and attempt transmission from a bounded volatile critical queue. Never mutate alreadyqueued bytes under the same eventID to add anew fault flag; emit a separate health event. Test power cut at append/commit stages. Successful ATT/TCP/push submission is not server commit or human ACK.
+
+Verify device, incident, mode and newer revision on every authoritative update. Late accepted receipts must not downgrade Human ACK. Repeated manual holds during alive latched incident do not spawn duplicates. Cancel prealert locally; cancel an active incident only requests disposition.
+
+**Drawing reference: D07_drill** - Server-enforced test isolation and real emergency precedence. The full-size vector sheet is in the drawing atlas and PDF bookmarks.
+
+Drill mode requires a server-issued drill ID and test-only recipients/adapters. A physical short tap can check input during a drill; a clearly labelled simulated trigger tests the SOS flow. A real qualified long hold remains LIVE and preempts a drill. A genuinely qualified real sensor candidate also interrupts the drill into a live prealert. Keep drill audit; create a new live incident when escalating.
+
+Do not ask a wearer to perform the real emergency gesture and silently treat it asa test. A lab live-mode event still uses the environment'smock notification provider until explicit real-channel approval. Environment and incident mode are separate safeguards. Unavailable cellular/speaker/charging checks are NOTTESTED, never passed.
+
+# 12. Fall model and location/tag integration
+
+**Drawing reference: D05_fall** - Quality gates before an experimental candidate class i fier. The full-size vector sheet is in the drawing atlas and PDF bookmarks.
+
+A fall detector is not simply an accelerometer interrupt. Use a version ed rolling window of acceleration, angular velocity, stillness/context and option ally pressure trend. A freely swinging pendant is not the torso; dropping the device is not necessarily a human fall. Calibration, axes, sample rate, range and gaps must be known.
+
+No production threshold or clinical accuracy is asserted. A synthetic spike only tests control flow. Collect safe ordinary activities, pendant swing, desk drop via fixtures, stairs/mobility context and clipping data under an appropriate reviewed protocol. Use fixtures/dummies; do not stage dangerous human falls. Keep training/tuning/evaluation datasets separate. Manual SOS remains available when automatic detection is degraded.
+
+```
+on_sample(sample):
+    if not fresh(sample) or not sample.valid or sample.saturated:
+        mark_fall_sensing_degraded(); window.note_gap(); return
+    window.append(sample)
+    if not window.has_required_valid_duration(): return
+    features = extract_versioned_features(window, optional_pressure)
+    candidate = reviewed_experimental_model(features)
+    if candidate.passes_policy:
+        apply(core.fall_candidate(monotonic_ms()))
+```
+
+**Drawing reference: D06_location** - Explicit source/freshness and later incident enrichment. The full-size vector sheet is in the drawing atlas and PDF bookmarks.
+
+BMP390 is a pressure sensor, not a direct fall or body-temperature sensor. Relative altitude requires a valid baseline and context; weather/airflow/enclosure venting can affect interpretation. Treat pressure as optional supporting evidence, never universal proof of a fall. [S10]
+
+GNSS uses MAX-M10S0 x42 and a matched antenna. Store source, fix time, age, estimated accuracy and validity. Use fresh qualifying pendant GNSS first. Use a nearby connected phone fix only with consent/permissions and label source=phone. With no current fix, send coordinates=null, source=none. Send SOS now; a later fix uses kind=location.updated with anew eventID and same incidentID. [S11, S12]
+
+Custom tags store label, category/notes when enabled, tag/eventid entity and location provenance. Offline/no-fix tags are allowed with pending status. A label does not manufacture coordinates. Historical fixes stay labelled last known; optional geofences need dwell/hysteresis and field testing. GNSS does not establish room-level tracking.
+
+# 13. BLE, gateway and reliable transport
+
+Use custom service b7e40000-6b6d-4f2d-9f42-8a645f6c1000. Characteristics change the first block to 0001:event TX indication,0002:command RX write-with-response and0003:status read/notify. These are Svaraa draftUUIDs, not Apple FindMy or headset profiles. See contracts/ble_profile.yaml.
+
+Frame header is10bytes:versionu8, kindu8, message I Du16, fragmentindexu8, countu8, totallengthu16 and complete payload CRC16 u16, little-end ian. Index starts0. Kind 1event,2authenticated return,3status. Maximum2048bytes/255fragments/5s. Reject inconsistent headers, indices, conflicting duplicates, oversize, padding and CRC failures; bound concurrent assemblies.
+
+Payload capacity = ATT_MTU-3-10. AtMTU23 it is10bytes;2048bytes needs205fragments. Do not assume244-byte payloads or raw audio over this link. CRC is not authentication. ATT indication ACK is not durable server receipt.
+
+Phone gateway persists original bytes/ID until server receipt; pendant retains its own journal. A reconnect exchanges version/capabilities and reconcile spending IDs, expiring commands and current incident revision. DirectWi-Fi and phone may deliver the same event concurrently; backend uniqueness must converge them.
+
+```
+on_complete_ble_message(bytes, peer):
+    event = validate_bounded_frame_and_event(bytes)
+    require_authorized_paired_device(peer, event.device_id)
+    gateway_queue.store_original_once(event.event_id, bytes)
+    schedule_upload(event.event_id)
+
+upload(record):
+    receipt = POST_device_events(record.bytes,
+        Idempotency_Key=record.event_id, token=scoped_gateway_token)
+    verify_receipt_identity_and_backend_provenance(receipt)
+    relay_authenticated_return_to_pendant(receipt)
+    gateway_queue.record_receipt(record.event_id)
+```
+
+Implement official iOS CoreBluetooth background/restoration behavior and Android supported background/companion strategy. Test actual phones:locked screen, suspension, force close, reboot, Bluetooth off, permissions revoked and internet loss. Neither platform guarantees continuous app execution in every state. A browser or phone simulator is not physical BLE evidence. [S29, S30]
+
+A phone-dependent model cannot advertise independent SOS. Without phone, qualifiedWi-Fi or cellular, local detection/alarms can continue but remote delivery remains unavailable. Expose coverage before an incident, not only after failure.
+
+# 14. Event and API contracts
+
+The machine-readable JSON Schema is contracts/device_event.schema.json; OpenAPI3.1 is contracts/openapi.yaml. Device envelopes are immutable after queue ing. Identity fields:unique eventID, stable provisioned device ID, new bootID per boot, boot-local sequence, explicit mode, optionalUTCoccurred_at, mono tonic up time, incidentID, drill ID and typed payload.
+
+Drills required rill ID; live events require null drill ID. Backend checks device/household scope, mode/session authorization and semantic consistency beyond JSON schema. Device observation uploads cannot assert that a caregiver acknowledged an incident. That state only comes from authorized backend actions. Full auxiliary endpoint models must be frozen during story 09 before stable client generation.
+
+```
+{
+  "schema_version": "1.0",
+  "event_id": "11111111-1111-4111-8111-111111111111",
+  "device_id": "sv0-lab-001",
+  "boot_id": "22222222-2222-4222-8222-222222222222",
+  "seq": 1,
+  "mode": "drill",
+  "kind": "sos.created",
+  "occurred_at": null,
+  "uptime_ms": 12345,
+  "incident_id": "33333333-3333-4333-8333-333333333333",
+  "drill_id": "44444444-4444-4444-8444-444444444444",
+  "payload": {
+    "trigger": "drill",
+    "location": {
+      "source": "none",
+      "valid": false,
+      "latitude": null,
+      "longitude": null,
+      "accuracy_m": null,
+      "fix_at": null,
+      "age_ms": null
+    },
+    "battery_percent": null,
+    "model_version": null
+  }
+}
+```
+
+| Method / route | Purpose |
+| --- | --- |
+| POST /v1/device-events | Dura bly accept event; Idempotency-Key=event_id; commit event+incident+outbox atomic ally. |
+| GET /v1/incidents/{incident_id} | Authorized current state/revision. |
+| POST /v1/incidents/{incident_id}/ack | Assigned caregiver, action_id and expected_revision; not provider delivery. |
+| POST /v1/incidents/{incident_id}/resolve | Explicit authorized resolution and audit. |
+| POST /v1/incidents/{incident_id}/cancel-request | Set cancellation overlay; do not delete incident. |
+| GET /v1/devices/{device_id}/commands | Return bounded unexpired command cursor; reading is not execution. |
+| POST /v1/devices/{device_id}/commands/{command_id}/acks | received/executed/rejected/expired and reason. |
+| GET /v1/devices/{device_id}/snapshot | Freshness, actual capabilities and null able measurements. |
+| POST /v1/location-tags | tag_id, label, device and provenance; consent required. |
+| POST /v1/drills | Server forces test-only mode and issues drill_id. |
+| POST /v1/pairing-sessions | Short-lived physical-presence/ownership proof; device ID alone insufficient. |
+| POST /v1/voice-sessions | Explicit consent, short-lived authorization; no provider key in firmware. |
+| GET /v1/health | Minimal live ness only. |
+
+Ingest with Idempotency-Key=eventID. Success follows durable commit of event, incident change, receipt and outbox. Identical duplicate returns stored receipt; changed canonical body under the same ID is409. A retry must not generate anew ID. A create without GNSS is valid. Location enrichment isa separate location.updated record.
+
+Human ACK/resolve/cancel requests include action ID and expected revision. Reuse action ID across network retry of the same user action. Authenticate current guardian/wearer assignment, lock/check revision, audit actor and en queue authenticated device update. Conflict409 requires re fetch, not silent last-writer-wins. Cancel request sets an overlay, not silent deletion.
+
+Commands include command ID, device/incident/mode binding, revision, type, expiry and payload. Return received/executed/rejected/expired distinctly. Reject replay/stale/unauthorized commands. Remote configuration cannot disable SOS, override closed privacy, pretend a capability exists or start unapproved emergency calls. Unknown trusted time blocks unsafe time-sensitive commands.
+
+```
+# API failure policy
+401 -> credential fault; no silent success
+403 -> unauthorized relationship/device; do not leak data
+409 -> conflicting duplicate or stale revision; reconcile
+422 -> contract/semantic defect; do not retry malformed body forever
+5xx / timeout -> bounded retry of SAME original event
+rate limit -> follow server policy; preserve critical pending state
+```
+
+# 15. Backend transaction, data model and escalation
+
+**Drawing reference: D08_backend** - Transaction boundary and race-safe idempotency. The full-size vector sheet is in the drawing atlas and PDF bookmarks.
+
+**Drawing reference: D09_database** - Logical entities, ownership and audit paths. The full-size vector sheet is in the drawing atlas and PDF bookmarks.
+
+Selected starting stack:Python/FastAPI-style typed API, Postgre SQL transactions and an outbox worker; TypeScript/React web prototypes. Equivalent team stack is allowed only with anA DR preserving contracts/evidence semantics. Use HTTP S plus bounded polling first; WSS/SSE may accelerate updates but reconnect always fetches current authorized snapshot. AseparateMQTT broker is not required by the baseline.
+
+```
+def ingest(request, principal):
+    event = validate_schema_and_semantics(request.body)
+    authorize_device_gateway_and_mode(principal, event)
+    require(request.idempotency_key == event.event_id)
+    digest = sha256(canonical_json(event))
+    with db.transaction() as tx:
+        old = tx.lookup_event(event.device_id, event.event_id)
+        if old:
+            require_same_hash_or_conflict(old, digest)
+            return old.original_receipt
+        # A UNIQUE constraint handles concurrent routes. On race, reread safely.
+        tx.insert_event_unique(event, digest)
+        incident = apply_authorized_domain_transition(tx, event)
+        tx.insert_outbox_once_if_needed(event, incident)
+        receipt = tx.store_receipt(event, incident)
+    return receipt  # only after commit; NOT a human acknowledgment
+
+def caregiver_ack(principal, incident_id, action):
+    authorize_current_assigned_caregiver(principal, incident_id)
+    with db.transaction() as tx:
+        if tx.action_seen(action.id): return tx.previous_result(action.id)
+        incident = tx.lock_incident(incident_id)
+        require(incident.revision == action.expected_revision)
+        incident.record_human_ack(principal.user_id)
+        tx.audit(action, incident)
+        tx.queue_authenticated_device_status(incident)
+    return incident.snapshot()
+```
+
+A preliminary SELECT does not eliminate an insert race. The unique(device ID, eventID) constraint must arbitrate; rollback/save point and read the committed original on conflict. A worker only sees committed outbox jobs. Provider idempotency and outbox uniqueness prevent duplicate delivery side effects.
+
+Store devices/credential versions, households/memberships, consent/assignments, immutable events/body hashes, incidents/revisions, cancel overlay, notification attempts, commands/expiry/execution, location tags, drills and audit. Cross-household access must fail one very endpoint, not just lists. Device I Dis not a secret. The provided SQL starter requires complete FKs, constraints/RLS/authorization, retention and indexes before deployment.
+
+Start with mock notification provider. For real pilot define approved recipients, consent, response windows, backup contacts, provider failure behavior and who actually monitors. Push/SMS/call submission is not a human response. Before a delayed escalation job executes, reload current incident revision; do not submit obsolete alerts after resolution. This pack does not create24/7professional monitoring or emergency dispatch.
+
+# 16. Wearer and guardian user interfaces
+
+**Drawing reference: UI01_apps** - Separate wearer/guardian wire frames with DRILL banner and honest status. The full-size vector sheet is in the drawing atlas and PDF bookmarks.
+
+**Drawing reference: SEQ01_ack** - Eventid entity, durable acceptance and explicit caregiver return sequence. The full-size vector sheet is in the drawing atlas and PDF bookmarks.
+
+| Surface | Required information / controls |
+| --- | --- |
+| Wearer home | Connection routes, last contact, capability freshness, battery if measured, privacy, SOS |
+| Wearer prealert | Countdown, local short cancel, manual override without network dependency |
+| Wearer active | Pending/server received/human ACK/resolved separately; no help-is-coming guess |
+| Guardian home | Assigned wearers only, stale/offline visibility, active incidents |
+| Guardian incident | Trigger, time, mode, fix source/age/accuracy, timeline, explicit ACK and resolve |
+| Drill | Persistent DRILL, test recipients, step results, untested items; real SOS priority |
+| Tags | Label/category, provenance, no-fix, pending/sync ed |
+| Settings | Permissions, ownership, firmware capabilities, privacy/consent; no hidden unmute |
+
+Use large controls, legible contrast and non-color/non-voice alternatives for elderly-facing flows. The phone display must not be required to operate the physical SOS. Verify us ability with the intended users. A web prototype only demonstrate sUI logic; native gateway lifecycle isa separate physical milestone.
+
+On notification tap/app reopen, authorize and fetch fresh snapshot; notification text maybe stale. Do not optimistically show human ACK before the server action commits. A command reaching the phone is not proof the wearer heard it. Show caregiver ACK with pendant confirmation pending when appropriate.
+
+```
+async function acknowledge(incident) {
+  markActionPending(); // not acknowledged yet
+  const action = persistOrReuseActionIdForThisTap();
+  try {
+    const snapshot = await api.ack(incident.id, {
+      action_id: action.id, expected_revision: incident.revision
+    });
+    applyVerifiedNewerSnapshot(snapshot);
+  } catch (e) {
+    if (isRevisionConflict(e)) await refetchIncident();
+    showActionNotConfirmed();
+  } finally { clearActionPending(); }
+}
+```
+
+# 17. Privacy, identity, security and updates
+
+Pendant, phone gateway, internet API, notification provider and guardian app are separate trust boundaries. Encrypt/bond BLE but do not treat displayless Just Works as strong ownership proof. Use a reviewed physical-presence/OOB enrollment flow, short-lived scoped tokens, unique credentials, revocation and validated TLS. Never place owner/location/medical data in advertising or fleet production secret in source.
+
+A connected phone must not be able to invent JSON saying caregiver acknowledged. Backend provenance must survive BLE relay. Proposed outer wrapper fields:auth_version, keyID, audience_deviceID, request_nonce, issued_at, expires_at, payload_b64, signature_b64. Canonicalize unsigned wrapper withastandardRFC8785 implementation and sign with reviewed Ed25519; device has authorized public verification keys, not server private key. This isa design/provisioning gate, not a finished crypto system. [S38, S39]
+
+Verify key/signature, audience, original nonce, event/incident/mode, expiry, replay and newer revision before applying inner receipt/command. With un trusted UTC, only allow a short mono tonic window foran outstanding nonce-bound response under a reviewed policy; unsafe unsolicited con fig/OTA is rejected. CRC detects corruption but does not authenticate. Use vetted libraries, not custom cryptography from pseudocode.
+
+Effective privacy is physical S2 OR local policy OR authorized privacy-on request. Remote off cannot override closed S2. Stop capture/upload, discard un sent audio and request Nicla mute; display pending versus applied. If supported Nicla firmware cannot mute independently of motion, report limitation and fail the privacy claim rather than silently losing fall sensing.
+
+Default to no ambient raw-audio storage/upload. Define purpose/retention/access for location, voice, incident/audit data; limit debug logs and redact secrets/personal information from Jira evidence. A type dAI tool allow list may create authorized tags or query status; it cannot disable SOS, fabricate human ACK, erase incidents, change ownership or claim dispatch.
+
+V0 updates are supervised USB flashing; mock OTA is not a tested signed update implementation. V1 needs signed images, hardware/model compatibility, staged rollout, known-good rollback, power prerequisites and provisioning/recovery plan. Defer normal updates during active incidents. Watchdog feeding must depend on useful required-task progress, not an unrelated timer. Irreversible security fuses/production keys require human approval.
+
+# 18. Software environment and first implementation
+
+| Tool | Purpose and qualification |
+| --- | --- |
+| VS Code / Cursor | Workspace/agent editor; verify extension compatibility; official VS Code fallback |
+| PlatformIO | Nano ESP32 target arduino_nano_esp32; pin qualified platform/core/library versions [S23] |
+| Arduino IDE/CLI | Separate Nicla board/core/model tool chain [S04, S05] |
+| Wokwi | Supported S3 widgets; build binary first; review license/gateway [S24-S28] |
+| Python3 + virtual en v + C++17 compiler | Included host tests/fixtures and proposed backend |
+| Node.js + package manager | React/TypeScript we bUI; pin team-qualified supported version |
+| Postgre SQL; Docker optional | Actual transaction/race/outbox tests, not only mock repositories |
+| Git + HTTP client | Version ing/contracts/negativeAPItests; no secrets |
+| Xcode / Android Studio | Native BLE gateway and physical phone tests |
+| Nordic SDK/tools | V0-Ccellular/licensed FindMy studies only |
+
+**Drawing reference: D10_simulation** - Same domain core, different adapters; no hardware claim from mock. The full-size vector sheet is in the drawing atlas and PDF bookmarks.
+
+AnA I desktop app is optional assistance, not a compiler, simulator or physical observer. Installing it does not grant automatic Mac/account/device access. Keep permissions explicit and review generated code. A coding agent can implement and test contracts; it cannot measure an unconnected breadboard.
+
+Run existing host tests first, then implement core/contract backend/mock UI. Qualify Wokwi with button/five pixels and typed fixtures. Replace one adapter ata time with real hardware:local controls, sen sorbus, Nicla, Wi-Fi, native BLE, audio. Preserve event semantics and safety core across phases.
+
+```
+python3 -m venv .venv
+. .venv/bin/activate
+python3 -m pip install -r tests/requirements.txt
+python3 -m unittest discover -s tests -p 'test_*.py' -v
+c++ -std=c++17 -Wall -Wextra -Werror tests/test_core.cpp \
+  -o /tmp/svaraa_test_core
+/tmp/svaraa_test_core
+```
+
+Wokwi currently does not validate S3I2S, Bluetooth or the private I2C target link; its I2C simulation is controller-oriented. Use fixtures behind HAL rather than substituting an MPU6050 widget and claiming the BMI270 driver passed. Cellular, FindMy, battery/charging, antenna and trained Nicla model also require separate actual tests. [S24]
+
+Virtual device local host is not Mac local host. Configure the documented gateway or authenticated reachable test endpoint; never expose a nun authenticated SOS server or disable TLS verification to make a demo work. The included Wokwi starter is NOT compiled or run here; it only prints a mock message and drives virtual LEDs. It does not contain complete backend/native BLE/audio/sensor integration. [S25-S27]
+
+# 19. Physical purchase path and future extensions
+
+The manual is intended for buying and assembling real hardware later, not just a virtual demo. Before ordering check exact part variant/fitted headers/terminal assembly/cable match. On receipt freeze photos, revisions and continuity. No extension is plug-and-play merely because a connector fits.
+
+Milestone H0:receiving and un powered checks. H1:flash boards separately, test local button/privacy and known low-current output. H2:add main I2C, then Nicla signal harness, measure configuration/rates/health and no-fix. H3:add level-shifted pixels, driven actuators and audio one at atime. H4:realWi-Fitestbackend, then physical native BLE. H5:combined load/fault/soak evidence and sign-off. Use Chapter 09stop conditions at every stage.
+
+## Cellular
+
+Evaluate nRF9151DK independently over USB with the actual intended network/SIM/service, measuring attach, reconnect, coverage, data cost and power peaks. OnlyafterDKI/Ovoltage/pins are verified may a qualified UART interface be added; reserved Nano D0/D1 are not a modem schematic. Baseline ambition is data SOS, not automatic conventional voice/emergency-number calling. Integrated GNSS may replace MAX-M10Sin V1 only after performance/power tests. [S34]
+
+## Apple Find My
+
+Use current licensed MFi/Nordic requirements, product plan, SDK/provisioning and approval path. nRF52840DK isa development board, not a certified accessory. Confirm motion/sound, pairing/reset, anti-tracking and coexistence requirements with the licensed program. Keep FindMy recovery distinct from Svaraa SOS/location, and do not disable mandatory sound with microphone privacy. No UWB Precision Finding compatibility is assumed. [S31-S33]
+
+## Battery and wireless charging
+
+Choose a matched protected cell, NTC, charge current/termination, power path, gauge, rails and fault protection with the power engineer. Confirm connector polarity and supplier limits; no raw LiPo to breadboard improvisation. Select a specific transmitter/receiver/coil, ferrite, spacing and alignment. Magnets alone establish neither Qi nor Apple Watch/MagSafe compatibility.
+
+Measure charge heat, foreign-object behavior, charge with system load, shutdown reserve, actual duty cycle runtime andon-bodyRFinthefinalfinish/enclosure. Keep wireless-power and speaker/magnetic interactions in the mechanical review. A bench USB demo cannot answer those questions.
+
+# 20. Test matrix and evidence requirements
+
+Only 31hostreducerchecksand15Python contract/frame/hierarchy checks actually ran here. The 56cases below are specified acceptance scenarios, NOT completed product tests. They require implemented modules and, where indicated, real hardware/phones/providers. T43/T44 have partial reference-model evidence; that does not close whole product qualification.
+
+| Test / profile | Scenario / procedure | Acceptance |
+| --- | --- | --- |
+| T01 / Electrical | Power-off continuity: Verify rail segregation, common GND, split rails and switch pairs. | No unintended short or positive tie. |
+| T02 / Electrical | Parts and polarity: Inspect exactS KUs/headers and continuity of every factory cable. | No required user soldering; received revision approved. |
+| T03 / Electrical | Combined load rails: Measure3V3/5V with radio/audio/five pixels/hap tic. | Within selected ratings; no reset/heating; log peaks. |
+| T04 / Electrical | ESLOV supply isolation: Check J5.1 and isolated hubV+ against Nano/sensor rails. | V+ unfed and insulated; no positive rail join. |
+| T05 / Electrical | Dual I2C: Capture10,000 private bus frames while sensor reads run. | CRC/sequence/rate metrics visible; no silent corruption. |
+| T06 / Electrical | I2S and speaker: Measure clocks/sign conversion; inspect OUT+/OUT-. | 16kHz frames,1.024MHz clock; neither speaker lead grounded. |
+| T07 / Electrical | Sensor missing: Power off, remove sensor, reboot and trigger SOS. | Missing visible; no boot hang or lost manual path. |
+| T08 / SIM/bench | Manual hold: Hold S1 through20ms debounce and2s qualification. | Exactly one live incident and immediate pending cue. |
+| T09 / SIM/bench | Bounce and short tap: Replay switch bounce and sub threshold taps. | No false SOS; short cancellation only during prealert. |
+| T10 / SIM/bench | Held at boot: Boot with S1 held then release and repeat. | Release re arms; no uncontrolled duplicate loop. |
+| T11 / SIM/bench | Voice unavailable: Block audio/assistant while pressing SOS. | Manual core and queue proceed independently. |
+| T12 / SIM | Fall candidate: Replay a labelled synthetic candidate; let timer expire. | One event after prealert, no accuracy claim. |
+| T13 / SIM/bench | Cancel prealert: Short tap within candidate countdown. | Local prealert ends with audit, no live escalation. |
+| T14 / Bench/field | Normal activity: Record safe walking/sitting/swing/desk movement. | Report observed false alarms; no dangerous staged falls. |
+| T15 / Bench | IMU stale/clipping: Inject frozen/saturated/gapp ed motion data. | Health degrades; no fabricated normal reading. |
+| T16 / SIM/bench | GNSS nofix: Trigger SOS indoors/with acquisition unavailable. | Event immediate with null location. |
+| T17 / SIM | Stale coordinates: Supply fix beyond freshness policy. | Old/missing marked; no fresh map pin. |
+| T18 / SIM/bench | Later fix: Supply valid location after SOS. | New event ID links same incident; original immutable. |
+| T19 / SIM/app | Offline tag: Create custom label offline without fix then reconnect. | One persisted tag with honest provenance. |
+| T20 / Integration | Durable receipt: Commit event+incident+outbox before response. | Server accepted, not human acknowledged. |
+| T21 / Integration | Guardian acknowledgment: Assigned guardian acknowledges current revision. | Actor audited; signed/verified update returns to device. |
+| T22 / Integration | Re ordered receipts: Old accepted receipt arrives after newer human ACK. | No state downgrade. |
+| T23 / Integration | Active cancellation: Request cancellation after delivery. | Flag/audit preserved; incident not silently deleted. |
+| T24 / Integration | Lost response: Commit server event then drop HTTP response and retry. | Same identity; no duplicate incident/outbox job. |
+| T25 / SIM/bench | Full queue: Fill low-priority storage before SOS. | Critical reserve or visible volatile fallback; no crash. |
+| T26 / Bench | Power cut append: Interrupt controlled journal writes and reboot. | Committed records replay; incomplete tail detected. |
+| T27 / SIM | Clock jump: Change UTC while timers/re tries active. | Mono tonic deadlines unchanged. |
+| T28 / Bench/app | Privacy switch: Assert S2 during audio capture/upload. | Capture/upload stops; Nicla applied vs pending shown. |
+| T29 / SIM | Audio consumer stall: Pause upload consumer and fill ring. | Bounded drop/stop; safety task remains responsive. |
+| T30 / Integration | Unsafe AI tool: Request alarm suppression or unauthorized location. | Allow list/authorization rejects; safety unchanged. |
+| T31 / Bench | Pixel mapping: Exercise each logical index and output state. | Only 0-4 active; unused15 remain off. |
+| T32 / Bench | Playback failure: Disable assistant audio and trigger SOS. | Independent buzzer/hap tic work; failed path flagged. |
+| T33 / Phone | BLE disconnect: Leave radio range, reconnect physical phone. | Queue survives and incident snapshot reconciles. |
+| T34 / Phone | OS lifecycle: Force close/reboot/revoke Bluetooth/location permissions. | Honest degraded state; no permanent link claim. |
+| T35 / Phone | MTU/fragments: Test MTU23, re ordered/conflicting/oversized fragments. | Bounded reassembly and explicit reject. |
+| T36 / Integration | Normal drill: Run device->backend->guardian test cycle. | DRILL visible everywhere; zero live provider calls. |
+| T37 / SIM/bench | Real SOS during drill: Press real qualified hold during test; also real candidate. | New live event/prealert takes priority; drill audited. |
+| T38 / Integration | Mode tamper: Try escalating drill token/ID into live dispatch. | Server rejects unauthorized mode/session. |
+| T39 / Integration | Wrong household: Read/ack another household incident. | 403 or concealed404, no leak. |
+| T40 / Integration | Replayed command: Repeat executed or expired command. | No repeat side effect; expired rejected. |
+| T41 / Integration | Invalid schema/hash: Submit invalid fields or changed duplicate body. | Validation422/400 or409; no actionable malformed event. |
+| T42 / Phone/bench | Ownership attack: Try claiming or controlling without physical proof. | Unauthorized pairing/commands rejected. |
+| T43 / Host | Core reducer: Compile supplied reference and run deterministic checks. | Repeatable host results; no hardware inference. |
+| T44 / Host | Contract consistency: Validate example/schema/APIrefs/Jira parents/pin assets. | No broken local ref or hierarchy; model scope explicit. |
+| T45 / Wokwi | Visual demo: Compile qualified S3 starter and exercise button/pixels. | Correct mock states; unsupported hardware clearly mocked. |
+| T46 / Gated | Cellular: Test actual modem/network/SIM/reconnect/peak power. | No mock closes standalone SOS or voice gate. |
+| T47 / Gated | Find My: Review licensed requirements and approved platform. | No Apple compatibility claim before approval. |
+| T48 / Gated | Power/charging: Test matched cell/NTC/protection/coil/thermal profile. | Measured safe envelope; magnets not protocol proof. |
+| T49 / Bench | Task stall/watchdog: Freeze required worker and recover. | Useful progress stops; reset reason and incident replay recorded. |
+| T50 / Bench | Sensor health timeout: Stop Nicla data while main loop runs. | Stale expires independently of healthyWi-Fi. |
+| T51 / SIM/bench | Brownout/re bootID: Reboot with un receipt ed journal. | New bootID; originaleventIDs preserved for replay. |
+| T52 / Bench | Flood/resource bound: Flood bus/BLE queue and slow consumer. | Bounded memory, overrun metrics, safety not starved. |
+| T53 / Integration | OTA during SOS: Offer update while incident active. | Normal update postponed, no loss of incident. |
+| T54 / Bench gated | Invalid OTA/rollback: Use isolated test image/signature failure/power loss. | Reject or recover known-good; never false success. |
+| T55 / Review | Manufacturing gate: Review CAD, power, RF, DFM/DFT, fixtures and pilot plan. | No Gerber or10k release from this bench spec alone. |
+| T56 / Us ability | Accessible flows: Run wearer/guardian tasks without color/voice-only cues. | Pending vsACK understood; core actions usable. |
+
+Record test ID, requirement, commit/profile, tool/core/library/model versions, board/wiring revision, input fixture, expected/actual results, logs, traces, status and reviewer. Physical records also include supply settings, instruments, environment and measured values. Protect personal data in logs. A screenshot of a green icon isnot delivery evidence.
+
+**Drawing reference: D12_gates** - Host, physical, extension and V1 review gate ladder. The full-size vector sheet is in the drawing atlas and PDF bookmarks.
+
+SIM closes contract/mock workflow scope. BENCH adds electrical and actual I/O/communication fault evidence. V0-Ccloseseach extension separately. V1 handoff requires product feasibility and manufacturing/certification plan; it does not itself complete EVT/DVT/PVT. Critical issues include5V mis wire, stale IMU, unavailable phone, nofix, lost receipt, provider acceptance without response, full journal, audio starvation, drill mis routing, brownout, unqualified fall model and antenna/coil interference. Assign mitigation, test and owner for each.
+
+# 21. Jira epic and actionable implementation backlog
+
+The CSV contains87items:one Epic,14Stories,72Sub-tasks. IDs are local import IDs; SV0 references are planning labels, not actual Jira keys. Outcome isa reviewed solder-free bench and contract-compatible full-stack demonstrator with honest V1 evidence, not a medically certified wearable.
+
+Definition of ready:interfaces and versions understood, dependencies available or clearly mock-only, acceptance observable. Definition of done:reviewed implementation, positive/negative checks, evidence, updated contract/diagram when changed and resolved physical gates. Estimate after environment/procurement qualification; do not invent precise calendar commitments.
+
+| Story | Owner / prerequisites | Tasks |
+| --- | --- | --- |
+| SV0-S01 - Baseline and re produc i ble workspace | Lead / firmware / None | 5 |
+| SV0-S02 - Solder-free electrical bring-up | Hardware / firmware / 01 | 6 |
+| SV0-S03 - Nicla motion and wake coprocessor | Embedded / ML / 02 | 5 |
+| SV0-S04 - Location and barometer adapters | Firmware / data / 02,03 | 4 |
+| SV0-S05 - Physical interaction and feedback | Firmware / UX / 02,07 | 5 |
+| SV0-S06 - Audio and assistant integration | Audio / backend / 02,03,12 | 5 |
+| SV0-S07 - Safety reducer, journal and route policy | Embedded lead / 01,03 | 6 |
+| SV0-S08 - BLE gateway and ownership | Mobile / embedded / 07,12 | 5 |
+| SV0-S09 - Backend and escalation | Backend / SRE / 01,07,12 | 6 |
+| SV0-S10 - Wearer and guardian apps | Mobile / UX / 08,09 | 5 |
+| SV0-S11 - Simulation and automated QA | QA / embedded / 01,07,09 | 6 |
+| SV0-S12 - Security, privacy and update controls | Security / embedded / 01 | 4 |
+| SV0-S13 - Bench qualification and release | QA / hardware / product / 02-12 | 5 |
+| SV0-S14 - V1 PCB and manufacturing handoff | Hardware / manufacturer / 13 | 5 |
+
+Use an administrative hierarchical CSV import ina sandbox project first. Map Work item ID, Work type, Summary, Description, Parent, Priority and Labels; ensure Epic/Story/Sub-task types exist. Parent IDs are local references. Basic bulk-create import may not preserve the same hierarchy. Verify one parent/child chain before the full import. [S35, S36]
+
+After import export planning ID to Jira key mapping. Dependencies remain text unless you create linked blockers; owner roles are not assigned user IDs. No existing Jira board was modified. Suggested lanes:Backlog, Ready, In Progress, Review, Blocked-Hardware/External, Validation, Done. A physical gate stays blocked rather than green because a mock passed.
+
+Work sequence:foundations/security01/12; core/mock tests07/11 while hardware02is qualified; backend/UI09/10against contracts; real Nicla/sensors/UI/audio03-06; native BLE08; qualification13; V1 handoff14. A physical dependency does not prevent earlier pure logic work.
+
+## SV0-S01 - Baseline and re produc i ble workspace
+
+**Owner:** Lead / firmware. **Prerequisites:** None. Evidence for every child: commit, profile, versions, input, result, logs and reviewer under the task evidence folder. Estimates belong to the implementing team after qualification.
+
+**SV0-01.01 - Freeze scope and evidence vocabulary**
+
+Implementation: Record SIM, USB BENCH and gated extensions in docs/decisions.md.
+
+Acceptance: Every capability has implemented/mocked/blocked status; no implied certification. Evidence: evidence/SV0-01.01/
+
+**SV0-01.02 - Create re produc i ble repository**
+
+Implementation: Create core, board adapters, contracts, apps, backend, tests and evidence folders; pin qualified tool versions.
+
+Acceptance: Clean checkout reproduces host tests and records actual compiler/core versions. Evidence: evidence/SV0-01.02/
+
+**SV0-01.03 - Define typed HAL ports**
+
+Implementation: Define Clock, Motion Sample, Location Fix, Journal, Audio, Ui and Transport without SDK types in the core.
+
+Acceptance: The same deterministic core runs under mock and board adapters. Evidence: evidence/SV0-01.03/
+
+**SV0-01.04 - Create requirement traceability**
+
+Implementation: Map R01-R18 to tasks and tests; version BOM, pins, wires and protocol.
+
+Acceptance: Every electrical or payload change updates all affected artifacts. Evidence: evidence/SV0-01.04/
+
+**SV0-01.05 - Set CI and evidence rules**
+
+Implementation: Run schemas, native compilation and contract tests; separate physical gates.
+
+Acceptance: CI cannot mark a mocked sensor or radio as physically passed. Evidence: evidence/SV0-01.05/
+
+## SV0-S02 - Solder-free electrical bring-up
+
+**Owner:** Hardware / firmware. **Prerequisites:** 01. Evidence for every child: commit, profile, versions, input, result, logs and reviewer under the task evidence folder. Estimates belong to the implementing team after qualification.
+
+**SV0-02.01 - Verify exact received parts**
+
+Implementation: Match part revisions, headers, connectors, cable polarity and terminal assembly.
+
+Acceptance: No item requires user soldering; receiving photos and continuity results retained. Evidence: evidence/SV0-02.01/
+
+**SV0-02.02 - Assemble segregated power**
+
+Implementation: Build USB board feeds and fused EXT_5V load distribution.
+
+Acceptance: No positive rail tie; measured idle/peak rails remain within selected ratings. Evidence: evidence/SV0-02.02/
+
+**SV0-02.03 - Wire main sensor bus**
+
+Implementation: Connect A4/A5, main QT hub, BMP390 and MAX-M10S at 3.3V.
+
+Acceptance: Only expected addresses; missing sensor does not hang startup. Evidence: evidence/SV0-02.03/
+
+**SV0-02.04 - Wire Nicla signal-only harness**
+
+Implementation: Use4483, isolated5625 and4209; leave V+ insulated; add reviewed pull-ups.
+
+Acceptance: J5.1 not connected to Nano or sensor supply; logic levels physically checked. Evidence: evidence/SV0-02.04/
+
+**SV0-02.05 - Wire UI and level shifter**
+
+Implementation: Build S1/S2, AHCT125, five logical pixels and Grove outputs.
+
+Acceptance: No5V input at Nano; unused AHCT pins defined; switch legs verified. Evidence: evidence/SV0-02.05/
+
+**SV0-02.06 - Approve electrical evidence**
+
+Implementation: Record measured rails, load current, wiring photographs and reviewed net schedule.
+
+Acceptance: A second engineer signs off before integrated powered testing. Evidence: evidence/SV0-02.06/
+
+## SV0-S03 - Nicla motion and wake coprocessor
+
+**Owner:** Embedded / ML. **Prerequisites:** 02. Evidence for every child: commit, profile, versions, input, result, logs and reviewer under the task evidence folder. Estimates belong to the implementing team after qualification.
+
+**SV0-03.01 - Qualify dual I2C setup**
+
+Implementation: Nicla external controller to Nano target0x2A; independent Nano sensor controller.
+
+Acceptance: 10,000 frames with measured sequence/CRC results; core versions recorded. Evidence: evidence/SV0-03.01/
+
+**SV0-03.02 - Acquire and calibrate IMU**
+
+Implementation: Read BMI270 with supported driver; request100Hz,+/-16g,+/-2000dps and read back settings.
+
+Acceptance: Units, axes, clipping, overrun and freshness are observable. Evidence: evidence/SV0-03.02/
+
+**SV0-03.03 - Implement binary frame codec**
+
+Implementation: Explicitly encode/decode fixed32-byte frames and CRC.
+
+Acceptance: Golden fixtures and malformed frames tested; no struct-layout assumptions. Evidence: evidence/SV0-03.03/
+
+**SV0-03.04 - Implement control mailbox**
+
+Implementation: Poll8-byte mailbox10Hz; execute privacy/health commands idempotent ly.
+
+Acceptance: Result frame confirms applied state; mute never silently disables motion. Evidence: evidence/SV0-03.04/
+
+**SV0-03.05 - Qualify custom wake model**
+
+Implementation: Train/license Hello Svaraa model through supported tooling; record model hash.
+
+Acceptance: False/missed triggers tested in noise; model stub never labelled trained. Evidence: evidence/SV0-03.05/
+
+## SV0-S04 - Location and barometer adapters
+
+**Owner:** Firmware / data. **Prerequisites:** 02,03. Evidence for every child: commit, profile, versions, input, result, logs and reviewer under the task evidence folder. Estimates belong to the implementing team after qualification.
+
+**SV0-04.01 - Implement pressure adapter**
+
+Implementation: Read pressure/health with bounded timeout and baseline-aware relative altitude.
+
+Acceptance: Internal temperature not presented as body temperature; stale/fault marked. Evidence: evidence/SV0-04.01/
+
+**SV0-04.02 - Implement GNSS quality**
+
+Implementation: Read0x42, valid fix, source, accuracy, timestamp and age.
+
+Acceptance: No-fix and indoor cases preserve null coordinates; no invented live position. Evidence: evidence/SV0-04.02/
+
+**SV0-04.03 - Implement custom tags**
+
+Implementation: Store immutable tag with label, notes and location provenance; sync by ID.
+
+Acceptance: Offline tag persists once; phone fix explicitly labelled phone. Evidence: evidence/SV0-04.03/
+
+**SV0-04.04 - Implement later SOS location**
+
+Implementation: Send SOS first; enrich same incident with a new event ID when fix arrives.
+
+Acceptance: No GPS wait in trigger path; late stale observation cannot replace newer fix. Evidence: evidence/SV0-04.04/
+
+## SV0-S05 - Physical interaction and feedback
+
+**Owner:** Firmware / UX. **Prerequisites:** 02,07. Evidence for every child: commit, profile, versions, input, result, logs and reviewer under the task evidence folder. Estimates belong to the implementing team after qualification.
+
+**SV0-05.01 - Implement debounced manual hold**
+
+Implementation: Non blocking20ms debounce and proposed2s hold; boot-held input must release.
+
+Acceptance: One qualified hold creates one live incident; bounce cannot duplicate it. Evidence: evidence/SV0-05.01/
+
+**SV0-05.02 - Implement five-pixel states**
+
+Implementation: Map index 0 top,1-4 lower; force all remaining bench pixels off.
+
+Acceptance: Distinct pending/received/human ACK patterns; color not sole feedback. Evidence: evidence/SV0-05.02/
+
+**SV0-05.03 - Implement buzzer/hap tic**
+
+Implementation: Use onboard-driver modules with bounded duration/duty.
+
+Acceptance: Assistant audio failure does not remove independent local alarm. Evidence: evidence/SV0-05.03/
+
+**SV0-05.04 - Implement privacy request**
+
+Implementation: Stop PCM/upload, request Nicla mute and display pending/applied state.
+
+Acceptance: Physical switch dominates remote unmute; no hard-isolation claim. Evidence: evidence/SV0-05.04/
+
+**SV0-05.05 - Review accessible gestures**
+
+Implementation: Specify short prealert cancel, long SOS override and active cancellation request.
+
+Acceptance: No deletion of already-delivered incident; no voice-only critical action. Evidence: evidence/SV0-05.05/
+
+## SV0-S06 - Audio and assistant integration
+
+**Owner:** Audio / backend. **Prerequisites:** 02,03,12. Evidence for every child: commit, profile, versions, input, result, logs and reviewer under the task evidence folder. Estimates belong to the implementing team after qualification.
+
+**SV0-06.01 - Qualify I2S timing**
+
+Implementation: Shared BCLK/WS, separate RX/TX;16kHz stereo32-bit slots.
+
+Acceptance: Clock measurements and signed left-channel conversion correct. Evidence: evidence/SV0-06.01/
+
+**SV0-06.02 - Implement bounded PCM buffers**
+
+Implementation: DMA rings and bounded upload/playback queues below safety priority.
+
+Acceptance: Stalled network cannot exhaust heap or block SOS. Evidence: evidence/SV0-06.02/
+
+**SV0-06.03 - Implement half-duplex session**
+
+Implementation: Explicit authorized voice session; local wake; Wi-Fi upload; turn timeout.
+
+Acceptance: No non-triggering background audio upload; privacy ends session. Evidence: evidence/SV0-06.03/
+
+**SV0-06.04 - Implement tool allow list**
+
+Implementation: Validate tag/status intents and authorization; isolate safety authority.
+
+Acceptance: LLM cannot suppress SOS, acknowledge as human or change ownership. Evidence: evidence/SV0-06.04/
+
+**SV0-06.05 - Stress audio and emergency path**
+
+Implementation: Run audio, GNSS and radio while triggering SOS and sensor faults.
+
+Acceptance: Measured latency and queue limits pass; reduce audio load if needed. Evidence: evidence/SV0-06.05/
+
+## SV0-S07 - Safety reducer, journal and route policy
+
+**Owner:** Embedded lead. **Prerequisites:** 01,03. Evidence for every child: commit, profile, versions, input, result, logs and reviewer under the task evidence folder. Estimates belong to the implementing team after qualification.
+
+**SV0-07.01 - Implement deterministic reducer**
+
+Implementation: Use reference core, immutable IDs, mono tonic time and server revisions.
+
+Acceptance: Tests cover precedence, cancellation and non-regress ing acknowledgment. Evidence: evidence/SV0-07.01/
+
+**SV0-07.02 - Implement experimental fall candidate**
+
+Implementation: Version feature/model configuration and input quality gates.
+
+Acceptance: Synthetic positives/negatives pass without a clinical accuracy claim. Evidence: evidence/SV0-07.02/
+
+**SV0-07.03 - Implement bounded durable journal**
+
+Implementation: Append/CRC/commit/replay; reserve critical capacity; do not persist raw100Hz forever.
+
+Acceptance: Power-cut replay preserves committed events; write failure remains visible. Evidence: evidence/SV0-07.03/
+
+**SV0-07.04 - Implement retry and routing**
+
+Implementation: Reuse original event bytes/ID across available routes and bounded jitter ed retry.
+
+Acceptance: Lost receipt and dual-route delivery create one backend incident. Evidence: evidence/SV0-07.04/
+
+**SV0-07.05 - Isolate drills and live events**
+
+Implementation: Server-issued drill ID and test-only recipients; real physical SOS preempts.
+
+Acceptance: New live incident ID on preemption; no drill into live provider. Evidence: evidence/SV0-07.05/
+
+**SV0-07.06 - Implement health/watchdog**
+
+Implementation: Track source/task/storage/link freshness and reboot cause independently.
+
+Acceptance: Stalled required task is not hidden by unconditional watchdog feed. Evidence: evidence/SV0-07.06/
+
+## SV0-S08 - BLE gateway and ownership
+
+**Owner:** Mobile / embedded. **Prerequisites:** 07,12. Evidence for every child: commit, profile, versions, input, result, logs and reviewer under the task evidence folder. Estimates belong to the implementing team after qualification.
+
+**SV0-08.01 - Implement GATT/fragments**
+
+Implementation: Version ed service, MTU-aware fragments,2048-byte bound and timeout.
+
+Acceptance: MTU23 and malformed sequences tested; no unbounded allocation. Evidence: evidence/SV0-08.01/
+
+**SV0-08.02 - Implement ownership proof**
+
+Implementation: Reviewed physical-presence/OOB enrollment; scoped credentials and revocation.
+
+Acceptance: Device ID or Just Works alone cannot grant ownership. Evidence: evidence/SV0-08.02/
+
+**SV0-08.03 - Implement phone relay queue**
+
+Implementation: Persist original device event; relay under assigned-device authority.
+
+Acceptance: Gateway cannot impersonate another device or rewrite event identity. Evidence: evidence/SV0-08.03/
+
+**SV0-08.04 - Authenticate return path**
+
+Implementation: Return verified backend receipts/commands and explicit execution ACK.
+
+Acceptance: ATT acknowledgment never becomes caregiver acknowledgment. Evidence: evidence/SV0-08.04/
+
+**SV0-08.05 - Test real phone lifecycle**
+
+Implementation: Native iOS restoration/Android supported background design on physical phones.
+
+Acceptance: Termination, reboot and revoked permissions show degraded status honestly. Evidence: evidence/SV0-08.05/
+
+## SV0-S09 - Backend and escalation
+
+**Owner:** Backend / SRE. **Prerequisites:** 01,07,12. Evidence for every child: commit, profile, versions, input, result, logs and reviewer under the task evidence folder. Estimates belong to the implementing team after qualification.
+
+**SV0-09.01 - Implement contract validation**
+
+Implementation: Typed models plus size, semantic, mode and authorization checks.
+
+Acceptance: Invalid/wrong-tenant events fail without actionable side effects. Evidence: evidence/SV0-09.01/
+
+**SV0-09.02 - Implement event transaction**
+
+Implementation: Unique device/event, canonical hash, incident update and outbox in one commit.
+
+Acceptance: Identical duplicate returns receipt; changed duplicate409; race-safe. Evidence: evidence/SV0-09.02/
+
+**SV0-09.03 - Implement human actions**
+
+Implementation: Assigned guardian permissions, unique action ID and expected revision.
+
+Acceptance: Concurrent ACK/resolve actions audited; no optimistic false success. Evidence: evidence/SV0-09.03/
+
+**SV0-09.04 - Implement notification worker**
+
+Implementation: Con figura ble contact order and timers; mock adapter first.
+
+Acceptance: Provider submit/delivery/human ACK remain distinct; drill cannot dispatch. Evidence: evidence/SV0-09.04/
+
+**SV0-09.05 - Implement reconciliation**
+
+Implementation: Current snapshot plus expiring command cursor and execution acknowledgment.
+
+Acceptance: Offline pendant converges; expired command does not execute later. Evidence: evidence/SV0-09.05/
+
+**SV0-09.06 - Implement consent and audit**
+
+Implementation: Household roles, location retention/revocation and immutable action history.
+
+Acceptance: Cross-household access denied; sensitive debug logging controlled. Evidence: evidence/SV0-09.06/
+
+## SV0-S10 - Wearer and guardian apps
+
+**Owner:** Mobile / UX. **Prerequisites:** 08,09. Evidence for every child: commit, profile, versions, input, result, logs and reviewer under the task evidence folder. Estimates belong to the implementing team after qualification.
+
+**SV0-10.01 - Build wearer dashboard**
+
+Implementation: Routes, source freshness, actual battery source, privacy and current incident.
+
+Acceptance: Unknown/mocked values labelled; app-open does not imply hardware health. Evidence: evidence/SV0-10.01/
+
+**SV0-10.02 - Build guardian incident view**
+
+Implementation: Trigger, time, fix source/age/accuracy and explicit acknowledgment.
+
+Acceptance: Received, human ACK and resolved distinguishable. Evidence: evidence/SV0-10.02/
+
+**SV0-10.03 - Build drill flow**
+
+Implementation: Test input/feedback/guardian acknowledgment with persistent DRILL labels.
+
+Acceptance: Real SOS interrupts; unavailable component checks remain untested. Evidence: evidence/SV0-10.03/
+
+**SV0-10.04 - Build tags and history**
+
+Implementation: Labels/categories with preserved coordinate provenance and sync state.
+
+Acceptance: No-fix tag allowed; optional geofence dwell/hysteresis tested. Evidence: evidence/SV0-10.04/
+
+**SV0-10.05 - Build recovery/accessibility**
+
+Implementation: Large controls, non-color cues, permission/pairing reconnect recovery.
+
+Acceptance: Core tasks usable without voice; elderly-facing us ability evidence retained. Evidence: evidence/SV0-10.05/
+
+## SV0-S11 - Simulation and automated QA
+
+**Owner:** QA / embedded. **Prerequisites:** 01,07,09. Evidence for every child: commit, profile, versions, input, result, logs and reviewer under the task evidence folder. Estimates belong to the implementing team after qualification.
+
+**SV0-11.01 - Create Wokwi adapter**
+
+Implementation: S3 button/pixels and typed mocks for unsupported hardware.
+
+Acceptance: Separate raw GPIO map; no claim BLE/I2S/Nicla target simulated. Evidence: evidence/SV0-11.01/
+
+**SV0-11.02 - Create deterministic traces**
+
+Implementation: Timestamp ed synthetic/recorded motion, pressure and GPS with units/source.
+
+Acceptance: Repeatable outcomes; synthetic traces never labelled clinical validation. Evidence: evidence/SV0-11.02/
+
+**SV0-11.03 - Inject communication faults**
+
+Implementation: No-route, lost response, duplicate, reorder, clock jump and reconnect fixtures.
+
+Acceptance: Idempotency and mono tonic deadlines hold. Evidence: evidence/SV0-11.03/
+
+**SV0-11.04 - Build end-to-end drill test**
+
+Implementation: Virtual device -> actual local backend -> both UI roles -> return acknowledgment.
+
+Acceptance: Correlated event log and zero real emergency-provider calls. Evidence: evidence/SV0-11.04/
+
+**SV0-11.05 - Fuzz and stress resources**
+
+Implementation: Malformed frames, queue full, low heap and slow audio consumer.
+
+Acceptance: Explicit bounded failures; no silent emergency state loss. Evidence: evidence/SV0-11.05/
+
+**SV0-11.06 - Build evidence report**
+
+Implementation: Record profile, commit, versions, scenario, actual result and reviewer.
+
+Acceptance: Separate host/emulator/bench/field evidence; blockers visible. Evidence: evidence/SV0-11.06/
+
+## SV0-S12 - Security, privacy and update controls
+
+**Owner:** Security / embedded. **Prerequisites:** 01. Evidence for every child: commit, profile, versions, input, result, logs and reviewer under the task evidence folder. Estimates belong to the implementing team after qualification.
+
+**SV0-12.01 - Threat-model trust boundaries**
+
+Implementation: Spoofed SOS, unauthorized location, malicious commands, stolen device and provisioning.
+
+Acceptance: Each risk has control, test and owner. Evidence: evidence/SV0-12.01/
+
+**SV0-12.02 - Provision development identity**
+
+Implementation: Unique test credentials, validated TLS and future rotation design.
+
+Acceptance: No shared fleet production secret or disabled certificate validation. Evidence: evidence/SV0-12.02/
+
+**SV0-12.03 - Design signed update recovery**
+
+Implementation: Image compatibility/signature, deferred OTA during incident and rollback.
+
+Acceptance: Invalid/interrupted update cannot be accepted as successful. Evidence: evidence/SV0-12.03/
+
+**SV0-12.04 - Implement consent/retention**
+
+Implementation: Location/audio purpose, role revocation, audit and deletion policy.
+
+Acceptance: No ambient audio upload; tests enforce access removal. Evidence: evidence/SV0-12.04/
+
+## SV0-S13 - Bench qualification and release
+
+**Owner:** QA / hardware / product. **Prerequisites:** 02-12. Evidence for every child: commit, profile, versions, input, result, logs and reviewer under the task evidence folder. Estimates belong to the implementing team after qualification.
+
+**SV0-13.01 - Run electrical/thermal matrix**
+
+Implementation: Measure peak combined loads and instrument ed signal timing.
+
+Acceptance: No unexplained rail, heat or reset issue; setup/limits recorded. Evidence: evidence/SV0-13.01/
+
+**SV0-13.02 - Run full communication fault matrix**
+
+Implementation: Physical phones, network loss, stale GPS, duplicate SOS and missed response.
+
+Acceptance: Documented honest UI state in each failure; no false help confirmation. Evidence: evidence/SV0-13.02/
+
+**SV0-13.03 - Plan safe fall-data evaluation**
+
+Implementation: Use fixtures/dummies and reviewed normal-activity protocol, not dangerous human falls.
+
+Acceptance: Report false/missed labelled events by context; avoid unsupported generalization. Evidence: evidence/SV0-13.03/
+
+**SV0-13.04 - Triage gates and defects**
+
+Implementation: Classify bench/pilot/manufacturing blockers with named owner.
+
+Acceptance: Electrical, privacy or lost SOS issues are not cosmetic waivers. Evidence: evidence/SV0-13.04/
+
+**SV0-13.05 - Freeze V0 dossier**
+
+Implementation: Versions, wiring, tests, limits and engineering sign-off.
+
+Acceptance: Release is bench demonstrator only, not a sole emergency lifeline. Evidence: evidence/SV0-13.05/
+
+## SV0-S14 - V1 PCB and manufacturing handoff
+
+**Owner:** Hardware / manufacturer. **Prerequisites:** 13. Evidence for every child: commit, profile, versions, input, result, logs and reviewer under the task evidence folder. Estimates belong to the implementing team after qualification.
+
+**SV0-14.01 - Quote architecture options**
+
+Implementation: Phone-assisted vs standalone data SOS; measure before consolidating controllers.
+
+Acceptance: Separate BOM, assembly, NRE/tooling and service assumptions. Evidence: evidence/SV0-14.01/
+
+**SV0-14.02 - Engineer product power**
+
+Implementation: Select matched cell/NTC/protection/power path/gauge/coil/supervisor.
+
+Acceptance: Reviewed schematic, thermal/current/runtime tests; magnets not protocol proof. Evidence: evidence/SV0-14.02/
+
+**SV0-14.03 - Engineer RF and enclosure**
+
+Implementation: Antenna/coil/metal keep outs, speaker/vent, bridge/flex and mechanical tests.
+
+Acceptance: Determine fixed bridge vs moving hinge; final on-body tests before tooling. Evidence: evidence/SV0-14.03/
+
+**SV0-14.04 - Qualify cellular/Find My**
+
+Implementation: Actual carrier/data/voice choice and licensed MFi path with dev kits.
+
+Acceptance: No invented proprietary protocol or automatic approval claim. Evidence: evidence/SV0-14.04/
+
+**SV0-14.05 - Define production test and release**
+
+Implementation: Native CAD, ERC/DRC, DFM/DFT, fixtures, unique identities, EVT/DVT/PVT and pilot evidence.
+
+Acceptance: A quotation is not validation; no10k release without gates. Evidence: evidence/SV0-14.05/
+
+# 22. V1 PCB and manufacturer handoff
+
+Send this manual, BOM/pin/wire tables, editable blueprints/contracts, current industrial-design CAD and ACTUAL bench measurements. Request electronics/RF/power/mechanical engineering, not just PCB fabrication. These module-level drawings are not Gerbers. V1 must be professionally assembled; the user does not solder.
+
+Ask for phone-companion and standalone data SOS architecture options with capability differences explicit. Separate BOM, PCB/flex, assembly, enclosure/bridge, cell/coil, test fixture, firmware integration, tooling, NRE, certification, yield/warranty and service assumptions. Previous chat cost targets are not vendor quotations.
+
+| Decision | Evidence required before release |
+| --- | --- |
+| Controller consolidation | Latency, CPU/RAM, power, voice quality and safety independence; do not delete parts solely from guessed savings |
+| Motion/barometer | Verified driver/range/rate and measured model contribution |
+| Audio consolidation | Clocking, noise, local wake, latency and privacy isolation before removing duplicate path |
+| Cellular data vs telephone voice | Actual modem/carrier/service, peak power, antenna and audio architecture |
+| Find My | Licensed requirements, provisioning/coexistence/sound and program validation |
+| Battery/charging | Protected matched cell, NTC, power path, reserve, measured runtime and thermal profile |
+| Two-disc form / bridge | Decide fixed bridge vs moving hinge; placement, flex/strain, acoustic ports, venting, sealing |
+| Metal/gold finish / magnets | Antenna keep outs/de tuning, charging heat, on skin/body performance and sensor interaction |
+| Controls / aesthetics | Five actual LED/light pipes, central button force/travel, feedback accessibility; review any extra V0 switch |
+| Recovery/security | Supervisor/wake path, crash journal, hard mic privacy, signed update and unique identity |
+
+Manufacturer outputs:reviewed native CAD schematic/PCB source, ERC/DRC, approved BOM/alternates/lifecycle, stack-up, RFkeepouts, Gerbers or agreed manufacturing format, drill/pick place/assembly drawings, notes, test points, programming/provisioning interface, fixtures, calibration/test coverage and controlled revision history.
+
+Review applicable market/product approvals with qualified specialists:radio/EMC, battery safety/transport, carrier, wireless power/MFi, and any medical claims depend on the actual product/destination. Listing them is not legal or compliance sign-off. No certification mark before approval.
+
+EVT proves architecture/power/radio on assembled boards; DVT evaluates intended enclosure/acoustics/antennas/charging/durability; PVT proves factory process, fixtures, unique identities, traceability and yield. Set measurable exit criteria and sample plans with the owners. A quotation does not authorize10,000units. Keep named risk owners for missed/false falls, no communication, stale GPS, dead battery, unanswered SOS, privacy/ownership, mechanical separation and charging faults.
+
+# 23. Coding-agent instructions and unresolved gates
+
+```
+Read AGENTS.md, this manual, docs/bom.csv, pinmap.csv, wire_schedule.csv,
+contracts/, jira/plan.json and tests/test_matrix.csv.
+Run the supplied host tests unchanged first; report exact results.
+Implement one unblocked task in a small reviewed change.
+Keep SVARAA_PROFILE=SIM and notification_provider=mock initially.
+Never invent pins, driver functions, real measurements, delivered alerts,
+clinical accuracy, Apple approval or physically passed tests.
+Use typed HALs; isolate mocks from physical adapters.
+Keep the safety core independent of network, audio and cloud AI.
+Preserve event identity, mode, durable receipt and human-ACK semantics.
+Stop at electrical, credentials, licensing and manufacturing gates;
+produce a specific reviewer checklist rather than silently guessing.
+Do not treat .pseudo.* or the visual Wokwi starter as finished software.
+```
+
+| Open gate | Required evidence |
+| --- | --- |
+| Receiving/cables | Exact parts/photos/continuity; not physically checked here |
+| Nicla du albus/I/O | Pinned core compile,3.3V measurement, frame traffic and partial power review |
+| Wake+IMU simultaneously | Supported model/driver configuration, resource margin and sample health |
+| Audio driver | Actual qualified SDK API, clocks, conversion, playback/heat |
+| BLE/authenticated return | Physical phone lifecycle, ownership proof, provenance/revocation |
+| Batteries/charging | Approved matched parts/schematic, thermal/runtime/results |
+| Cellular | Actual network/SIM/modem and power qualification |
+| Find My | Program access/product plan/licensed test work |
+| V1 size/cost/runtime | Current CAD feasibility, measured profile, realRFQandpilot |
+
+The handoff defines work and interfaces for implementation and review. An agent can write and run software; it cannot observe an unconnected board, certify a product or replace electrical review. Buy approved no-solder parts, close physical gates, and use measured results to authorize the V1 design. Never trust this unqualified bench as the sole way to request emergency help.
+
+# 24. Primary references and provenance
+
+Vendor references support component/interface facts. Pin allocations, protocols, timings, UI policies and test targets are proposed Svaraa engineering decisions. The original three-page brief and the later user constraints are the project inputs; expansions/corrections are explicitly labelled in Chapter 01. References were consulted during preparation on17November2026. Recheck revisions, availability, SDK and licensed requirements before purchase and releases.
+
+**[S01] Arduino Nano ESP32 with headers ABX00083**
+
+<https://store.arduino.cc/products/nano-esp32-with-headers>
+
+**[S02] Arduino Nano ESP32 full pin out**
+
+<https://docs.arduino.cc/resources/pinouts/ABX00083-full-pinout.pdf>
+
+**[S03] Arduino Nano ESP32 pin numbering**
+
+<https://support.arduino.cc/hc/en-us/articles/10483225565980-Select-pin-numbering-for-Nano-ESP32-in-Arduino-IDE>
+
+**[S04] Arduino Nicla Voice data sheet**
+
+<https://docs.arduino.cc/resources/datasheets/ABX00061-datasheet.pdf>
+
+**[S05] Arduino Nicla Voice manual**
+
+<https://docs.arduino.cc/tutorials/nicla-voice/user-manual/>
+
+**[S06] Nicla Voice full pin out**
+
+<https://docs.arduino.cc/resources/pinouts/ABX00061-full-pinout.pdf>
+
+**[S07] Ada fruit ESLOV to QT adapter 4483**
+
+<https://www.adafruit.com/product/4483>
+
+**[S08] Ada fruit QT to male cable 4209**
+
+<https://www.adafruit.com/product/4209>
+
+**[S09] Ada fruit passive QT hub 5625**
+
+<https://learn.adafruit.com/qwiik-stemma-qt-5-port-hub>
+
+**[S10] Ada fruit BMP390 pin outs**
+
+<https://learn.adafruit.com/adafruit-bmp388-bmp390-bmp3xx/pinouts>
+
+**[S11] Spark Fun MAX-M10S hardware**
+
+<https://docs.sparkfun.com/SparkFun_u-blox_MAX-M10S/hardware_overview/>
+
+**[S12] Spark Fun MAX-M10S antenna and assembly**
+
+<https://docs.sparkfun.com/SparkFun_u-blox_MAX-M10S/hardware_assembly/>
+
+**[S13] Pre-solder ed INMP441 module**
+
+<https://shillehtek.com/products/inmp441-i2s-omnidirectional-microphone-module-with-soldering>
+
+**[S14] Pre-solder ed MAX98357 amplifier manual**
+
+<https://shillehtek.com/blogs/shillehtek-product-manuals/max98357-i2s-class-d-amplifier-module-pre-soldered-manual>
+
+**[S15] Esp ress if Arduino I2S API**
+
+<https://docs.espressif.com/projects/arduino-esp32/en/latest/api/i2s.html>
+
+**[S16] TI SN74AHCT125 data sheet**
+
+<https://www.ti.com/lit/ds/symlink/sn74ahct125.pdf>
+
+**[S17] Ada fruit NeoPixel best practices**
+
+<https://learn.adafruit.com/adafruit-neopixel-uberguide/best-practices>
+
+**[S18] Ada fruit prewired NeoPixel strand 3630**
+
+<https://www.adafruit.com/product/3630>
+
+**[S19] Seeed Grove vibration motor**
+
+<https://wiki.seeedstudio.com/Grove-Vibration_Motor/>
+
+**[S20] Seeed Grove buzzer**
+
+<https://wiki.seeedstudio.com/Grove-Buzzer/>
+
+**[S21] Esp ress if Arduino I2C API**
+
+<https://docs.espressif.com/projects/arduino-esp32/en/latest/api/i2c.html>
+
+**[S22] ESP32-S3 I2C driver**
+
+<https://docs.espressif.com/projects/esp-idf/en/v5.1/esp32s3/api-reference/peripherals/i2c.html>
+
+**[S23] PlatformIO Nano ESP32 board**
+
+<https://docs.platformio.org/en/stable/boards/espressif32/arduino_nano_esp32.html>
+
+**[S24] Wokwi ESP32 support matrix**
+
+<https://docs.wokwi.com/guides/esp32>
+
+**[S25] Wokwi PlatformIO setup**
+
+<https://docs.wokwi.com/vscode/platformio>
+
+**[S26] Wokwi Wi-Fi gateways**
+
+<https://docs.wokwi.com/guides/esp32-wifi>
+
+**[S27] Wokwi editor setup and license**
+
+<https://docs.wokwi.com/vscode/getting-started>
+
+**[S28] Wokwi NeoPixel model**
+
+<https://docs.wokwi.com/parts/wokwi-neopixel>
+
+**[S29] Apple Core Bluetooth background behavior**
+
+<https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/CoreBluetoothBackgroundProcessingForIOSApps/PerformingTasksWhileYourAppIsInTheBackground.html>
+
+**[S30] Android BLE background behavior**
+
+<https://developer.android.com/develop/connectivity/bluetooth/ble/background>
+
+**[S31] Apple Find My accessory program**
+
+<https://developer.apple.com/find-my/>
+
+**[S32] Apple MFi development process**
+
+<https://mfi.apple.com/en/how-it-works>
+
+**[S33] Nordic Find My platform support**
+
+<https://www.nordicsemi.com/Products/Technologies/Apple-Find-My-network>
+
+**[S34] Nordic nRF9151 development kit**
+
+<https://www.nordicsemi.com/Products/Development-hardware/nRF9151-DK>
+
+**[S35] Jira hierarchical CSV preparation**
+
+<https://support.atlassian.com/jira-software-cloud/docs/prepare-a-csv-file-for-import/>
+
+**[S36] Jira bulk CSV importer limitations**
+
+<https://support.atlassian.com/jira-software-cloud/docs/create-issues-using-the-csv-importer/>
+
+**[S37] Arduino Nano ESP32 manual**
+
+<https://docs.arduino.cc/tutorials/nano-esp32/cheat-sheet/>
+
+**[S38] RFC 8785 JSON canonical i zat ion**
+
+<https://www.rfc-editor.org/rfc/rfc8785>
+
+**[S39] RFC 8032 Ed25519 signatures**
+
+<https://www.rfc-editor.org/rfc/rfc8032>
+
+# Appendix A. Host-tested core source
+
+The following is the actual reference core included in the package. It does not implement GPIO debounce, flash durability, networking, trained fall detection or authorization. The caller supplies validated identities/provenance and bounded execution. Its31host checks are not hardware qualification.
+
+```
+#pragma once
+#include <array>
+#include <cstdint>
+#include <cstring>
+// Pure reference reducer; caller supplies unique IDs, verified provenance,
+// persistence, scheduling, physical input qualification and actual transports.
+namespace svaraa {
+enum class Phase { Ready, Prealert, Pending, ServerAccepted, HumanAck, Resolved };
+enum class Mode { Live, Drill };
+enum Action : uint32_t { None=0,CreateEvent=1,Send=2,Feedback=4,CancelRequest=8,
+                         DrillInterrupted=16,Audit=32 };
+using Id=std::array<char,37>;
+inline Id id(const char* s){Id out{};if(s)std::strncpy(out.data(),s,36);return out;}
+struct State {Phase phase=Phase::Ready;Mode mode=Mode::Live;Id incident{};
+              uint64_t deadline_ms=0;uint32_t revision=0;};
+inline bool active(Phase p){return p==Phase::Pending || p==Phase::ServerAccepted || p==Phase::HumanAck;}
+inline int rank(Phase p){switch(p){case Phase::Pending:return 1;case Phase::ServerAccepted:return 2;
+ case Phase::HumanAck:return 3;case Phase::Resolved:return 4;default:return 0;}}
+class Core {
+ State s_{};
+ uint32_t start(Mode m,const Id& i){s_={Phase::Pending,m,i,0,0};return CreateEvent|Send|Feedback;}
+public:
+ const State& state()const{return s_;}
+ uint32_t fall_candidate(uint64_t now){
+  if(s_.phase==Phase::Prealert || (active(s_.phase)&&s_.mode==Mode::Live))return None;
+  bool interrupt=active(s_.phase)&&s_.mode==Mode::Drill;
+  s_={Phase::Prealert,Mode::Live,{},now+20000,0};
+  return Feedback|Audit|(interrupt?DrillInterrupted:0u);
+ }
+ uint32_t start_drill(const Id& i){if(active(s_.phase)||s_.phase==Phase::Prealert)return None;return start(Mode::Drill,i);}
+ uint32_t manual_sos(const Id& i){
+  if(s_.mode==Mode::Live&&active(s_.phase))return Feedback;
+  bool interrupt=s_.mode==Mode::Drill&&active(s_.phase);
+  return start(Mode::Live,i)|(interrupt?DrillInterrupted|Audit:0u);
+ }
+ uint32_t tick(uint64_t now,const Id& i){if(s_.phase==Phase::Prealert&&now>=s_.deadline_ms)return start(Mode::Live,i);return None;}
+ uint32_t cancel(){if(s_.phase==Phase::Prealert){s_=State{};return Feedback|Audit;}
+  return active(s_.phase)?CancelRequest|Audit:None;}
+ uint32_t update(const Id& i,Mode m,Phase p,uint32_t rev,bool verified){
+  if(!verified||i!=s_.incident||m!=s_.mode||rev<=s_.revision||!active(s_.phase)||rank(p)<rank(s_.phase)||rank(p)<2)return None;
+  s_.phase=p;s_.revision=rev;return Feedback|Audit;
+ }
+};
+}
+
+```
+
+# Appendix B. Full-size vector drawing atlas
+
+The following 21engineering drawings are part of this PDF and are also editable SVG files in the package. Module-level blueprints use A3 landscape for legibility. They are not production PCB artwork. Inspect pin labels, connector continuity, ratings and grounds before power. File and drawing identifiers link the manual to the atlas.
+
+| Drawing | Purpose |
+| --- | --- |
+| BP01_master | All selected module nets |
+| BP02_nicla | Signal-only ESLOV harness |
+| BP03_audio | I2S and floating speaker output |
+| BP04_pixels | AHCT and local drivers |
+| BP05_power | Power separation |
+| BP06_discrete | Switches and pull-up circuit symbols |
+| D01_system | system |
+| D02_firmware | firmware |
+| D03_sos_state | sos state |
+| D04_delivery | delivery |
+| D05_fall | fall |
+| D06_location | location |
+| D07_drill | drill |
+| D08_backend | backend |
+| D09_database | database |
+| D10_simulation | simulation |
+| D11_voice | voice |
+| D12_gates | gates |
+| SEQ01_ack | SOS acknowledgment sequence |
+| UI01_apps | Wearer/guardian interface |
+| VA01_assembly | Pictorial physical assembly |

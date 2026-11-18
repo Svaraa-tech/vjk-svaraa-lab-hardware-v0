@@ -1,0 +1,9 @@
+date=2026-11-18T02:24:25Z
+xcode-select=/Library/Developer/CommandLineTools
+Apple clang version 21.0.0 (clang-2100.4.1.1)
+system_python=Python 3.9.6
+node=v22.21.1 path=/Users/svaraa_hq/.local/node-v22.21.1-darwin-arm64/bin/node
+npm=10.9.4
+uv=uv 0.13.9 (6b2d39dcc 2026-11-17 aarch64-apple-darwin)
+python312=Python 3.12.16 path=/Users/svaraa_hq/.local/share/uv/python/cpython-3.12-macos-aarch64-none/bin/python3.12
+brew=not_installed (sudo required for /opt/homebrew); using user-local Node+uv instead

@@ -1,0 +1,7 @@
+test_engine_starve (tests.host.test_watchdog_consent.TestWatchdog.test_engine_starve) ... ok
+test_trip_and_clear (tests.host.test_watchdog_consent.TestWatchdog.test_trip_and_clear) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+OK

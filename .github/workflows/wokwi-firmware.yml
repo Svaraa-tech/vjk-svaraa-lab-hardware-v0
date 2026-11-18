@@ -1,0 +1,61 @@
+name: wokwi-firmware
+
+on:
+  push:
+    paths:
+      - "simulation/wokwi/**"
+      - "scripts/wokwi_build.sh"
+      - ".github/workflows/wokwi-firmware.yml"
+  pull_request:
+    paths:
+      - "simulation/wokwi/**"
+      - "scripts/wokwi_build.sh"
+      - ".github/workflows/wokwi-firmware.yml"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install PlatformIO
+        run: |
+          python3 -m pip install --user platformio
+          echo "$HOME/Library/Python/3.12/bin" >> "$GITHUB_PATH"
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - name: Prefetch espressif32 platform
+        run: |
+          export PATH="$HOME/Library/Python/3.12/bin:$HOME/.local/bin:$PATH"
+          pio platform install espressif32
+      - name: Write local platform override
+        run: |
+          PLATFORM_DIR="$HOME/.platformio/platforms/espressif32"
+          cat > simulation/wokwi/platformio_local.ini <<EOF
+          [env:sim]
+          platform = symlink://${PLATFORM_DIR}
+          board = esp32-s3-devkitc-1
+          framework = arduino
+          lib_deps = adafruit/Adafruit NeoPixel
+          monitor_speed = 115200
+          build_flags = -DSVARAA_SIMULATION=1
+          EOF
+          # Strip accidental leading spaces from heredoc indent in YAML
+          sed -i.bak 's/^[[:space:]]*//' simulation/wokwi/platformio_local.ini && rm -f simulation/wokwi/platformio_local.ini.bak
+          cat simulation/wokwi/platformio_local.ini
+      - name: Build Wokwi sim firmware
+        run: |
+          export PATH="$HOME/Library/Python/3.12/bin:$HOME/.local/bin:$PATH"
+          chmod +x scripts/wokwi_build.sh
+          bash scripts/wokwi_build.sh evidence/WB-023/ci
+      - name: Upload firmware artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wokwi-sim-firmware
+          path: |
+            evidence/WB-023/ci/firmware.bin
+            evidence/WB-023/ci/firmware.sha256
+            evidence/WB-023/ci/build.txt
+          if-no-files-found: error

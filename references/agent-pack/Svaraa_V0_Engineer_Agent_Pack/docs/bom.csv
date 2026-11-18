@@ -1,0 +1,33 @@
+ID,Qty,Part,Connection,Restriction
+B01,1,Arduino Nano ESP32 WITH HEADERS ABX00083,USB / installed pins,Not classic Nano; not headerless ABX00092. Main ESP32-S3 controller. [S01-S03]
+B02,1,Arduino Nicla Voice ABX00061,Micro-USB / ESLOV,"Includes BMI270, BMM150, wake microphone and NDP120. Do not buy a duplicate IMU. [S04-S06]"
+B03,1,Adafruit BMP390 STEMMA QT breakout,Factory QT connector,Main 3.3 V I2C bus; address 0x77. [S10]
+B04,1,SparkFun MAX-M10S Qwiic GPS-18037,Factory QT connector,3.3 V I2C; address 0x42. Requires antenna. [S11]
+B05,1,Matched L1 GNSS antenna; GPS-14986 example,Matching SMA connector,Verify connector sex and active/passive support for exact board revision. [S12]
+B06,1,"ShillehTek INMP441, pre-soldered headers",Factory headers,Separate conversational PCM microphone; Nicla remains wake/motion coprocessor. [S13]
+B07,1,"ShillehTek MAX98357, pre-soldered version",Installed header / speaker terminal,No loose-header substitute. [S14]
+B08,1,"8 ohm speaker, >=2 W bench rating","Factory attached, stripped leads",Screw terminal connection; neither speaker output goes to GND. Limit volume. [S14]
+B09,1,Adafruit 3630 prewired 20-pixel strand,Factory connector / mating pigtail,Use only five logical pixels; indices 5-19 always off. No cutting or soldering. [S18]
+B10,1,"TI SN74AHCT125N, PDIP-14",Through-hole breadboard,3.3-to-5 V LED data buffer. Not a generic HC125 or SMD-only package. [S16]
+B11,1,Seeed Grove vibration motor 105020003,Grove-to-male cable,Onboard driver; never connect bare motor to a GPIO. [S19]
+B12,1,Seeed Grove buzzer 107020000,Grove-to-male cable,Independent local alarm; not automatically Find My compliant. [S20]
+B13,1,Normally-open tactile switch,Through-hole breadboard legs,S1 dedicated SOS. Verify connected leg pairs before wiring.
+B14,1,Latching SPST/SPDT switch,Through-hole or preassembled module,"S2 prototype software-privacy request, not hard microphone isolation."
+B15,2,Adafruit passive QT hub 5625,Factory sockets,One main sensor hub; one segregated Nicla signal-only adapter hub. [S09]
+B16,2,Adafruit QT-to-male cable 4209,Factory crimped male pins,Nicla cable V+ lead is insulated and unused. [S08]
+B17,1,Adafruit ESLOV-to-QT adapter 4483,Factory connector ends,Not a voltage converter. Connect via segregated hub. [S07]
+B18,2 + spare,"Short QT-to-QT cables, 50-100 mm",Factory JST-SH 4-pin,Sensor hub to barometer and GNSS.
+B19,2,Grove-to-individual-male cables,Factory crimped,Grove is not Qwiic. Verify SIG/VCC/GND; insulate unused lead.
+B20,1 set,Matching pixel input pigtail and screw adapters,Factory crimped / terminals,"Verify polarity and DIN direction, not just connector appearance."
+B21,1 set,330 ohm x1; 10k x3; 4.7k x2; 100nF x3; 470uF >=10V x1,Through-hole passives,"Pull-ups, input pulldown, data resistor and decoupling; capacitor polarity matters."
+B22,2,830-point solderless breadboards,Direct insertion,Some power rails are split. Verify continuity.
+B23,1 kit,Short M-M / M-F / F-F jumpers,Factory crimped,No bare-wire soldering. Initial I2S lead target about 10 cm or less.
+B24,1 each,USB-C and Micro-USB DATA cables,USB,Not charge-only cables.
+B25,1,Powered USB data hub,USB,Budget both board ports; does not prove battery behavior.
+B26,1 set,"Regulated 5 V >=2 A supply, fused terminal distribution",Factory USB / screw-terminal cables,Separate external load rail; NEVER tie positive rail to Nano VUSB/3V3.
+B27,1,Multimeter with continuity and voltage,Test probes,Required before power. Instrument ratings must match measurements.
+B28,Optional,3.3 V-compatible USB logic analyzer / power meter,Factory probes,"Recommended for bus timing, current and fault diagnosis."
+B29,Later,Nordic nRF9151 DK + SIM/service,USB first,Data-SOS extension. UART/power qualification required; no conventional voice promise. [S34]
+B30,Later,Nordic nRF52840 DK,Independent USB development,Licensed Find My work; not certified merely by purchase. [S31-S33]
+B31,"Later, gated","Protected LiPo, NTC, power-path charger, gauge, receiver/coil",Matched preassembled system only,Not an approved battery hookup. Select exact parts with a power engineer.
+B32,"V1, gated",Supervisor/watchdog; optional wear sensor,Manufacturer-assembled PCB,Select from failure analysis; not a vital-sign or medical-performance claim.

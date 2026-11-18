@@ -1,0 +1,23 @@
+version: 1
+service_uuid: b7e40000-6b6d-4f2d-9f42-8a645f6c1000
+characteristics:
+  b7e40001-6b6d-4f2d-9f42-8a645f6c1000: event_tx indicate
+  b7e40002-6b6d-4f2d-9f42-8a645f6c1000: command_rx write_with_response
+  b7e40003-6b6d-4f2d-9f42-8a645f6c1000: status read/notify
+fragment_header: 10bytes:versionu8,kindu8,msgIDu16,indexu8,countu8,total_lengthu16,complete_payload_CRC16u16;
+  little endian
+index_base: 0
+kinds:
+  1: event
+  2: authenticated_return
+  3: status
+payload_per_fragment: ATT_MTU-3-10
+maximum_message_bytes: 2048
+max_fragments: 255
+timeout_ms: 5000
+crc: CCITT-FALSE, not authentication
+rules:
+- No raw audio transport implied
+- ATT ACK is not durable server or human ACK
+- Reassemble bounded payload; reject conflicting duplicate fragments
+- Reviewed ownership proof and authenticated backend return envelope required

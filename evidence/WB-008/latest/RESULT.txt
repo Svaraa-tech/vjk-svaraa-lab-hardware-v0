@@ -1,0 +1,4 @@
+profile=SIM
+ticket=WB-008
+result=passed
+does_not=physical_radio,real_ble,hard_mic_isolation

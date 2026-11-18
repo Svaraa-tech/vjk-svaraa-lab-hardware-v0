@@ -1,0 +1,4 @@
+profile=SIM
+ticket=SV0-05.01
+result=passed
+does_not=bench_measured,clinical,production_ota,live_provider

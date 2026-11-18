@@ -1,0 +1,5 @@
+digraph G{graph[bgcolor="white",pad=.3,nodesep=.3,ranksep=.5];node[shape=box,style="rounded,filled",fillcolor="#edf4f6",color="#35596b",fontname="Helvetica",fontsize=14,margin=".18,.12"];edge[color="#477c85",fontname="Helvetica",fontsize=11];rankdir=TB;a[label="Authorized drill request"];b[label="Server issues drill_id
+Force mode=drill"];c[label="Test input / local feedback / mock guardian"];d[label="Test-only notification adapter
+No emergency dispatch"];e[label="Real manual SOS / real qualified fall?",shape=diamond];f[label="Interrupt drill; retain audit
+New LIVE incident or prealert"];g[label="Record test acknowledgment
+Unavailable parts = NOT TESTED"];a->b->c->d->e;e->f[label="yes"];e->g[label="no"];}

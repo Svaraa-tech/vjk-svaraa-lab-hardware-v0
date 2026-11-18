@@ -1,0 +1,9 @@
+Software Update Tool
+
+Finding available software
+
+Downloading Command Line Tools for Xcode 27.2
+Downloaded Command Line Tools for Xcode 27.2
+Installing Command Line Tools for Xcode 27.2
+Done with Command Line Tools for Xcode 27.2
+Done.

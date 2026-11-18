@@ -1,0 +1,37 @@
+wokwi_build 2026-11-18T08:47:12Z
+pio=/Users/svaraa_hq/Library/Python/3.9/bin/pio
+cfg=/Users/svaraa_hq/Desktop/Svaraa Pendant/Hardware_V0/Svaraa_V0_Lab/simulation/wokwi/platformio_local.ini
+PLATFORMIO_CORE_DIR=/Users/svaraa_hq/Desktop/Svaraa Pendant/Hardware_V0/Svaraa_V0_Lab/.workbench/platformio
+/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Processing sim (platform: symlink:///Users/svaraa_hq/.platformio/platforms/espressif32; board: esp32-s3-devkitc-1; framework: arduino)
+--------------------------------------------------------------------------------
+/Users/svaraa_hq/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/espressif32/esp32-s3-devkitc-1.html
+PLATFORM: Espressif 32 (8.0.0) > Espressif ESP32-S3-DevKitC-1-N8 (8 MB QD, No PSRAM)
+HARDWARE: ESP32S3 240MHz, 320KB RAM, 8MB Flash
+DEBUG: Current (esp-builtin) On-board (esp-builtin) External (cmsis-dap, esp-bridge, esp-prog, iot-bus-jtag, jlink, minimodule, olimex-arm-usb-ocd, olimex-arm-usb-ocd-h, olimex-arm-usb-tiny-h, olimex-jtag-tiny, tumpa)
+PACKAGES: 
+ - framework-arduinoespressif32 @ 4.30312.261116 (3.3.12) 
+ - framework-arduinoespressif32-esp32s3-libs @ 3.3.12 
+ - tool-esptool @ 2.50400.0 (5.4.0) 
+ - tool-riscv32-esp-elf-gdb @ 12.1.0+20221002 
+ - tool-xtensa-esp-elf-gdb @ 12.1.0+20221002 
+ - toolchain-riscv32-esp @ 14.2.0+20260121 
+ - toolchain-xtensa-esp-elf @ 14.2.0+20260121
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 45 compatible libraries
+Scanning dependencies...
+Dependency Graph
+|-- Adafruit NeoPixel @ 1.15.5
+Building in release mode
+Retrieving maximum program size .pio/build/sim/firmware.elf
+Checking size .pio/build/sim/firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [=         ]   6.8% (used 22224 bytes from 327680 bytes)
+Flash: [=         ]   9.0% (used 301350 bytes from 3342336 bytes)
+========================= [SUCCESS] Took 0.50 seconds =========================
+-rw-r--r--@ 1 svaraa_hq  staff  305600 Nov 18 00:43 /Users/svaraa_hq/Desktop/Svaraa Pendant/Hardware_V0/Svaraa_V0_Lab/simulation/wokwi/.pio/build/sim/firmware.bin

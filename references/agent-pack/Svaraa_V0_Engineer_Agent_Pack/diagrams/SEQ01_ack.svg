@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="780" viewBox="0 0 1200 780"><rect width="1200" height="780" fill="#f7f9fb"/>
+<text x="30" y="45.0" font-size="26" font-family="DejaVu Sans" fill="#213547" font-weight="bold">SEQ-01 | End-to-end message sequence</text>
+<text x="30" y="82.0" font-size="15" font-family="DejaVu Sans" fill="#213547" font-weight="normal">Original event ID survives gateways and retries. A durable server receipt is not human acknowledgment.</text>
+<rect x="20" y="130" width="210" height="65" rx="8" fill="#e7f0f3" stroke="#213547" stroke-width="1.5"/>
+<text x="33" y="157.0" font-size="18" font-family="DejaVu Sans" fill="#213547" font-weight="bold">PENDANT</text>
+<text x="33" y="186.0" font-size="14" font-family="DejaVu Sans" fill="#213547" font-weight="normal"></text>
+<polyline points="125,200 125,655" fill="none" stroke="#c4cfd7" stroke-width="1"/>
+<rect x="320" y="130" width="210" height="65" rx="8" fill="#e7f0f3" stroke="#213547" stroke-width="1.5"/>
+<text x="333" y="157.0" font-size="18" font-family="DejaVu Sans" fill="#213547" font-weight="bold">PHONE / ROUTER</text>
+<text x="333" y="186.0" font-size="14" font-family="DejaVu Sans" fill="#213547" font-weight="normal"></text>
+<polyline points="425,200 425,655" fill="none" stroke="#c4cfd7" stroke-width="1"/>
+<rect x="655" y="130" width="210" height="65" rx="8" fill="#e7f0f3" stroke="#213547" stroke-width="1.5"/>
+<text x="668" y="157.0" font-size="18" font-family="DejaVu Sans" fill="#213547" font-weight="bold">BACKEND</text>
+<text x="668" y="186.0" font-size="14" font-family="DejaVu Sans" fill="#213547" font-weight="normal"></text>
+<polyline points="760,200 760,655" fill="none" stroke="#c4cfd7" stroke-width="1"/>
+<rect x="975" y="130" width="210" height="65" rx="8" fill="#e7f0f3" stroke="#213547" stroke-width="1.5"/>
+<text x="988" y="157.0" font-size="18" font-family="DejaVu Sans" fill="#213547" font-weight="bold">GUARDIAN</text>
+<text x="988" y="186.0" font-size="14" font-family="DejaVu Sans" fill="#213547" font-weight="normal"></text>
+<polyline points="1080,200 1080,655" fill="none" stroke="#c4cfd7" stroke-width="1"/>
+<polyline points="125,250 425,250" fill="none" stroke="#167d82" stroke-width="2"/>
+<text x="135" y="238.0" font-size="12" font-family="DejaVu Sans" fill="#213547" font-weight="normal">Canonical event E / incident I</text>
+<polyline points="425,305 760,305" fill="none" stroke="#167d82" stroke-width="2"/>
+<text x="435" y="293.0" font-size="12" font-family="DejaVu Sans" fill="#213547" font-weight="normal">HTTPS + device scope + Idempotency-Key E</text>
+<text x="670" y="352.0" font-size="13" font-family="DejaVu Sans" fill="#213547" font-weight="bold">Commit event + incident + outbox</text>
+<polyline points="760,395 425,395" fill="none" stroke="#167d82" stroke-width="2"/>
+<text x="435" y="383.0" font-size="12" font-family="DejaVu Sans" fill="#213547" font-weight="normal">Durable authenticated receipt</text>
+<polyline points="425,445 125,445" fill="none" stroke="#167d82" stroke-width="2"/>
+<text x="135" y="433.0" font-size="12" font-family="DejaVu Sans" fill="#213547" font-weight="normal">Relay verified matching receipt</text>
+<polyline points="760,495 1080,495" fill="none" stroke="#167d82" stroke-width="2"/>
+<text x="770" y="483.0" font-size="12" font-family="DejaVu Sans" fill="#213547" font-weight="normal">Notify assigned guardian</text>
+<polyline points="1080,545 760,545" fill="none" stroke="#167d82" stroke-width="2"/>
+<text x="770" y="533.0" font-size="12" font-family="DejaVu Sans" fill="#213547" font-weight="normal">Human ACK + action ID + revision</text>
+<polyline points="760,600 425,600" fill="none" stroke="#167d82" stroke-width="2"/>
+<text x="435" y="588.0" font-size="12" font-family="DejaVu Sans" fill="#213547" font-weight="normal">Signed/verified newer incident state</text>
+<polyline points="425,650 125,650" fill="none" stroke="#167d82" stroke-width="2"/>
+<text x="135" y="638.0" font-size="12" font-family="DejaVu Sans" fill="#213547" font-weight="normal">Caregiver response confirmed</text>
+<polyline points="25,711 1175,711" fill="none" stroke="#829daf" stroke-width="1"/>
+<text x="30" y="736.0" font-size="12" font-family="DejaVu Sans" fill="#536d7c" font-weight="normal">Only the final verified update supports a human-response indication. Offline/no-route must remain pending, with local feedback.</text>
+<text x="30" y="762.0" font-size="10" font-family="DejaVu Sans" fill="#213547" font-weight="normal">SVARAA V0.1 / 17 NOV 2026 / PROPOSED MODULE-LEVEL DESIGN - PHYSICAL QUALIFICATION REQUIRED</text>
+</svg>

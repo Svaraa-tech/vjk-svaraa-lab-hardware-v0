@@ -1,0 +1,5 @@
+digraph G{graph[bgcolor="white",pad=.3,nodesep=.3,ranksep=.5];node[shape=box,style="rounded,filled",fillcolor="#edf4f6",color="#35596b",fontname="Helvetica",fontsize=14,margin=".18,.12"];edge[color="#477c85",fontname="Helvetica",fontsize=11];rankdir=TB;f[label="Deterministic fixtures
+Motion / GPS / battery / network faults"];c[label="Native C++ core tests"];w[label="Wokwi S3
+Button / pixels / typed mocks"];b[label="Local API + real transaction database
+Mock notification provider"];u[label="Wearer and guardian UI prototypes"];h[label="Later PHYSICAL BENCH
+Nicla link / BLE / I2S / power / RF"];f->c;f->w;w->b[label="qualified gateway"];b->u[dir=both];c->h[style=dashed,label="same core; real HAL"];w->h[style=dashed,label="simulation is not physical proof"];}

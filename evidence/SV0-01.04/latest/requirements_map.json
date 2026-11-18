@@ -1,0 +1,478 @@
+{
+  "schema_version": "1.0",
+  "ticket": "SV0-01.04",
+  "policy": "Every electrical or payload change must update affected BOM/pin/wire/contract artifacts and this map.",
+  "artifact_versions": {
+    "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/docs/bom.csv": {
+      "sha256": "a838ecde8bc1405a56a6c40e96334c455418bf31493bff4b78f2129d52b75003",
+      "bytes": 4312
+    },
+    "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/docs/pinmap.csv": {
+      "sha256": "e2068276c907618c94e1b36d995c4920a9d0b168ac1079559f56b220587d1a14",
+      "bytes": 1167
+    },
+    "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/docs/wire_schedule.csv": {
+      "sha256": "fbcc504417e98afb1c63b8932982ff7de70ef6d9745d1c52a4c679819f40b486",
+      "bytes": 2120
+    },
+    "contracts/wire_protocol.yaml": {
+      "sha256": "46d6d906ae10e8503e22d2c50f35171c72a44666c7a5c97071c439e24d3a13a5",
+      "bytes": 1056
+    },
+    "contracts/device_event.schema.json": {
+      "sha256": "b1bb21ccb25becfd0e4706216503109ee4d07d1e0c78323e2220a6dc867f6ecc",
+      "bytes": 11326
+    },
+    "contracts/openapi.yaml": {
+      "sha256": "5d015d686fd876abdb9ff69384fa10a1d84616dc71819275270fa9665a389e3c",
+      "bytes": 17690
+    }
+  },
+  "requirements": [
+    {
+      "requirement_id": "R01",
+      "requirement": "Zero user soldering",
+      "stories": [
+        "SV0-S02"
+      ],
+      "tests": [
+        "T01",
+        "T02",
+        "T03",
+        "T04"
+      ],
+      "artifacts": {
+        "bom": "docs/bom.csv",
+        "pinmap": null,
+        "wire_schedule": null,
+        "contracts": null
+      }
+    },
+    {
+      "requirement_id": "R02",
+      "requirement": "Voltage and pin ownership",
+      "stories": [
+        "SV0-S02"
+      ],
+      "tests": [
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06",
+        "T07"
+      ],
+      "artifacts": {
+        "bom": "docs/bom.csv",
+        "pinmap": "docs/pinmap.csv",
+        "wire_schedule": "docs/wire_schedule.csv",
+        "contracts": null
+      }
+    },
+    {
+      "requirement_id": "R03",
+      "requirement": "ManualSOS independent ofAI",
+      "stories": [
+        "SV0-S05",
+        "SV0-S07"
+      ],
+      "tests": [
+        "T08",
+        "T09",
+        "T10",
+        "T11"
+      ],
+      "artifacts": {
+        "bom": null,
+        "pinmap": null,
+        "wire_schedule": null,
+        "contracts": null
+      }
+    },
+    {
+      "requirement_id": "R04",
+      "requirement": "Experimental fall/prealert",
+      "stories": [
+        "SV0-S03",
+        "SV0-S07"
+      ],
+      "tests": [
+        "T12",
+        "T13",
+        "T14",
+        "T15"
+      ],
+      "artifacts": {
+        "bom": null,
+        "pinmap": null,
+        "wire_schedule": null,
+        "contracts": null
+      }
+    },
+    {
+      "requirement_id": "R05",
+      "requirement": "Location freshness/customtags",
+      "stories": [
+        "SV0-S04",
+        "SV0-S10"
+      ],
+      "tests": [
+        "T16",
+        "T17",
+        "T18",
+        "T19"
+      ],
+      "artifacts": {
+        "bom": null,
+        "pinmap": null,
+        "wire_schedule": null,
+        "contracts": null
+      }
+    },
+    {
+      "requirement_id": "R06",
+      "requirement": "Durable receipt vs humanACK",
+      "stories": [
+        "SV0-S07",
+        "SV0-S09",
+        "SV0-S10"
+      ],
+      "tests": [
+        "T20",
+        "T21",
+        "T22",
+        "T23"
+      ],
+      "artifacts": {
+        "bom": null,
+        "pinmap": null,
+        "wire_schedule": null,
+        "contracts": "contracts/"
+      }
+    },
+    {
+      "requirement_id": "R07",
+      "requirement": "Offline durable retry",
+      "stories": [
+        "SV0-S07",
+        "SV0-S09"
+      ],
+      "tests": [
+        "T24",
+        "T25",
+        "T26",
+        "T27"
+      ],
+      "artifacts": {
+        "bom": null,
+        "pinmap": null,
+        "wire_schedule": null,
+        "contracts": "contracts/"
+      }
+    },
+    {
+      "requirement_id": "R08",
+      "requirement": "Privacy/boundedvoice",
+      "stories": [
+        "SV0-S06",
+        "SV0-S12"
+      ],
+      "tests": [
+        "T28",
+        "T29",
+        "T30"
+      ],
+      "artifacts": {
+        "bom": null,
+        "pinmap": null,
+        "wire_schedule": null,
+        "contracts": null
+      }
+    },
+    {
+      "requirement_id": "R09",
+      "requirement": "FiveLEDs/multimodalfeedback",
+      "stories": [
+        "SV0-S05"
+      ],
+      "tests": [
+        "T31",
+        "T32"
+      ],
+      "artifacts": {
+        "bom": null,
+        "pinmap": null,
+        "wire_schedule": null,
+        "contracts": null
+      }
+    },
+    {
+      "requirement_id": "R10",
+      "requirement": "Honest phonegateway coverage",
+      "stories": [
+        "SV0-S08"
+      ],
+      "tests": [
+        "T33",
+        "T34",
+        "T35"
+      ],
+      "artifacts": {
+        "bom": null,
+        "pinmap": null,
+        "wire_schedule": null,
+        "contracts": null
+      }
+    },
+    {
+      "requirement_id": "R11",
+      "requirement": "Drill/live isolation",
+      "stories": [
+        "SV0-S07",
+        "SV0-S09",
+        "SV0-S10"
+      ],
+      "tests": [
+        "T36",
+        "T37",
+        "T38"
+      ],
+      "artifacts": {
+        "bom": null,
+        "pinmap": null,
+        "wire_schedule": null,
+        "contracts": null
+      }
+    },
+    {
+      "requirement_id": "R12",
+      "requirement": "Ownership/authorization",
+      "stories": [
+        "SV0-S08",
+        "SV0-S09",
+        "SV0-S12"
+      ],
+      "tests": [
+        "T39",
+        "T40",
+        "T41",
+        "T42"
+      ],
+      "artifacts": {
+        "bom": null,
+        "pinmap": null,
+        "wire_schedule": null,
+        "contracts": "contracts/"
+      }
+    },
+    {
+      "requirement_id": "R13",
+      "requirement": "Reproducible evidence",
+      "stories": [
+        "SV0-S01",
+        "SV0-S11"
+      ],
+      "tests": [
+        "T43",
+        "T44",
+        "T45"
+      ],
+      "artifacts": {
+        "bom": null,
+        "pinmap": null,
+        "wire_schedule": null,
+        "contracts": null
+      }
+    },
+    {
+      "requirement_id": "R14",
+      "requirement": "Cellular/power/FindMygates",
+      "stories": [
+        "SV0-S14"
+      ],
+      "tests": [
+        "T46",
+        "T47",
+        "T48"
+      ],
+      "artifacts": {
+        "bom": null,
+        "pinmap": null,
+        "wire_schedule": null,
+        "contracts": null
+      }
+    },
+    {
+      "requirement_id": "R15",
+      "requirement": "Independent health/recovery",
+      "stories": [
+        "SV0-S07",
+        "SV0-S13"
+      ],
+      "tests": [
+        "T49",
+        "T50",
+        "T51",
+        "T52"
+      ],
+      "artifacts": {
+        "bom": null,
+        "pinmap": null,
+        "wire_schedule": null,
+        "contracts": null
+      }
+    },
+    {
+      "requirement_id": "R16",
+      "requirement": "Safeupdate/recovery",
+      "stories": [
+        "SV0-S12"
+      ],
+      "tests": [
+        "T53",
+        "T54"
+      ],
+      "artifacts": {
+        "bom": null,
+        "pinmap": null,
+        "wire_schedule": null,
+        "contracts": null
+      }
+    },
+    {
+      "requirement_id": "R17",
+      "requirement": "Manufacturerrequirements",
+      "stories": [
+        "SV0-S14"
+      ],
+      "tests": [
+        "T55"
+      ],
+      "artifacts": {
+        "bom": null,
+        "pinmap": null,
+        "wire_schedule": null,
+        "contracts": null
+      }
+    },
+    {
+      "requirement_id": "R18",
+      "requirement": "Accessible dualapps",
+      "stories": [
+        "SV0-S10"
+      ],
+      "tests": [
+        "T56"
+      ],
+      "artifacts": {
+        "bom": null,
+        "pinmap": null,
+        "wire_schedule": null,
+        "contracts": null
+      }
+    }
+  ],
+  "story_tasks": {
+    "SV0-S01": [
+      "SV0-01.01",
+      "SV0-01.02",
+      "SV0-01.03",
+      "SV0-01.04",
+      "SV0-01.05"
+    ],
+    "SV0-S02": [
+      "SV0-02.01",
+      "SV0-02.02",
+      "SV0-02.03",
+      "SV0-02.04",
+      "SV0-02.05",
+      "SV0-02.06"
+    ],
+    "SV0-S03": [
+      "SV0-03.01",
+      "SV0-03.02",
+      "SV0-03.03",
+      "SV0-03.04",
+      "SV0-03.05"
+    ],
+    "SV0-S04": [
+      "SV0-04.01",
+      "SV0-04.02",
+      "SV0-04.03",
+      "SV0-04.04"
+    ],
+    "SV0-S05": [
+      "SV0-05.01",
+      "SV0-05.02",
+      "SV0-05.03",
+      "SV0-05.04",
+      "SV0-05.05"
+    ],
+    "SV0-S06": [
+      "SV0-06.01",
+      "SV0-06.02",
+      "SV0-06.03",
+      "SV0-06.04",
+      "SV0-06.05"
+    ],
+    "SV0-S07": [
+      "SV0-07.01",
+      "SV0-07.02",
+      "SV0-07.03",
+      "SV0-07.04",
+      "SV0-07.05",
+      "SV0-07.06"
+    ],
+    "SV0-S08": [
+      "SV0-08.01",
+      "SV0-08.02",
+      "SV0-08.03",
+      "SV0-08.04",
+      "SV0-08.05"
+    ],
+    "SV0-S09": [
+      "SV0-09.01",
+      "SV0-09.02",
+      "SV0-09.03",
+      "SV0-09.04",
+      "SV0-09.05",
+      "SV0-09.06"
+    ],
+    "SV0-S10": [
+      "SV0-10.01",
+      "SV0-10.02",
+      "SV0-10.03",
+      "SV0-10.04",
+      "SV0-10.05"
+    ],
+    "SV0-S11": [
+      "SV0-11.01",
+      "SV0-11.02",
+      "SV0-11.03",
+      "SV0-11.04",
+      "SV0-11.05",
+      "SV0-11.06"
+    ],
+    "SV0-S12": [
+      "SV0-12.01",
+      "SV0-12.02",
+      "SV0-12.03",
+      "SV0-12.04"
+    ],
+    "SV0-S13": [
+      "SV0-13.01",
+      "SV0-13.02",
+      "SV0-13.03",
+      "SV0-13.04",
+      "SV0-13.05"
+    ],
+    "SV0-S14": [
+      "SV0-14.01",
+      "SV0-14.02",
+      "SV0-14.03",
+      "SV0-14.04",
+      "SV0-14.05"
+    ]
+  }
+}

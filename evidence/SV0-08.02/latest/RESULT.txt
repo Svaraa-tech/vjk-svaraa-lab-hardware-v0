@@ -1,0 +1,4 @@
+profile=SIM
+ticket=SV0-08.02
+result=passed
+does_not=physical_radio,real_ble,hard_mic_isolation

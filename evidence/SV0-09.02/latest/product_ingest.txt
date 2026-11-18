@@ -1,0 +1,10 @@
+test_ack_stale_no_optimistic (test_product_ingest.TestProductIngest.test_ack_stale_no_optimistic) ... ok
+test_drill_suppressed_dispatch (test_product_ingest.TestProductIngest.test_drill_suppressed_dispatch) ... ok
+test_duplicate_idempotent_and_conflict (test_product_ingest.TestProductIngest.test_duplicate_idempotent_and_conflict) ... ok
+test_invalid_no_side_effects (test_product_ingest.TestProductIngest.test_invalid_no_side_effects) ... ok
+test_wrong_tenant (test_product_ingest.TestProductIngest.test_wrong_tenant) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.022s
+
+OK

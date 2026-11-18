@@ -1,0 +1,34 @@
+---
+description: Svaraa V0 Lab lifecycle, approvals, SIM defaults, and evidence honesty
+alwaysApply: true
+---
+
+# Svaraa V0 Lab lifecycle
+
+Full specification: `README_CURSOR_SVARAA_V0.md`. Concise agent rules: `AGENTS.md`.
+
+## Approvals
+
+- One active implementation ticket at a time unless a named batch is explicitly approved.
+- Plan must be written and shown before implementation. Wait for owner approval of that plan revision.
+- Accept only clear owner decisions bound to ticket ID and plan revision (for example `APPROVE PLAN SV0-01.01 v0.1`).
+- Do not treat silence, passing tests, agent review, or a previous phase approval as permission for a new ticket.
+- Do not impersonate the owner or create human approvals from agent/browser-test actions.
+- After acceptance, mark Done only when criteria and required evidence are satisfied.
+
+## Defaults
+
+- Default profile is SIM (`SVARAA_PROFILE=SIM`).
+- Default notification provider is mock. Even simulated LIVE SOS uses the mock provider.
+- Preserve the no-solder hardware path for later integration.
+
+## Evidence honesty
+
+- Never invent physical hardware qualification, native BLE, battery life, Find My, cellular, clinical fall accuracy, or manufacturing readiness from mocks, UI animations, or host-only tests.
+- Label historical pack evidence separately from newly executed runs.
+- Record not-run when tools are unavailable; do not invent passes.
+
+## Session continuity
+
+- At session start, read `docs/CURRENT_STATE.md`, `docs/NEXT_ACTION.md`, the active ticket plan/approval, and the board authority snapshot or database.
+- Resume only the last permitted action. Do not restart the project from scratch or treat a summary as approval.

@@ -1,0 +1,15 @@
+Svaraa V0 Lab doctor
+root=/Users/svaraa_hq/Desktop/Svaraa Pendant/Hardware_V0/Svaraa_V0_Lab
+arch=arm64  os=27.2
+OK   xcode-select: /Library/Developer/CommandLineTools
+OK   c++: Apple clang version 21.0.0 (clang-2100.4.1.1)
+OK   node: v22.21.1 (/Users/svaraa_hq/.local/node-v22.21.1-darwin-arm64/bin/node)
+OK   npm: 10.9.4
+OK   python: Python 3.12.16 (/Users/svaraa_hq/.local/share/uv/python/cpython-3.12-macos-aarch64-none/bin/python3.12)
+OK   uv: uv 0.13.9 (6b2d39dcc 2026-11-17 aarch64-apple-darwin)
+INFO brew: not installed (user-local Node/uv is acceptable)
+OK   platformio: PlatformIO Core, version 6.2.0 (/Users/svaraa_hq/Library/Python/3.9/bin/pio)
+OK   wokwi project: simulation/wokwi/{diagram,platformio,wokwi.toml}
+OK   firmware.bin sha256=db73134a9c335363d0030c9ac45ba2a7250376424e71c5615996148b285249a7 bytes=305600
+INFO wokwi-cli: not installed (optional headless)
+summary: ok=9 missing=0

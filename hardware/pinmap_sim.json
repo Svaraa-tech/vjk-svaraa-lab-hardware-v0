@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "profile": "SIM",
+  "source": "references/agent-pack/.../docs/pinmap.csv",
+  "power_domains": [
+    {
+      "id": "USB_5V",
+      "rails": ["USB_5V", "EXT_5V"],
+      "rule": "Never join USB_5V positive to Nicla USB positive",
+      "feeds": ["AHCT125 VCC", "Grove VCC (buzzer/haptic)"]
+    },
+    {
+      "id": "3V3_NANO",
+      "rails": ["3V3_NANO"],
+      "rule": "Main sensor/mic/pull domain",
+      "feeds": ["QT hub", "INMP441 VCC", "pull-ups", "AHCT125 OE logic"]
+    },
+    {
+      "id": "NICLA_USB",
+      "rails": ["NICLA_5V_ISOLATED"],
+      "rule": "Nicla powered from its own Micro-USB; harness signal-only",
+      "feeds": ["Nicla Voice only"]
+    },
+    {
+      "id": "GND_COMMON",
+      "rails": ["GND_COMMON"],
+      "rule": "Common signal ground; EXT_5V negative returns here",
+      "feeds": ["All modules"]
+    }
+  ],
+  "nets": [
+    {"net": "SOS_N", "nano": "D2", "domain": "3V3_NANO", "to": "S1 to GND; R1 10k to 3V3", "role": "manual_sos"},
+    {"net": "PRIVACY_N", "nano": "D10", "domain": "3V3_NANO", "to": "S2 to GND; R4 10k to 3V3", "role": "privacy"},
+    {"net": "PIXEL_3V3", "nano": "D9", "domain": "3V3_NANO", "to": "AHCT125 pin2 → 5V pixel data", "role": "pixels"},
+    {"net": "HAPTIC_EN", "nano": "D12", "domain": "EXT_5V_SIG", "to": "Grove motor SIG", "role": "haptic"},
+    {"net": "BUZZER_EN", "nano": "A0", "domain": "EXT_5V_SIG", "to": "Grove buzzer SIG", "role": "buzzer"},
+    {"net": "SENSOR_SDA", "nano": "A4", "domain": "3V3_NANO", "to": "Main QT I2C @ 100 kHz", "role": "i2c_main"},
+    {"net": "SENSOR_SCL", "nano": "A5", "domain": "3V3_NANO", "to": "Main QT I2C @ 100 kHz", "role": "i2c_main"},
+    {"net": "NICLA_SDA", "nano": "D4", "domain": "3V3_NANO", "to": "Private Nicla I2C (signal-only harness)", "role": "i2c_nicla"},
+    {"net": "NICLA_SCL", "nano": "D3", "domain": "3V3_NANO", "to": "Private Nicla I2C", "role": "i2c_nicla"},
+    {"net": "AUDIO_BCLK", "nano": "D5", "domain": "3V3_NANO", "to": "INMP + MAX98357", "role": "i2s"},
+    {"net": "AUDIO_WS", "nano": "D6", "domain": "3V3_NANO", "to": "INMP + MAX98357", "role": "i2s"},
+    {"net": "AUDIO_RX", "nano": "D7", "domain": "3V3_NANO", "to": "INMP SD", "role": "i2s"},
+    {"net": "AUDIO_TX", "nano": "D8", "domain": "3V3_NANO", "to": "amp DIN", "role": "i2s"}
+  ],
+  "parts": [
+    {"id": "B01", "name": "Nano ESP32 ABX00083", "domain": "USB_5V+3V3_NANO"},
+    {"id": "B02", "name": "Nicla Voice ABX00061", "domain": "NICLA_USB"},
+    {"id": "B03", "name": "BMP390", "bus": "I2C_MAIN", "addr": "0x77"},
+    {"id": "B04", "name": "MAX-M10S GNSS", "bus": "I2C_MAIN", "addr": "0x42"},
+    {"id": "B06", "name": "INMP441", "bus": "I2S"},
+    {"id": "B07", "name": "MAX98357", "bus": "I2S"},
+    {"id": "B09", "name": "20-pixel strand (5 logical)", "bus": "PIXEL"},
+    {"id": "B10", "name": "SN74AHCT125N", "domain": "USB_5V"},
+    {"id": "B11", "name": "Grove haptic", "net": "HAPTIC_EN"},
+    {"id": "B12", "name": "Grove buzzer", "net": "BUZZER_EN"},
+    {"id": "B13", "name": "SOS switch S1", "net": "SOS_N"},
+    {"id": "B14", "name": "Privacy switch S2", "net": "PRIVACY_N"}
+  ],
+  "pixel_policy": {
+    "logical_count": 5,
+    "strand_indices_off": [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+    "index0": "top",
+    "index1_4": "lower ring"
+  }
+}

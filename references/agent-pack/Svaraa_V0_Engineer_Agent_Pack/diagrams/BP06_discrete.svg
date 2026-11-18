@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="780" viewBox="0 0 1200 780"><rect width="1200" height="780" fill="#112d47"/>
+<path d="M25 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M55 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M85 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M115 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M145 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M175 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M205 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M235 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M265 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M295 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M325 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M355 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M385 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M415 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M445 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M475 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M505 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M535 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M565 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M595 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M625 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M655 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M685 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M715 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M745 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M775 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M805 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M835 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M865 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M895 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M925 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M955 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M985 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1015 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1045 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1075 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1105 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1135 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1165 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 110 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 140 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 170 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 200 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 230 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 260 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 290 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 320 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 350 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 380 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 410 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 440 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 470 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 500 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 530 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 560 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 590 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 620 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 650 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 680 H1180" stroke="#23445f" stroke-width=".5"/>
+<text x="30" y="45.0" font-size="26" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">BP-06 | Discrete input and I2C pull-up schematics</text>
+<text x="30" y="82.0" font-size="15" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Connected junctions have dots. Use verified switch contact pairs; these are 3.3V GPIO inputs.</text>
+<text x="50" y="145.0" font-size="21" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">SOS INPUT</text>
+<text x="180" y="178.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">3V3</text>
+<polyline points="200,190 200,205 193,213 207,223 193,233 207,243 200,251 200,265" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<text x="217" y="234.0" font-size="13" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">R1 10k</text>
+<polyline points="200,265 200,320 350,320" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<circle cx="200" cy="320" r="4" fill="#75ddd5"/>
+<text x="255" y="300.0" font-size="15" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">D2 GPIO5</text>
+<polyline points="200,320 100,320 100,350" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="100,350 100,370 120,405" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="100,415 100,435" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<text x="125" y="399.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">S1 momentary</text>
+<polyline points="100,435 100,445" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="82,445 118,445" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="89,452 111,452" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="95,459 105,459" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="200,320 200,380" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="184,380 216,380" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="184,390 216,390" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="200,390 200,435" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<text x="225" y="390.0" font-size="13" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">C1 100nF</text>
+<polyline points="200,435 200,445" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="182,445 218,445" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="189,452 211,452" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="195,459 205,459" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<text x="40" y="525.0" font-size="15" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Open=HIGH / pressed=LOW</text>
+<text x="40" y="545.25" font-size="15" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">20ms software debounce</text>
+<text x="40" y="565.5" font-size="15" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Proposed2s hold qualifiesSOS</text>
+<text x="435" y="145.0" font-size="21" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">PRIVACY REQUEST</text>
+<text x="535" y="178.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">3V3</text>
+<polyline points="555,190 555,205 548,213 562,223 548,233 562,243 555,251 555,265" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<text x="572" y="234.0" font-size="13" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">R4 10k</text>
+<polyline points="555,265 555,320 740,320" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<circle cx="555" cy="320" r="4" fill="#75ddd5"/>
+<text x="603" y="300.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">D10 GPIO21</text>
+<polyline points="555,320 555,350" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="555,350 555,370 575,405" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="555,415 555,435" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<text x="580" y="399.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">S2 latch</text>
+<polyline points="555,435 555,445" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="537,445 573,445" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="544,452 566,452" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="550,459 560,459" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<text x="435" y="525.0" font-size="15" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Closed=software privacy request</text>
+<text x="435" y="545.25" font-size="15" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Not electrical microphone isolation</text>
+<text x="435" y="565.5" font-size="15" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">ManualSOS/motion remain available</text>
+<text x="825" y="145.0" font-size="20" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">PRIVATE I2C PULL-UPS</text>
+<text x="900" y="178.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Nano3V3</text>
+<polyline points="875,190 1070,190" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="875,190 875,205 868,213 882,223 868,233 882,243 875,251 875,265" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<text x="892" y="234.0" font-size="13" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">R2 4.7k</text>
+<polyline points="1070,190 1070,205 1063,213 1077,223 1063,233 1077,243 1070,251 1070,265" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<text x="1087" y="234.0" font-size="13" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">R3 4.7k</text>
+<polyline points="875,265 875,340 1155,340" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="1070,265 1070,425 1155,425" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<text x="825" y="320.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">D4 SDA -&gt; NiclaJ5.4</text>
+<text x="825" y="403.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">D3 SCL -&gt; NiclaJ5.3</text>
+<text x="825" y="525.0" font-size="15" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">J5.5 -&gt;commonGND</text>
+<text x="825" y="545.25" font-size="15" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">J5.1 VCC_IN stays isolated</text>
+<text x="825" y="565.5" font-size="15" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Inspect any onboard pull-ups first</text>
+<polyline points="25,711 1175,711" fill="none" stroke="#829daf" stroke-width="1"/>
+<text x="30" y="736.0" font-size="12" font-family="DejaVu Sans" fill="#d3b575" font-weight="normal">The latching switch is a V0 engineering control, not approval for an additional exterior button in the V1 industrial design.</text>
+<text x="30" y="762.0" font-size="10" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">SVARAA V0.1 / 17 NOV 2026 / PROPOSED MODULE-LEVEL DESIGN - PHYSICAL QUALIFICATION REQUIRED</text>
+</svg>

@@ -1,0 +1,20 @@
+test_api_refs (test_contracts.Tests.test_api_refs) ... ok
+test_corruption (test_contracts.Tests.test_corruption) ... ok
+test_crc_golden (test_contracts.Tests.test_crc_golden) ... ok
+test_drawings (test_contracts.Tests.test_drawings) ... ok
+test_example (test_contracts.Tests.test_example) ... ok
+test_id_format (test_contracts.Tests.test_id_format) ... ok
+test_jira_parent_integrity (test_contracts.Tests.test_jira_parent_integrity) ... ok
+test_latitude (test_contracts.Tests.test_latitude) ... ok
+test_length (test_contracts.Tests.test_length) ... ok
+test_live_drill_mismatch (test_contracts.Tests.test_live_drill_mismatch) ... ok
+test_padding (test_contracts.Tests.test_padding) ... ok
+test_path_parameters (test_contracts.Tests.test_path_parameters) ... ok
+test_range (test_contracts.Tests.test_range) ... ok
+test_roundtrip (test_contracts.Tests.test_roundtrip) ... ok
+test_unknown_field (test_contracts.Tests.test_unknown_field) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.056s
+
+OK

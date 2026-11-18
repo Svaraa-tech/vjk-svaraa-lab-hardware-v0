@@ -1,0 +1,28 @@
+Nano header,Raw GPIO,Net,Connection
+D0,44,UART_RX_RESERVE,NC; future qualified modem interface
+D1,43,UART_TX_RESERVE,NC; future qualified modem interface
+D2,5,SOS_N,S1 to GND; R1 10k to3V3; C1 100nF toGND
+D3,6,NICLA_SCL,J5.3 through isolated harness; R3 4.7k to3V3
+D4,7,NICLA_SDA,J5.4 through isolated harness; R2 4.7k to3V3
+D5,8,AUDIO_BCLK,INMP SCK and amp BCLK
+D6,9,AUDIO_WS,INMP WS and amp LRC
+D7,10,AUDIO_RX,INMP SD -> Nano input
+D8,17,AUDIO_TX,Nano output -> amp DIN
+D9,18,PIXEL_3V3,"AHCT125 pin2, R6 10k pulldown"
+D10,21,PRIVACY_N,S2 toGND; R4 10k to3V3
+D11,38,RESERVED,NC; no MicroSD baseline
+D12,47,HAPTIC_EN,Grove motor SIG
+D13,48,RESERVED,NC; shares onboard LED
+A0,1,BUZZER_EN,Grove buzzer SIG
+A1,2,RESERVED,NC
+A2,3,STRAP_RESERVE,NC; no boot-state-changing load
+A3,4,RESERVED,NC
+A4,11,SENSOR_SDA,Main QT bus SDA
+A5,12,SENSOR_SCL,Main QT bus SCL
+A6,13,RESERVED,NC
+A7,14,RESERVED,NC
+3V3,-,3V3_NANO,"Main hub, INMP VCC, pulls only"
+GND,-,GND_COMMON,All signal grounds and external5V negative
+VUSB,-,USB_5V,Header NC; use USB-C
+VIN,-,VIN_NANO,NC in USB profile
+B0 / B1 / RESET,46 / 0 / -,BOOT_RESET,Leave untouched; never use as SOS

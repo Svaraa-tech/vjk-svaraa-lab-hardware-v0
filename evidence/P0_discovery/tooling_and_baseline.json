@@ -1,0 +1,73 @@
+{
+  "run_id": "P0-discovery-2026-11-17",
+  "profile": "SIM",
+  "host": {
+    "os": "macOS 27.2",
+    "arch": "arm64",
+    "build": "26B8119"
+  },
+  "tools": {
+    "python3": {
+      "path": "/usr/bin/python3",
+      "status": "present_but_requires_xcode_clt",
+      "runnable": false
+    },
+    "cplusplus": {
+      "path": "/usr/bin/c++",
+      "status": "present_but_requires_xcode_clt",
+      "runnable": false
+    },
+    "node": {
+      "status": "absent"
+    },
+    "brew": {
+      "status": "absent"
+    },
+    "platformio": {
+      "status": "absent"
+    },
+    "cmake": {
+      "status": "absent"
+    },
+    "ruby": {
+      "path": "/usr/bin/ruby",
+      "version": "2.6.10",
+      "runnable": true
+    },
+    "perl": {
+      "path": "/usr/bin/perl",
+      "version": "5.34.1",
+      "runnable": true
+    }
+  },
+  "baseline_tests": {
+    "cpp_host_core": {
+      "status": "not-run",
+      "reason": "Xcode Command Line Tools unavailable; c++ invocation fails with xcode-select error"
+    },
+    "python_contracts": {
+      "status": "not-run",
+      "reason": "Python 3 unavailable without Xcode CLT; jsonschema/PyYAML not installed"
+    },
+    "historical_pack_evidence": {
+      "host_core": "PASS 31 checks (historical; evidence/host_core.txt)",
+      "host_contracts": "PASS 15 tests (historical; evidence/host_contract_tests.txt)"
+    }
+  },
+  "inventory": {
+    "bom": 32,
+    "wires": 38,
+    "requirements": 18,
+    "svg": 21,
+    "tests": 56,
+    "references": 39,
+    "jira": {
+      "epic": 1,
+      "stories": 14,
+      "subtasks": 72,
+      "total": 87
+    },
+    "manifest_files_verified": 98,
+    "mismatches": 0
+  }
+}

@@ -1,0 +1,9 @@
+test_corrupt_tail_stops_replay (tests.host.test_journal_durable.TestDurableJournal.test_corrupt_tail_stops_replay) ... ok
+test_critical_reserve (tests.host.test_journal_durable.TestDurableJournal.test_critical_reserve) ... ok
+test_power_cut_preserves_committed (tests.host.test_journal_durable.TestDurableJournal.test_power_cut_preserves_committed) ... ok
+test_write_failure_visible (tests.host.test_journal_durable.TestDurableJournal.test_write_failure_visible) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.001s
+
+OK

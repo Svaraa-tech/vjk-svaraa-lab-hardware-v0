@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="780" viewBox="0 0 1200 780"><rect width="1200" height="780" fill="#112d47"/>
+<path d="M25 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M55 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M85 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M115 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M145 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M175 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M205 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M235 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M265 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M295 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M325 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M355 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M385 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M415 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M445 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M475 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M505 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M535 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M565 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M595 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M625 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M655 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M685 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M715 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M745 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M775 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M805 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M835 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M865 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M895 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M925 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M955 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M985 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1015 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1045 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1075 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1105 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1135 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1165 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 110 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 140 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 170 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 200 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 230 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 260 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 290 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 320 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 350 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 380 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 410 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 440 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 470 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 500 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 530 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 560 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 590 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 620 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 650 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 680 H1180" stroke="#23445f" stroke-width=".5"/>
+<text x="30" y="45.0" font-size="26" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">BP-01 | Master connection blueprint</text>
+<text x="30" y="82.0" font-size="15" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Named nets and wire schedule define the circuit; module proximity is not an electrical connection.</text>
+<rect x="430" y="145" width="315" height="465" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="443" y="172.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">NANO ESP32 / U1</text>
+<text x="443" y="201.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">A4 GPIO11 / A5 GPIO12: sensors</text>
+<text x="443" y="219.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">D4 GPIO7 / D3 GPIO6: Nicla target</text>
+<text x="443" y="238.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal"></text>
+<text x="443" y="257.7" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">D5 GPIO8: audio BCLK</text>
+<text x="443" y="276.6" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">D6 GPIO9: audio WS</text>
+<text x="443" y="295.5" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">D7 GPIO10: microphone RX</text>
+<text x="443" y="314.4" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">D8 GPIO17: playback TX</text>
+<text x="443" y="333.3" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal"></text>
+<text x="443" y="352.20000000000005" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">D2 GPIO5: SOS input</text>
+<text x="443" y="371.1" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">D9 GPIO18: pixel data</text>
+<text x="443" y="390.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">D10 GPIO21: privacy request</text>
+<text x="443" y="408.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">D12 GPIO47: vibration</text>
+<text x="443" y="427.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">A0 GPIO1: buzzer</text>
+<text x="443" y="446.70000000000005" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal"></text>
+<text x="443" y="465.6" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">USB-C power; 3.3V logic</text>
+<rect x="30" y="145" width="320" height="125" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="43" y="172.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">MAIN QT HUB / JH1</text>
+<text x="43" y="201.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">3V3 + GND + SDA + SCL</text>
+<text x="43" y="219.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">BMP3900x77 / MAX-M10S0x42</text>
+<text x="43" y="238.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Nano is controller;100kHz</text>
+<polyline points="350,208 430,208" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<rect x="30" y="335" width="320" height="155" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="43" y="362.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">NICLA VOICE / U2</text>
+<text x="43" y="391.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Own Micro-USB supply</text>
+<text x="43" y="409.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">J5.4 SDA -&gt; D4; J5.3 SCL -&gt; D3</text>
+<text x="43" y="428.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">J5.5 GND -&gt; common ground</text>
+<text x="43" y="447.7" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">J5.1 VCC_IN: isolated / unfed</text>
+<text x="43" y="466.6" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Sole controller; Nano target0x2A</text>
+<polyline points="350,405 392,405 392,270 430,270" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<rect x="30" y="550" width="320" height="100" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="43" y="577.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">S1 / S2 CONTROLS</text>
+<text x="43" y="606.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">SOS and privacy switch toGND</text>
+<text x="43" y="624.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">10k pull-ups; see BP-06</text>
+<polyline points="350,592 430,535" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<rect x="835" y="145" width="335" height="145" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="848" y="172.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">I2S AUDIO</text>
+<text x="848" y="201.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">INMP441: Nano3V3</text>
+<text x="848" y="219.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">MAX98357: EXT_5V</text>
+<text x="848" y="238.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Shared BCLK/WS; separateRX/TX</text>
+<text x="848" y="257.7" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Speaker across OUT+ and OUT-</text>
+<polyline points="745,355 785,355 785,218 835,218" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<rect x="835" y="345" width="335" height="125" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="848" y="372.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">PIXELS</text>
+<text x="848" y="401.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">D9 -&gt; AHCT125 -&gt;330ohm-&gt;DIN</text>
+<text x="848" y="419.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">EXT_5V; five logical lights</text>
+<text x="848" y="438.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Unused strand pixels forcedoff</text>
+<polyline points="745,475 785,475 785,408 835,408" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<rect x="835" y="525" width="335" height="120" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="848" y="552.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">LOCAL ALARM</text>
+<text x="848" y="581.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Grove motor: D12 SIG</text>
+<text x="848" y="599.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Grove buzzer: A0 SIG</text>
+<text x="848" y="618.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Onboard drivers; EXT_5V/GND</text>
+<polyline points="745,575 835,575" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="25,711 1175,711" fill="none" stroke="#829daf" stroke-width="1"/>
+<text x="30" y="736.0" font-size="12" font-family="DejaVu Sans" fill="#d3b575" font-weight="normal">D0/D1 remain reserved. VUSB/VIN header not powered in this USB-only profile. [S01-S22]</text>
+<text x="30" y="762.0" font-size="10" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">SVARAA V0.1 / 17 NOV 2026 / PROPOSED MODULE-LEVEL DESIGN - PHYSICAL QUALIFICATION REQUIRED</text>
+</svg>

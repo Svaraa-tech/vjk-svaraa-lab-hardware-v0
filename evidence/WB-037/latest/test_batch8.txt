@@ -1,0 +1,1 @@
+RESULT PASSED stress_steps 4 wearer Ready

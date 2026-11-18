@@ -1,0 +1,12 @@
+{"deterministic":true,"event_count":10,"phase":"HumanAck","profile":"SIM","proxy_for":"SV0-11.02","run_id":"0b965493-a3db-4352-9b84-779b33f9a9ea","scenario_id":"manual_no_gps","schema_version":"1","seed":"wb034-live","type":"svaraa_trace_pack"}
+{"detail":{"scenario_id":"manual_no_gps","seed":"wb034-live"},"kind":"run_created","layer":"engine","seq":1,"sim_ts_ms":0}
+{"detail":{"actions":7,"drill_id":"6edd5035-5e9b-4cee-a582-2805ce38f758"},"kind":"start_drill","layer":"reducer","seq":2,"sim_ts_ms":0}
+{"detail":{"at_ms":0,"synth":true},"kind":"hold_down","layer":"ui","seq":3,"sim_ts_ms":0}
+{"detail":{"actions":55,"incident_id":"993cc1b0-e56e-40bb-8472-63798eb72f96"},"kind":"manual_sos","layer":"reducer","seq":4,"sim_ts_ms":2000}
+{"detail":{"crc":true,"event_id":"cbcb0067-12e7-4469-af4d-b9b81fcc7d4b"},"kind":"append_commit","layer":"journal","seq":5,"sim_ts_ms":2000}
+{"detail":{"event_id":"cbcb0067-12e7-4469-af4d-b9b81fcc7d4b"},"kind":"outbox_enqueued","layer":"transport","seq":6,"sim_ts_ms":2000}
+{"detail":{"actions":36,"event_id":"cbcb0067-12e7-4469-af4d-b9b81fcc7d4b","idempotent":false},"kind":"device_event_accepted","layer":"server","seq":7,"sim_ts_ms":2000}
+{"detail":{"actions":36,"incident_id":"993cc1b0-e56e-40bb-8472-63798eb72f96","provider":"mock"},"kind":"human_ack","layer":"guardian","seq":8,"sim_ts_ms":2000}
+{"detail":{"expect_ok":true},"kind":"manual_no_gps_complete","layer":"scenario","seq":9,"sim_ts_ms":2000}
+{"detail":{"phase":"HumanAck","proxy_for":"SV0-11.04","simulated":true},"kind":"drill_e2e_sync","layer":"wokwi","seq":10,"sim_ts_ms":2000}
+{"bytes":1582,"sha256":"48546310047cb89b778c29955d1cf55f3ee2da115a5144623f74cb5e2a0f9e6d","type":"pack_sha256"}

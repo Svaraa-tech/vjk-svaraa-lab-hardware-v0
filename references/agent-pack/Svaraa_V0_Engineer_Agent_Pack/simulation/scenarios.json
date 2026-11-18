@@ -1,0 +1,61 @@
+[
+  {
+    "id": "manual_no_fix",
+    "input": [
+      "missing_location",
+      "qualified_manual_hold",
+      "durable_receipt",
+      "human_ack"
+    ],
+    "expect": [
+      "one_live_incident",
+      "null_location",
+      "separate_ack_states"
+    ]
+  },
+  {
+    "id": "fall_cancel",
+    "input": [
+      "real_candidate",
+      "short_tap_before_deadline"
+    ],
+    "expect": [
+      "no_escalated_live_event",
+      "audit"
+    ]
+  },
+  {
+    "id": "drill_preemption",
+    "input": [
+      "drill_active",
+      "qualified_real_hold"
+    ],
+    "expect": [
+      "drill_interrupted",
+      "new_live_incident"
+    ]
+  },
+  {
+    "id": "lost_receipt",
+    "input": [
+      "server_commit",
+      "drop_response",
+      "retry_same_event"
+    ],
+    "expect": [
+      "one_event",
+      "one_outbox_job",
+      "durable_receipt"
+    ]
+  },
+  {
+    "id": "late_state",
+    "input": [
+      "human_ack_revision3",
+      "server_accepted_revision2"
+    ],
+    "expect": [
+      "no_downgrade"
+    ]
+  }
+]

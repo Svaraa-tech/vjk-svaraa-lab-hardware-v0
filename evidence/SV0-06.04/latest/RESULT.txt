@@ -1,0 +1,4 @@
+profile=SIM
+ticket=SV0-06.04
+result=passed
+does_not=measured_i2s,physical_phone,wokwi_binary_run

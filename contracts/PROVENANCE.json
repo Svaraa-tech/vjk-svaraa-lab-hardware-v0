@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "copied_from_pack_contracts": true,
+  "files": [
+    {
+      "path": "contracts/authenticated_relay.yaml",
+      "sha256": "c26a4ff47dc28772be51e2fe8683b8b392dff20b7bd387e9f8e034067224e740",
+      "source": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/contracts/authenticated_relay.yaml"
+    },
+    {
+      "path": "contracts/ble_profile.yaml",
+      "sha256": "1554fb06eef4a144dc01c4234df4b9ed2a11babaeae9847c24e8f68edb899a88",
+      "source": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/contracts/ble_profile.yaml"
+    },
+    {
+      "path": "contracts/device_event.schema.json",
+      "sha256": "b1bb21ccb25becfd0e4706216503109ee4d07d1e0c78323e2220a6dc867f6ecc",
+      "source": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/contracts/device_event.schema.json"
+    },
+    {
+      "path": "contracts/example_event.json",
+      "sha256": "ddefe96b79c7721f7f98bc94b7856ab5bc1ef913d1553db369d187021a2c7799",
+      "source": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/contracts/example_event.json"
+    },
+    {
+      "path": "contracts/openapi.yaml",
+      "sha256": "5d015d686fd876abdb9ff69384fa10a1d84616dc71819275270fa9665a389e3c",
+      "source": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/contracts/openapi.yaml"
+    },
+    {
+      "path": "contracts/reference_frame.py",
+      "sha256": "78407568a0d07b51e671c5d3f2813ab5f28941d6e24e9f3b6d688307d12b4436",
+      "source": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/contracts/reference_frame.py"
+    },
+    {
+      "path": "contracts/wire_protocol.yaml",
+      "sha256": "46d6d906ae10e8503e22d2c50f35171c72a44666c7a5c97071c439e24d3a13a5",
+      "source": "references/agent-pack/Svaraa_V0_Engineer_Agent_Pack/contracts/wire_protocol.yaml"
+    }
+  ]
+}

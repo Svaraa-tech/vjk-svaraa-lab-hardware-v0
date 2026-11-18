@@ -1,0 +1,11 @@
+digraph G{graph[bgcolor="white",pad=.3,nodesep=.3,ranksep=.5];node[shape=box,style="rounded,filled",fillcolor="#edf4f6",color="#35596b",fontname="Helvetica",fontsize=14,margin=".18,.12"];edge[color="#477c85",fontname="Helvetica",fontsize=11];rankdir=TB; nicla[label="NICLA VOICE
+Motion + local wake model"]; nano[label="NANO ESP32
+Safety core / journal / feedback"]; sensors[label="BMP390 + MAX-M10S
+Pressure + pendant GNSS"]; audio[label="INMP441 + MAX98357
+Independent I2S audio"]; ui[label="S1/S2 / 5 LEDs
+Buzzer + haptic"]; phone[label="WEARER APP
+Native BLE gateway + durable queue"]; api[label="SVARAA API
+Identity / idempotency / policy"]; db[label="POSTGRESQL
+Event + incident + outbox",shape=cylinder]; guardian[label="GUARDIAN APP
+Explicit human acknowledgment"]; ext[label="GATED EXTENSIONS
+Cellular data / battery / licensed Find My",style="rounded,dashed"]; nicla->nano[label="Private I2C: Nano target0x2A"];sensors->nano[label="Nano-controlled I2C"];audio->nano[dir=both,label="I2S"];ui->nano[dir=both,label="GPIO"];nano->phone[dir=both,label="BLE events/control"];nano->api[dir=both,label="Wi-Fi HTTPS"];phone->api[dir=both,label="HTTPS original IDs"];api->db[dir=both];api->guardian[dir=both,label="notify / authenticated action"];ext->nano[style=dashed,label="qualified interfaces only"];}

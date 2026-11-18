@@ -1,0 +1,5 @@
+profile=SIM
+notification_provider=mock
+ticket=SV0-07.04
+result=passed
+does_not=physical_hardware,clinical_accuracy,live_provider,production_secrets

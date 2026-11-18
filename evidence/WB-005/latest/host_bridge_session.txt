@@ -1,0 +1,7 @@
+{"ok":true,"cmd":"ping","bridge":"svaraa_host_bridge","v":1}
+{"ok":true,"cmd":"manual_sos","actions":7}
+{"ok":true,"cmd":"snapshot","phase":"Pending","mode":"live","incident":"bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb","revision":0,"now_ms":0}
+{"ok":true,"cmd":"update","actions":36}
+{"ok":true,"cmd":"snapshot","phase":"ServerAccepted","mode":"live","incident":"bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb","revision":1,"now_ms":0}
+{"ok":true,"cmd":"update","actions":36}
+{"ok":true,"cmd":"snapshot","phase":"HumanAck","mode":"live","incident":"bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb","revision":2,"now_ms":0}

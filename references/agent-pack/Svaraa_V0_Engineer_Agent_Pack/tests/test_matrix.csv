@@ -1,0 +1,57 @@
+ID,Profile,Scenario,Procedure,Expected,Status
+T01,Electrical,Power-off continuity,"Verify rail segregation, commonGND, split rails and switch pairs.",No unintended short or positive tie.,NOT EXECUTED - acceptance specification
+T02,Electrical,Parts and polarity,Inspect exactSKUs/headers and continuity of every factory cable.,No required user soldering; received revision approved.,NOT EXECUTED - acceptance specification
+T03,Electrical,Combined load rails,Measure3V3/5V with radio/audio/fivepixels/haptic.,Within selected ratings; no reset/heating; log peaks.,NOT EXECUTED - acceptance specification
+T04,Electrical,ESLOV supply isolation,CheckJ5.1 and isolated hubV+ against Nano/sensor rails.,V+ unfed and insulated; no positive rail join.,NOT EXECUTED - acceptance specification
+T05,Electrical,Dual I2C,"Capture10,000 privatebus frames while sensor reads run.",CRC/sequence/rate metrics visible; no silent corruption.,NOT EXECUTED - acceptance specification
+T06,Electrical,I2S and speaker,Measure clocks/sign conversion; inspect OUT+/OUT-.,"16kHz frames,1.024MHz clock; neither speaker lead grounded.",NOT EXECUTED - acceptance specification
+T07,Electrical,Sensor missing,"Poweroff, remove sensor, reboot and triggerSOS.",Missing visible; no boot hang or lost manual path.,NOT EXECUTED - acceptance specification
+T08,SIM/bench,Manual hold,Hold S1 through20ms debounce and2s qualification.,Exactly one live incident and immediate pending cue.,NOT EXECUTED - acceptance specification
+T09,SIM/bench,Bounce and short tap,Replay switch bounce and subthreshold taps.,No falseSOS; short cancellation only during prealert.,NOT EXECUTED - acceptance specification
+T10,SIM/bench,Held at boot,Boot with S1 held then release and repeat.,Release rearms; no uncontrolled duplicate loop.,NOT EXECUTED - acceptance specification
+T11,SIM/bench,Voice unavailable,Block audio/assistant while pressingSOS.,Manual core and queue proceed independently.,NOT EXECUTED - acceptance specification
+T12,SIM,Fall candidate,Replay a labelled synthetic candidate; let timer expire.,"One event after prealert, no accuracy claim.",NOT EXECUTED - acceptance specification
+T13,SIM/bench,Cancel prealert,Shorttap within candidate countdown.,"Local prealert ends with audit, no live escalation.",NOT EXECUTED - acceptance specification
+T14,Bench/field,Normal activity,Record safe walking/sitting/swing/desk movement.,Report observed false alarms; no dangerous staged falls.,NOT EXECUTED - acceptance specification
+T15,Bench,IMU stale/clipping,Inject frozen/saturated/gapped motion data.,Health degrades; no fabricated normal reading.,NOT EXECUTED - acceptance specification
+T16,SIM/bench,GNSS nofix,TriggerSOS indoors/with acquisition unavailable.,Event immediate with null location.,NOT EXECUTED - acceptance specification
+T17,SIM,Stale coordinates,Supply fix beyond freshness policy.,Old/missing marked; no fresh map pin.,NOT EXECUTED - acceptance specification
+T18,SIM/bench,Later fix,Supply valid location afterSOS.,New event ID links same incident; original immutable.,NOT EXECUTED - acceptance specification
+T19,SIM/app,Offline tag,Create custom label offline withoutfix then reconnect.,One persisted tag with honest provenance.,NOT EXECUTED - acceptance specification
+T20,Integration,Durable receipt,Commit event+incident+outbox before response.,"Server accepted, not human acknowledged.",NOT EXECUTED - acceptance specification
+T21,Integration,Guardian acknowledgment,Assigned guardian acknowledges current revision.,Actor audited; signed/verified update returns todevice.,NOT EXECUTED - acceptance specification
+T22,Integration,Reordered receipts,Old accepted receipt arrives after newer humanACK.,No state downgrade.,NOT EXECUTED - acceptance specification
+T23,Integration,Active cancellation,Request cancellation after delivery.,Flag/audit preserved; incident not silently deleted.,NOT EXECUTED - acceptance specification
+T24,Integration,Lost response,Commit server event then dropHTTP response and retry.,Same identity; no duplicate incident/outbox job.,NOT EXECUTED - acceptance specification
+T25,SIM/bench,Full queue,Fill low-priority storage beforeSOS.,Critical reserve or visible volatile fallback; no crash.,NOT EXECUTED - acceptance specification
+T26,Bench,Powercut append,Interrupt controlled journal writes and reboot.,Committed records replay; incomplete tail detected.,NOT EXECUTED - acceptance specification
+T27,SIM,Clock jump,ChangeUTC while timers/retries active.,Monotonic deadlines unchanged.,NOT EXECUTED - acceptance specification
+T28,Bench/app,Privacy switch,AssertS2 during audio capture/upload.,Capture/upload stops; Nicla applied vs pending shown.,NOT EXECUTED - acceptance specification
+T29,SIM,Audio consumer stall,Pause upload consumer and fill ring.,Bounded drop/stop; safety task remains responsive.,NOT EXECUTED - acceptance specification
+T30,Integration,Unsafe AI tool,Request alarm suppression or unauthorized location.,Allowlist/authorization rejects; safety unchanged.,NOT EXECUTED - acceptance specification
+T31,Bench,Pixel mapping,Exerciseeach logical index and output state.,Only0-4 active; unused15 remain off.,NOT EXECUTED - acceptance specification
+T32,Bench,Playback failure,Disable assistant audio and triggerSOS.,Independent buzzer/haptic work; failed path flagged.,NOT EXECUTED - acceptance specification
+T33,Phone,BLE disconnect,"Leave radio range, reconnect physical phone.",Queue survives and incident snapshot reconciles.,NOT EXECUTED - acceptance specification
+T34,Phone,OS lifecycle,Forceclose/reboot/revokeBluetooth/location permissions.,Honest degraded state; no permanent link claim.,NOT EXECUTED - acceptance specification
+T35,Phone,MTU/fragments,"TestMTU23, reordered/conflicting/oversized fragments.",Bounded reassembly and explicit reject.,NOT EXECUTED - acceptance specification
+T36,Integration,Normal drill,Run device->backend->guardian test cycle.,DRILL visible everywhere; zero liveprovider calls.,NOT EXECUTED - acceptance specification
+T37,SIM/bench,RealSOS duringdrill,Press real qualifiedhold duringtest; also real candidate.,New live event/prealert takes priority; drill audited.,NOT EXECUTED - acceptance specification
+T38,Integration,Mode tamper,Try escalating drill token/ID into live dispatch.,Server rejects unauthorized mode/session.,NOT EXECUTED - acceptance specification
+T39,Integration,Wrong household,Read/ack another household incident.,"403 or concealed404, no leak.",NOT EXECUTED - acceptance specification
+T40,Integration,Replayed command,Repeat executed or expired command.,No repeat sideeffect; expired rejected.,NOT EXECUTED - acceptance specification
+T41,Integration,Invalid schema/hash,Submit invalid fields or changedduplicate body.,Validation422/400 or409; no actionable malformed event.,NOT EXECUTED - acceptance specification
+T42,Phone/bench,Ownership attack,Try claiming or controlling withoutphysical proof.,Unauthorized pairing/commands rejected.,NOT EXECUTED - acceptance specification
+T43,Host,Core reducer,Compile supplied reference and run deterministic checks.,Repeatable host results; no hardware inference.,NOT EXECUTED - acceptance specification
+T44,Host,Contract consistency,Validateexample/schema/APIrefs/Jira parents/pin assets.,No broken localref or hierarchy; modelscope explicit.,NOT EXECUTED - acceptance specification
+T45,Wokwi,Visual demo,CompilequalifiedS3 starter and exercisebutton/pixels.,Correct mockstates; unsupportedhardware clearly mocked.,NOT EXECUTED - acceptance specification
+T46,Gated,Cellular,Testactualmodem/network/SIM/reconnect/peakpower.,No mock closes standaloneSOS or voicegate.,NOT EXECUTED - acceptance specification
+T47,Gated,Find My,Reviewlicensedrequirements and approvedplatform.,No Apple compatibility claim beforeapproval.,NOT EXECUTED - acceptance specification
+T48,Gated,Power/charging,Testmatchedcell/NTC/protection/coil/thermalprofile.,Measured safeenvelope; magnets not protocolproof.,NOT EXECUTED - acceptance specification
+T49,Bench,Task stall/watchdog,Freeze requiredworker and recover.,Useful progress stops; resetreason andincident replay recorded.,NOT EXECUTED - acceptance specification
+T50,Bench,Sensor health timeout,StopNicla data while main loop runs.,Stale expires independently of healthyWi-Fi.,NOT EXECUTED - acceptance specification
+T51,SIM/bench,Brownout/rebootID,Reboot withunreceiptedjournal.,NewbootID; originaleventIDs preserved forreplay.,NOT EXECUTED - acceptance specification
+T52,Bench,Flood/resourcebound,Floodbus/BLEqueue andslowconsumer.,"Boundedmemory, overrunmetrics, safety notstarved.",NOT EXECUTED - acceptance specification
+T53,Integration,OTA duringSOS,Offerupdate whileincident active.,"Normalupdate postponed, no loss ofincident.",NOT EXECUTED - acceptance specification
+T54,Bench gated,InvalidOTA/rollback,Useisolatedtestimage/signaturefailure/powerloss.,Reject or recover known-good; never falsesuccess.,NOT EXECUTED - acceptance specification
+T55,Review,Manufacturing gate,"ReviewCAD, power,RF,DFM/DFT, fixtures andpilotplan.",NoGerber or10k release fromthisbenchspec alone.,NOT EXECUTED - acceptance specification
+T56,Usability,Accessible flows,Runwearer/guardian tasks withoutcolor/voice-onlycues.,Pending vsACK understood; coreactions usable.,NOT EXECUTED - acceptance specification

@@ -1,0 +1,14 @@
+{
+  "schema_version": "1",
+  "note": "Optional published Wokwi project ID for @wokwi/elements iframe embed (WB-022). Leave project_id null for local Lab-synced panel only. Checklist: docs/wokwi/EMBED_PUBLISH.md (WB-026).",
+  "project_id": null,
+  "embed_base": "https://wokwi.com/projects/",
+  "height_px": 360,
+  "publish_checklist": "docs/wokwi/EMBED_PUBLISH.md",
+  "limits": {
+    "ble": false,
+    "i2s": false,
+    "nicla_target": false,
+    "claim": "Visual subset only when embed is enabled"
+  }
+}

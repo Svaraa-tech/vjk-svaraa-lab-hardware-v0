@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="780" viewBox="0 0 1200 780"><rect width="1200" height="780" fill="#112d47"/>
+<path d="M25 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M55 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M85 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M115 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M145 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M175 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M205 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M235 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M265 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M295 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M325 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M355 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M385 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M415 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M445 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M475 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M505 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M535 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M565 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M595 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M625 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M655 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M685 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M715 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M745 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M775 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M805 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M835 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M865 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M895 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M925 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M955 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M985 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1015 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1045 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1075 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1105 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1135 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M1165 110 V700" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 110 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 140 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 170 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 200 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 230 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 260 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 290 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 320 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 350 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 380 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 410 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 440 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 470 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 500 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 530 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 560 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 590 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 620 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 650 H1180" stroke="#23445f" stroke-width=".5"/>
+<path d="M25 680 H1180" stroke="#23445f" stroke-width=".5"/>
+<text x="30" y="45.0" font-size="26" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">BP-03 | Audio wiring and speaker isolation</text>
+<text x="30" y="82.0" font-size="15" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">V0 uses a dedicated PCM microphone. Nicla handles local wake and motion; raw audio forwarding is not assumed.</text>
+<rect x="35" y="160" width="310" height="400" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="48" y="187.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">NANO AUDIO PORT</text>
+<text x="48" y="216.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">D5 GPIO8 -&gt; BCLK</text>
+<text x="48" y="234.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">D6 GPIO9 -&gt; WS/LRCLK</text>
+<text x="48" y="253.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">D7 GPIO10 &lt;- INMP SD</text>
+<text x="48" y="272.7" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">D8 GPIO17 -&gt; amplifier DIN</text>
+<text x="48" y="291.6" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal"></text>
+<text x="48" y="310.5" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Philips I2S</text>
+<text x="48" y="329.4" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">16kHz, two32-bit slots</text>
+<text x="48" y="348.3" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">BCLK target1.024MHz</text>
+<text x="48" y="367.20000000000005" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal"></text>
+<text x="48" y="386.1" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Half-duplex V0</text>
+<text x="48" y="405.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Start at low volume.</text>
+<rect x="570" y="150" width="280" height="220" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="583" y="177.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">INMP441</text>
+<text x="583" y="206.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">VCC -&gt; Nano3V3 (NOT5V)</text>
+<text x="583" y="224.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">GND -&gt; commonGND</text>
+<text x="583" y="243.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">L/R -&gt;GND (left slot)</text>
+<text x="583" y="262.7" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">SCK -&gt;D5</text>
+<text x="583" y="281.6" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">WS -&gt;D6</text>
+<text x="583" y="300.5" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">SD -&gt;D7</text>
+<rect x="570" y="430" width="280" height="230" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="583" y="457.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">MAX98357</text>
+<text x="583" y="486.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">VIN -&gt; EXT_5V</text>
+<text x="583" y="504.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">GND -&gt; commonGND</text>
+<text x="583" y="523.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">BCLK -&gt;D5; LRC -&gt;D6</text>
+<text x="583" y="542.7" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">DIN -&gt;D8</text>
+<text x="583" y="561.6" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">GAIN/SD: verified module default</text>
+<text x="583" y="580.5" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Never expose Nano to5V pull-up.</text>
+<polyline points="345,230 460,230 570,230" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="460,230 460,510 570,510" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<circle cx="460" cy="230" r="4" fill="#75ddd5"/>
+<text x="366" y="210.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">BCLK + WS</text>
+<polyline points="570,325 400,325 400,350 345,350" fill="none" stroke="#f1cc83" stroke-width="2"/>
+<text x="355" y="376.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">MIC RX</text>
+<polyline points="345,415 390,415 390,580 570,580" fill="none" stroke="#b5de9b" stroke-width="2"/>
+<text x="402" y="604.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">AMP TX</text>
+<rect x="920" y="440" width="245" height="180" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="933" y="467.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">8 OHM SPEAKER</text>
+<text x="933" y="496.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Factory attached leads</text>
+<text x="933" y="514.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">OUT+ -&gt; speaker lead1</text>
+<text x="933" y="533.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">OUT- -&gt; speaker lead2</text>
+<text x="933" y="552.7" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">NEITHER goes toGND</text>
+<text x="933" y="571.6" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Bench rating&gt;=2W</text>
+<polyline points="850,525 920,525" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<polyline points="850,550 920,550" fill="none" stroke="#75ddd5" stroke-width="2"/>
+<rect x="920" y="155" width="245" height="190" rx="8" fill="#193c58" stroke="#e5f4ff" stroke-width="1.5"/>
+<text x="933" y="182.0" font-size="18" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="bold">CHECK FIRST</text>
+<text x="933" y="211.0" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">No speaker on GPIO.</text>
+<text x="933" y="229.9" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">No grounded headphones.</text>
+<text x="933" y="248.8" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Check slot/sign conversion.</text>
+<text x="933" y="267.7" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">Measure capture/clipping.</text>
+<text x="933" y="286.6" font-size="14" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">No S3 I2S proof in Wokwi.</text>
+<polyline points="25,711 1175,711" fill="none" stroke="#829daf" stroke-width="1"/>
+<text x="30" y="736.0" font-size="12" font-family="DejaVu Sans" fill="#d3b575" font-weight="normal">Module wiring only. Actual SDK API, clocks, audio quality and combined-load current require bench evidence. [S13-S15, S24]</text>
+<text x="30" y="762.0" font-size="10" font-family="DejaVu Sans" fill="#e5f4ff" font-weight="normal">SVARAA V0.1 / 17 NOV 2026 / PROPOSED MODULE-LEVEL DESIGN - PHYSICAL QUALIFICATION REQUIRED</text>
+</svg>

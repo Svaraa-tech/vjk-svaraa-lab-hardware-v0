@@ -1,0 +1,46 @@
+# Runtime / local
+.workbench/
+*.db
+*.sqlite
+.env
+.env.*
+!.env.example
+
+# Dependencies / builds
+node_modules/
+apps/workbench/dist/
+services/api/.venv/
+.venv/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# PlatformIO / Wokwi build trees
+.pio/
+**/.pio/
+simulation/wokwi/.pio/
+.platformio/
+**/platformio/
+
+# Tooling caches
+.DS_Store
+*.log
+.vite/
+coverage/
+playwright-report/
+test-results/
+
+# Compiled host tests
+/tmp/
+tests/host/svaraa_test_core
+tests/host/svaraa_test_hal
+evidence/**/baseline_rerun/.venv/
+evidence/**/**/svaraa_test_core
+evidence/**/**/svaraa_test_hal
+
+# Editor
+.idea/
+*.swp

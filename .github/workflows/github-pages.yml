@@ -1,0 +1,54 @@
+name: Deploy Lab Workbench to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: apps/workbench/package-lock.json
+      - name: Install & build workbench
+        working-directory: apps/workbench
+        env:
+          VITE_BASE: /vjk-svaraa-lab-hardware-v0/
+        run: |
+          npm ci
+          npm run build
+      - name: Add Pages note
+        run: |
+          cat > apps/workbench/dist/README_PAGES.txt <<'EOF'
+          Svaraa V0 Lab Workbench (static GitHub Pages build).
+          Live Lab API / SIM engine requires local `make dev` — Pages is UI-only.
+          EOF
+          # SPA fallback for client routes
+          cp apps/workbench/dist/index.html apps/workbench/dist/404.html
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/workbench/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

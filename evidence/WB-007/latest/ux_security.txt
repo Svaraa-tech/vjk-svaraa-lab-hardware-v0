@@ -1,0 +1,13 @@
+test_boot_held_requires_release (tests.host.test_ux_security.TestDebounceHold.test_boot_held_requires_release) ... ok
+test_bounce_does_not_duplicate (tests.host.test_ux_security.TestDebounceHold.test_bounce_does_not_duplicate) ... ok
+test_alarm_independent_of_assistant (tests.host.test_ux_security.TestPixelsAlarm.test_alarm_independent_of_assistant) ... ok
+test_patterns_distinct (tests.host.test_ux_security.TestPixelsAlarm.test_patterns_distinct) ... ok
+test_no_shared_fleet_secret_file (tests.host.test_ux_security.TestSecurityPolicies.test_no_shared_fleet_secret_file) ... ok
+test_pinmap_sim_loads (tests.host.test_ux_security.TestSecurityPolicies.test_pinmap_sim_loads) ... ok
+test_threat_model_table_exists (tests.host.test_ux_security.TestSecurityPolicies.test_threat_model_table_exists) ... ok
+test_update_reject_paths (tests.host.test_ux_security.TestSecurityPolicies.test_update_reject_paths) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.001s
+
+OK

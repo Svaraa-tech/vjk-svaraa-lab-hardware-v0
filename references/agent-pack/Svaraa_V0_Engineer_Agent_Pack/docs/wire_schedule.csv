@@ -1,0 +1,39 @@
+Wire,From,To,Rule
+W01,Nano USB-C,Powered hub,USB data/power; VIN/VUSB header NC
+W02,Nicla Micro-USB,Powered hub,Independent USB power
+W03,Nano3V3,JH1 V+,"4209 red, continuity verified"
+W04,NanoGND,JH1 GND,"4209 black, continuity verified"
+W05,Nano A4/GPIO11,JH1 SDA,"4209 blue, verify"
+W06,Nano A5/GPIO12,JH1 SCL,"4209 yellow, verify"
+W07,JH1 QT,BMP390 QT,"QT cable, address0x77"
+W08,JH1 QT,MAX-M10S QT,"QT cable, address0x42"
+W09,GNSS SMA,Matched antenna,"Factory RF connector, correct gender"
+W10,Nicla J5,JH2 segregated hub,4483; INT unused
+W11,JH2 SDA,Nano D4/GPIO7,"4209 signal lead, target0x2A"
+W12,JH2 SCL,Nano D3/GPIO6,Nicla sole bus controller
+W13,JH2 GND,CommonGND,Nicla J5.5
+W14,JH2 V+,NC / insulated,J5.1 is 5V INPUT; do not feed or join sensor hub
+W15,Nano3V3 via R2 4.7k,NICLA_SDA,Check actual fitted pull-ups
+W16,Nano3V3 via R3 4.7k,NICLA_SCL,Never tie regulator outputs
+W17,Nano3V3,INMP VCC,Not5V
+W18,CommonGND,INMP GND and L/R,Select left slot
+W19,NanoD5/GPIO8,INMP SCK + amp BCLK,Shared output clock
+W20,NanoD6/GPIO9,INMP WS + amp LRC,Shared frame clock
+W21,INMP SD,NanoD7/GPIO10,Audio RX
+W22,NanoD8/GPIO17,Amp DIN,Audio TX
+W23,EXT_5V / GND,Amp VIN / GND,"Terminal power, not3V3"
+W24,Amp OUT+ / OUT-,Speaker two leads,Neither speaker lead toGND
+W25,NanoD2/GPIO5,S1 toGND,R1 10k pull-up; C1 100nF toGND
+W26,NanoD10/GPIO21,S2 toGND,R4 10k pull-up; software privacy only
+W27,NanoD9/GPIO18,AHCT pin2,R6 10k toGND
+W28,AHCT pin3 via R5 330ohm,Pixel DIN,"Input connector, notDOUT"
+W29,EXT_5V / GND,AHCT pins14 / 7,C2 100nF across supply
+W30,GND,AHCT pin1,Active-low enable
+W31,EXT_5V,"AHCT pins4,10,13",Disable unused channels
+W32,GND,"AHCT pins5,9,12","Unused inputs; outputs6,8,11NC"
+W33,EXT_5V / GND,Pixel V+ / GND,"C4 470uF >=10V, correct polarity"
+W34,NanoD12/GPIO47,Grove motor SIG,Factory cable; other signal NC
+W35,NanoA0/GPIO1,Grove buzzer SIG,Factory cable; other signal NC
+W36,EXT_5V / GND,Both Grove VCC / GND,Onboard drivers required
+W37,External supply negative,CommonGND,NEVER join positive to NanoUSB/3V3
+W38,Reserved pins,NC,No implied modem/SPI wiring
