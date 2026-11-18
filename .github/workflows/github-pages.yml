@@ -36,11 +36,13 @@ jobs:
           cat > apps/workbench/dist/README_PAGES.txt <<'EOF'
           Svaraa V0 Lab Workbench (static GitHub Pages build).
           Wokwi Live tab runs the bundled diagram + firmware via wokwi.com experimental embed (no local API).
-          Device Simulator / Lab API features still need local `make dev`.
+          Project Board uses public/data/board.json when Lab API is offline.
+          Device Simulator / live board mutations still need local `make dev`.
           EOF
           test -f apps/workbench/dist/wokwi/diagram.json
           test -f apps/workbench/dist/wokwi/firmware.bin
           test -f apps/workbench/dist/wokwi/firmware.elf
+          test -f apps/workbench/dist/data/board.json
           # SPA fallback for client routes
           cp apps/workbench/dist/index.html apps/workbench/dist/404.html
       - uses: actions/upload-pages-artifact@v3

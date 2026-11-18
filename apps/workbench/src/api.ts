@@ -84,6 +84,20 @@ export type TicketDossier = {
   simulated: boolean;
 };
 
+function publicAsset(path: string) {
+  const base = import.meta.env.BASE_URL || "/";
+  const normalized = base.endsWith("/") ? base : `${base}/`;
+  return `${normalized}${path.replace(/^\//, "")}`;
+}
+
+function formatHttpError(status: number, text: string) {
+  const t = text.trim();
+  if (t.startsWith("<!DOCTYPE") || t.startsWith("<html") || t.includes("GitHub Pages")) {
+    return `${status}: Lab API unavailable on this host (static Pages). Wokwi Live works here; board/sim APIs need local \`make dev\`.`;
+  }
+  return `${status}: ${t.slice(0, 280)}`;
+}
+
 async function json<T>(url: string, init?: RequestInit): Promise<T> {
   const r = await fetch(url, {
     ...init,
@@ -94,30 +108,154 @@ async function json<T>(url: string, init?: RequestInit): Promise<T> {
   });
   if (!r.ok) {
     const text = await r.text();
-    throw new Error(`${r.status}: ${text}`);
+    throw new Error(formatHttpError(r.status, text));
+  }
+  const ct = r.headers.get("content-type") || "";
+  if (!ct.includes("application/json")) {
+    const text = await r.text();
+    throw new Error(formatHttpError(r.status || 502, text));
   }
   return r.json() as Promise<T>;
 }
 
-export const api = {
-  health: () => json<{ status: string; profile?: string }>("/lab/v1/health"),
-  summary: () => json<BoardSummary>("/lab/v1/board/summary"),
-  tickets: (params?: Record<string, string>) => {
-    const q = new URLSearchParams(params).toString();
-    return json<{ count: number; tickets: Ticket[] }>(
-      `/lab/v1/tickets${q ? `?${q}` : ""}`,
+type StaticBoardSnapshot = {
+  schema_version?: string;
+  mode?: string;
+  note?: string;
+  summary: BoardSummary;
+  tickets: Ticket[];
+};
+
+let labApiAvailable: boolean | null = null;
+let staticBoardCache: StaticBoardSnapshot | null = null;
+
+/** True when local Lab API answers JSON (Vite proxy / make dev). False on GitHub Pages. */
+export async function probeLabApi(): Promise<boolean> {
+  if (labApiAvailable != null) return labApiAvailable;
+  try {
+    const r = await fetch("/lab/v1/health", {
+      method: "GET",
+      headers: { Accept: "application/json" },
+    });
+    const ct = r.headers.get("content-type") || "";
+    labApiAvailable = r.ok && ct.includes("application/json");
+  } catch {
+    labApiAvailable = false;
+  }
+  return labApiAvailable;
+}
+
+export async function loadStaticBoard(): Promise<StaticBoardSnapshot> {
+  if (staticBoardCache) return staticBoardCache;
+  const r = await fetch(publicAsset("data/board.json"));
+  if (!r.ok) {
+    throw new Error(
+      "Static board snapshot missing — rebuild workbench or run scripts/export_board_snapshot.py",
     );
+  }
+  staticBoardCache = (await r.json()) as StaticBoardSnapshot;
+  return staticBoardCache;
+}
+
+export const api = {
+  health: async () => {
+    if (await probeLabApi()) {
+      return json<{ status: string; profile?: string }>("/lab/v1/health");
+    }
+    return {
+      status: "static",
+      profile: "SIM",
+      note: "GitHub Pages / no Lab API — using bundled snapshots",
+    };
   },
-  ticket: (key: string) => json<Ticket>(`/lab/v1/tickets/${encodeURIComponent(key)}`),
-  dossier: (key: string) =>
-    json<TicketDossier>(
-      `/lab/v1/tickets/${encodeURIComponent(key)}/dossier`,
-    ),
-  transition: (key: string, to_state: string, message?: string) =>
-    json<Ticket>(`/lab/v1/tickets/${encodeURIComponent(key)}/transition`, {
+  summary: async () => {
+    if (await probeLabApi()) return json<BoardSummary>("/lab/v1/board/summary");
+    return (await loadStaticBoard()).summary;
+  },
+  tickets: async (params?: Record<string, string>) => {
+    if (await probeLabApi()) {
+      const q = new URLSearchParams(params).toString();
+      return json<{ count: number; tickets: Ticket[] }>(
+        `/lab/v1/tickets${q ? `?${q}` : ""}`,
+      );
+    }
+    const snap = await loadStaticBoard();
+    let tickets = snap.tickets;
+    if (params?.namespace) {
+      tickets = tickets.filter((t) => t.source_namespace === params.namespace);
+    }
+    if (params?.work_type) {
+      tickets = tickets.filter((t) => t.work_type === params.work_type);
+    }
+    if (params?.state) {
+      tickets = tickets.filter((t) => t.workflow_state === params.state);
+    }
+    if (params?.q) {
+      const q = params.q.toLowerCase();
+      tickets = tickets.filter(
+        (t) =>
+          t.ticket_key.toLowerCase().includes(q) ||
+          t.summary.toLowerCase().includes(q) ||
+          (t.labels ?? "").toLowerCase().includes(q),
+      );
+    }
+    return { count: tickets.length, tickets };
+  },
+  ticket: async (key: string) => {
+    if (await probeLabApi()) {
+      return json<Ticket>(`/lab/v1/tickets/${encodeURIComponent(key)}`);
+    }
+    const snap = await loadStaticBoard();
+    const t = snap.tickets.find((x) => x.ticket_key === key);
+    if (!t) throw new Error(`ticket ${key} not found in static snapshot`);
+    return t;
+  },
+  dossier: async (key: string) => {
+    if (await probeLabApi()) {
+      return json<TicketDossier>(
+        `/lab/v1/tickets/${encodeURIComponent(key)}/dossier`,
+      );
+    }
+    const t = await api.ticket(key);
+    return {
+      ticket_key: key,
+      ticket: t,
+      sections: {
+        task: t.description || t.summary || "_No description in static snapshot._",
+        plan: null,
+        execution:
+          "_Static Pages snapshot — open with local `make dev` for full dossier markdown._",
+        results: `workflow_state=${t.workflow_state} · implementation=${t.implementation_state ?? "—"}`,
+        tests: null,
+        review: null,
+      },
+      docs_present: {},
+      completeness: {
+        has_ticket_md: false,
+        has_plan_md: false,
+        has_implementation_md: false,
+        has_tests_md: false,
+        has_review_md: false,
+        evidence_file_count: 0,
+      },
+      evidence: [],
+      firmware_pins: [],
+      docs_dir: null,
+      profile: "SIM",
+      simulated: true,
+    } satisfies TicketDossier;
+  },
+  transition: async (key: string, to_state: string, message?: string) => {
+    if (!(await probeLabApi())) {
+      throw new Error(
+        "Board transitions require local Lab API (`make dev`). Pages board is read-only.",
+      );
+    }
+    return json<Ticket>(`/lab/v1/tickets/${encodeURIComponent(key)}/transition`, {
       method: "POST",
       body: JSON.stringify({ to_state, actor: "owner", message, force: true }),
-    }),
+    });
+  },
   decide: (body: {
     ticket_key?: string;
     decision: string;

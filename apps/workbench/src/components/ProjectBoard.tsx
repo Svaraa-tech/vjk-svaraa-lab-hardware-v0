@@ -1,5 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { api, type BoardSummary, type Ticket } from "../api";
+import {
+  api,
+  loadStaticBoard,
+  probeLabApi,
+  type BoardSummary,
+  type Ticket,
+} from "../api";
 import { TicketDrawer } from "./TicketDrawer";
 
 const COLUMN_ORDER = [
@@ -31,6 +37,8 @@ export function ProjectBoard() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<string | null>(null);
+  const [staticMode, setStaticMode] = useState(false);
+  const [staticNote, setStaticNote] = useState<string | null>(null);
   const [filters, setFilters] = useState<Filters>({
     namespace: "all",
     workType: "all",
@@ -44,9 +52,22 @@ export function ProjectBoard() {
     setLoading(true);
     setError(null);
     try {
-      const [s, t] = await Promise.all([api.summary(), api.tickets()]);
-      setSummary(s);
-      setTickets(t.tickets);
+      const live = await probeLabApi();
+      setStaticMode(!live);
+      if (!live) {
+        const snap = await loadStaticBoard();
+        setStaticNote(
+          snap.note ??
+            "Read-only board snapshot (GitHub Pages). Local `make dev` enables live API.",
+        );
+        setSummary(snap.summary);
+        setTickets(snap.tickets);
+      } else {
+        setStaticNote(null);
+        const [s, t] = await Promise.all([api.summary(), api.tickets()]);
+        setSummary(s);
+        setTickets(t.tickets);
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
     } finally {
@@ -56,9 +77,13 @@ export function ProjectBoard() {
 
   useEffect(() => {
     void load();
+  }, [load]);
+
+  useEffect(() => {
+    if (staticMode) return;
     const id = window.setInterval(() => void load(), 5000);
     return () => window.clearInterval(id);
-  }, [load]);
+  }, [load, staticMode]);
 
   const filtered = useMemo(() => {
     return tickets.filter((t) => {
@@ -210,12 +235,19 @@ export function ProjectBoard() {
           <button type="button" className="btn-secondary" onClick={() => void load()}>
             Refresh
           </button>
-          <a className="btn-secondary" href="/lab/v1/board/export.csv" download>
-            Export CSV
-          </a>
+          {!staticMode ? (
+            <a className="btn-secondary" href="/lab/v1/board/export.csv" download>
+              Export CSV
+            </a>
+          ) : null}
         </div>
       </div>
 
+      {staticMode && staticNote ? (
+        <div className="banner-sim" style={{ margin: "0 0 0.75rem", borderRadius: "0.65rem" }}>
+          {staticNote} · Wokwi Live works without API
+        </div>
+      ) : null}
       {error && <div className="banner-error">Board API error: {error}</div>}
       {loading && !tickets.length && <p className="muted">Loading tickets…</p>}
 

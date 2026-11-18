@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { api } from "./api";
+import { api, probeLabApi } from "./api";
 import { DeviceSimulator } from "./components/DeviceSimulator";
 import { IntegrationGuide } from "./components/IntegrationGuide";
 import { ProjectBoard } from "./components/ProjectBoard";
@@ -13,6 +13,7 @@ export default function App() {
   const [theme, setTheme] = useState<Theme>("light");
   const [tab, setTab] = useState<Tab>("board");
   const [apiOk, setApiOk] = useState<boolean | null>(null);
+  const [staticPages, setStaticPages] = useState(false);
 
   useEffect(() => {
     const initial = readStoredTheme();
@@ -22,14 +23,21 @@ export default function App() {
 
   useEffect(() => {
     let cancelled = false;
-    api
-      .health()
-      .then(() => {
+    void (async () => {
+      const live = await probeLabApi();
+      if (cancelled) return;
+      setStaticPages(!live);
+      if (!live) {
+        setApiOk(false);
+        return;
+      }
+      try {
+        await api.health();
         if (!cancelled) setApiOk(true);
-      })
-      .catch(() => {
+      } catch {
         if (!cancelled) setApiOk(false);
-      });
+      }
+    })();
     return () => {
       cancelled = true;
     };
@@ -50,9 +58,19 @@ export default function App() {
         <div className="header-actions">
           <span
             className={apiOk ? "status-ok" : "status-bad"}
-            title="Backend connection"
+            title={
+              staticPages
+                ? "Static GitHub Pages — board uses bundled snapshot; Wokwi Live needs no API"
+                : "Backend connection"
+            }
           >
-            {apiOk === null ? "API…" : apiOk ? "API connected" : "API down"}
+            {apiOk === null
+              ? "API…"
+              : apiOk
+                ? "API connected"
+                : staticPages
+                  ? "Pages · static"
+                  : "API down"}
           </span>
           <button
             type="button"
