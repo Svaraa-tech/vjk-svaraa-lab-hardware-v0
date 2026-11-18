@@ -13,7 +13,7 @@ PHASE_PIXEL_INDICES: dict[str, list[int]] = {
     "Ready": [0],
     "Prealert": [0, 1],
     "Pending": [0, 1, 2, 3, 4],
-    "ServerAccepted": [0, 1, 2],
+    "ServerAccepted": [0, 1, 2, 3, 4],  # alarm + sound → all face lights
     "HumanAck": [0, 1, 2, 3, 4],
     "Resolved": [0],
 }
@@ -22,7 +22,7 @@ PHASE_RGB: dict[str, tuple[int, int, int]] = {
     "Ready": (0, 20, 8),
     "Prealert": (40, 25, 0),
     "Pending": (50, 0, 0),
-    "ServerAccepted": (40, 20, 0),
+    "ServerAccepted": (50, 0, 0),  # solid red while buzzer on
     "HumanAck": (0, 40, 0),
     "Resolved": (0, 0, 30),
 }

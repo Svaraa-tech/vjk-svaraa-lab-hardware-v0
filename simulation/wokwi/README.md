@@ -29,7 +29,8 @@ Artifacts: `.pio/build/sim/firmware.bin` + `firmware.elf` (referenced by `wokwi.
 
 | Action | Expected |
 | --- | --- |
-| Hold **S1 SOS** ≥ 2s | Pixels → Pending, buzzer+haptic on, serial `mock_sos` |
+| Hold **S1 SOS** ≥ 2s | All 5 pixels solid red + buzzer/haptic, serial `mock_sos` |
+| Alarm phases (Pending / ServerAccepted) | **All lights red** while sound is on |
 | Toggle **S2 Privacy** | Serial `privacy` event |
 | Serial `{"cmd":"phase","phase":"HumanAck"}` | Drive pixels from Lab bridge |
 | Serial `{"cmd":"sensors"}` | BMP/IMU JSON sample |

@@ -77,8 +77,9 @@ class DebouncedHold:
 PHASE_PIXEL = {
     "Ready": {"pattern": "idle_dim", "indices": [0], "alarm": False},
     "Prealert": {"pattern": "prealert_pulse", "indices": [0, 1], "alarm": False},
+    # Alarm phases: all five face lights solid red while buzzer/haptic run
     "Pending": {"pattern": "pending_chase", "indices": [0, 1, 2, 3, 4], "alarm": True},
-    "ServerAccepted": {"pattern": "received_solid", "indices": [0, 1, 2], "alarm": True},
+    "ServerAccepted": {"pattern": "received_solid", "indices": [0, 1, 2, 3, 4], "alarm": True},
     "HumanAck": {"pattern": "human_ack_breathe", "indices": [0, 1, 2, 3, 4], "alarm": False},
     "Resolved": {"pattern": "resolved_fade", "indices": [0], "alarm": False},
 }

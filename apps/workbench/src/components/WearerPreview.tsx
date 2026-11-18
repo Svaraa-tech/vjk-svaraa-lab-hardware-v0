@@ -35,6 +35,7 @@ export function WearerPreview({ runId }: { runId: string | null }) {
   }, [load]);
 
   const pixels = data?.pixels?.logical ?? [];
+  const alarmOn = Boolean(data?.alarm?.buzzer_on);
 
   return (
     <section className="sim-card wearer-preview" aria-label="Wearer dashboard wireframe">
@@ -82,8 +83,8 @@ export function WearerPreview({ runId }: { runId: string | null }) {
             {([0, 1, 2, 3, 4] as const).map((i) => (
               <span
                 key={i}
-                className={`pixel ${pixels[i] ? "pixel-on" : ""}`}
-                title={`pixel ${i}`}
+                className={`pixel ${pixels[i] ? (alarmOn ? "pixel-on-alarm" : "pixel-on") : ""}`}
+                title={`pixel ${i}${alarmOn ? " · SOS red" : ""}`}
               />
             ))}
           </div>

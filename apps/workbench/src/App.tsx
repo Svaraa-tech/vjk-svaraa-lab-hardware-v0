@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { api } from "./api";
 import { DeviceSimulator } from "./components/DeviceSimulator";
+import { IntegrationGuide } from "./components/IntegrationGuide";
 import { ProjectBoard } from "./components/ProjectBoard";
 import { ReferenceGallery } from "./components/ReferenceGallery";
 import { applyTheme, readStoredTheme, toggleTheme, type Theme } from "./theme";
 
-type Tab = "board" | "simulator" | "gallery";
+type Tab = "board" | "simulator" | "gallery" | "integration";
 
 export default function App() {
   const [theme, setTheme] = useState<Theme>("light");
@@ -42,7 +43,7 @@ export default function App() {
         <div className="brand">
           <h1 className="brand-name">Svaraa V0 Lab</h1>
           <p className="brand-sub">
-            Project board · device simulator · references
+            Project board · device simulator · BLE integration · references
           </p>
         </div>
         <div className="header-actions">
@@ -85,6 +86,14 @@ export default function App() {
         <button
           type="button"
           className="tab"
+          aria-current={tab === "integration" ? "page" : undefined}
+          onClick={() => setTab("integration")}
+        >
+          BLE Integration
+        </button>
+        <button
+          type="button"
+          className="tab"
           aria-current={tab === "gallery" ? "page" : undefined}
           onClick={() => setTab("gallery")}
         >
@@ -97,6 +106,8 @@ export default function App() {
           <ProjectBoard />
         ) : tab === "simulator" ? (
           <DeviceSimulator />
+        ) : tab === "integration" ? (
+          <IntegrationGuide />
         ) : (
           <ReferenceGallery />
         )}

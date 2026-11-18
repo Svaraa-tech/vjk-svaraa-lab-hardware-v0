@@ -120,6 +120,9 @@ export function DeviceSimulator() {
 
   const phase = snap?.reducer.phase ?? "—";
   const pixels = sensors?.pixels?.logical ?? snap?.pixels?.logical ?? [];
+  const alarmOn = Boolean(
+    sensors?.alarm?.buzzer_on || snap?.alarm?.buzzer_on,
+  );
 
   return (
     <div className="sim-panel">
@@ -173,14 +176,14 @@ export function DeviceSimulator() {
             {([0, 1, 2, 3, 4] as const).map((i) => (
               <span
                 key={i}
-                className={`pixel ${pixels[i] ? "pixel-on" : ""}`}
-                title={`pixel ${i}`}
+                className={`pixel ${pixels[i] ? (alarmOn ? "pixel-on-alarm" : "pixel-on") : ""}`}
+                title={`pixel ${i}${alarmOn ? " · SOS red" : ""}`}
               />
             ))}
           </div>
           <p className="muted small">
             Pattern: {sensors?.pixels?.pattern ?? snap?.pixels?.pattern ?? "—"} ·
-            buzzer {sensors?.alarm?.buzzer_on || snap?.alarm?.buzzer_on ? "on" : "off"} ·
+            buzzer {alarmOn ? "on" : "off"} ·
             haptic {sensors?.alarm?.haptic_on || snap?.alarm?.haptic_on ? "on" : "off"}
           </p>
           <button

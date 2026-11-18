@@ -56,13 +56,8 @@ void showPhase(const String& p) {
     g = 25;
     lit = 2;
   } else if (p == "Pending") {
-    r = 50;
-    lit = 5;
     alarm = true;
   } else if (p == "ServerAccepted") {
-    r = 40;
-    g = 20;
-    lit = 3;
     alarm = true;
   } else if (p == "HumanAck") {
     g = 40;
@@ -74,6 +69,13 @@ void showPhase(const String& p) {
     g = 8;
     b = 3;
     lit = 1;
+  }
+  // SOS with sound → every face light solid red (status + programmable bank)
+  if (alarm) {
+    r = 50;
+    g = 0;
+    b = 0;
+    lit = 5;
   }
   pixels.clear();
   for (int i = 0; i < lit && i < 5; ++i) {
