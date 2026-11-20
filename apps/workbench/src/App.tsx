@@ -1,13 +1,22 @@
 import { useEffect, useState } from "react";
 import { api, probeLabApi } from "./api";
 import { DeviceSimulator } from "./components/DeviceSimulator";
+import { FeatureList } from "./components/FeatureList";
+import { HardwareParts } from "./components/HardwareParts";
 import { IntegrationGuide } from "./components/IntegrationGuide";
 import { ProjectBoard } from "./components/ProjectBoard";
 import { ReferenceGallery } from "./components/ReferenceGallery";
 import { WokwiLiveEmbed } from "./components/WokwiLiveEmbed";
 import { applyTheme, readStoredTheme, toggleTheme, type Theme } from "./theme";
 
-type Tab = "board" | "simulator" | "gallery" | "integration" | "wokwi";
+type Tab =
+  | "board"
+  | "simulator"
+  | "gallery"
+  | "integration"
+  | "wokwi"
+  | "hardware"
+  | "features";
 
 export default function App() {
   const [theme, setTheme] = useState<Theme>("light");
@@ -52,7 +61,8 @@ export default function App() {
         <div className="brand">
           <h1 className="brand-name">Svaraa V0 Lab</h1>
           <p className="brand-sub">
-            Project board · Wokwi live · device simulator · BLE · references
+            Project board · hardware · features · Wokwi live · simulator · BLE ·
+            references
           </p>
         </div>
         <div className="header-actions">
@@ -97,6 +107,22 @@ export default function App() {
         <button
           type="button"
           className="tab"
+          aria-current={tab === "hardware" ? "page" : undefined}
+          onClick={() => setTab("hardware")}
+        >
+          Hardware
+        </button>
+        <button
+          type="button"
+          className="tab"
+          aria-current={tab === "features" ? "page" : undefined}
+          onClick={() => setTab("features")}
+        >
+          Feature List
+        </button>
+        <button
+          type="button"
+          className="tab"
           aria-current={tab === "wokwi" ? "page" : undefined}
           onClick={() => setTab("wokwi")}
         >
@@ -131,6 +157,10 @@ export default function App() {
       <div className="tab-body">
         {tab === "board" ? (
           <ProjectBoard />
+        ) : tab === "hardware" ? (
+          <HardwareParts />
+        ) : tab === "features" ? (
+          <FeatureList />
         ) : tab === "wokwi" ? (
           <WokwiLiveEmbed />
         ) : tab === "simulator" ? (

@@ -1,0 +1,226 @@
+{
+  "B01": {
+    "file": "hardware/b01.jpg",
+    "source_page": "https://store.arduino.cc/products/nano-esp32-with-headers",
+    "source_image": "https://store.arduino.cc/cdn/shop/files/ABX00083_00.default_1200x900.jpg?v=1727962622",
+    "bytes": 204940,
+    "credit": "store.arduino.cc"
+  },
+  "B02": {
+    "file": "hardware/b02.jpg",
+    "source_page": "https://store.arduino.cc/products/nicla-voice",
+    "source_image": "https://store.arduino.cc/cdn/shop/files/ABX00061_03.front_1200x900.jpg?v=1727100682",
+    "bytes": 191784,
+    "credit": "store.arduino.cc"
+  },
+  "B03": {
+    "file": "hardware/b03.jpg",
+    "source_page": "https://www.adafruit.com/product/4816",
+    "source_image": "https://cdn-shop.adafruit.com/480x360/4816-05.jpg",
+    "bytes": 161100,
+    "credit": "www.adafruit.com"
+  },
+  "B04": {
+    "file": "hardware/b04.jpg",
+    "source_page": "https://www.sparkfun.com/sparkfun-gnss-receiver-breakout-max-m10s-qwiic.html",
+    "source_image": "https://www.sparkfun.com/media/catalog/product/1/8/18037-SparkFun_GNSS_Receiver_Breakout_-_MAX-M10S__Qwiic_-01_Default.jpg?optimize=low&bg-color=255,255,255&fit=bounds&height=265&width=265&canvas=265:265",
+    "bytes": 29381,
+    "credit": "www.sparkfun.com"
+  },
+  "B05": {
+    "file": "hardware/b05.jpg",
+    "source_page": "https://www.sparkfun.com/gps-gnss-magnetic-mount-antenna-3m-sma.html",
+    "source_image": "https://www.sparkfun.com/media/catalog/product/1/4/14986-GPS_GNSS_Magnetic_Mount_Antenna_SMA_-_3m-01.jpg?optimize=low&bg-color=255,255,255&fit=bounds&height=265&width=265&canvas=265:265",
+    "bytes": 21183,
+    "credit": "www.sparkfun.com"
+  },
+  "B06": {
+    "file": "hardware/b06.jpg",
+    "source_page": "https://www.adafruit.com/product/3421",
+    "source_image": "https://cdn-shop.adafruit.com/480x360/3421-03.jpg",
+    "bytes": 42954,
+    "credit": "www.adafruit.com"
+  },
+  "B07": {
+    "file": "hardware/b07.jpg",
+    "source_page": "https://www.adafruit.com/product/3006",
+    "source_image": "https://cdn-shop.adafruit.com/480x360/3006-04.jpg",
+    "bytes": 37951,
+    "credit": "www.adafruit.com"
+  },
+  "B08": {
+    "file": "hardware/b08.jpg",
+    "source_page": "https://www.adafruit.com/product/1314",
+    "source_image": "https://cdn-shop.adafruit.com/480x360/1314-07.jpg",
+    "bytes": 91606,
+    "credit": "www.adafruit.com"
+  },
+  "B09": {
+    "file": "hardware/b09.jpg",
+    "source_page": "https://www.adafruit.com/product/3630",
+    "source_image": "https://cdn-shop.adafruit.com/480x360/3630-02.jpg",
+    "bytes": 177931,
+    "credit": "www.adafruit.com"
+  },
+  "B10": {
+    "file": "hardware/b10.jpg",
+    "source_page": "https://www.adafruit.com/product/1787",
+    "source_image": "https://www.adafruit.com/images/970x728/1787-02.jpg",
+    "bytes": 160971,
+    "credit": "www.adafruit.com"
+  },
+  "B11": {
+    "file": "hardware/b11.jpg",
+    "source_page": "https://www.seeedstudio.com/Grove-Vibration-Motor.html",
+    "source_image": "https://media-cdn.seeedstudio.com/media/catalog/product/cache/961a49e1875f8c1f40e5990d74e68365/1/-/1-105020003-grove-vibration-motor-45font.jpg",
+    "bytes": 72222,
+    "credit": "www.seeedstudio.com"
+  },
+  "B12": {
+    "file": "hardware/b12.jpg",
+    "source_page": "https://www.seeedstudio.com/Grove-Buzzer.html",
+    "source_image": "https://media-cdn.seeedstudio.com/media/catalog/product/cache/961a49e1875f8c1f40e5990d74e68365/h/t/httpsstatics3.seeedstudio.comseeedfile2018-08bazaar897328_1.jpg",
+    "bytes": 100746,
+    "credit": "www.seeedstudio.com"
+  },
+  "B13": {
+    "file": "hardware/b13.jpg",
+    "source_page": "https://www.adafruit.com/product/1119",
+    "source_image": "https://cdn-shop.adafruit.com/480x360/1119-03.jpg",
+    "bytes": 19697,
+    "credit": "www.adafruit.com"
+  },
+  "B14": {
+    "file": "hardware/b14.jpg",
+    "source_page": "https://www.adafruit.com/product/805",
+    "source_image": "https://cdn-shop.adafruit.com/480x360/805-03.jpg",
+    "bytes": 30950,
+    "credit": "www.adafruit.com"
+  },
+  "B15": {
+    "file": "hardware/b15.jpg",
+    "source_page": "https://www.adafruit.com/product/5625",
+    "source_image": "https://cdn-shop.adafruit.com/480x360/5625-05.jpg",
+    "bytes": 39220,
+    "credit": "www.adafruit.com"
+  },
+  "B16": {
+    "file": "hardware/b16.jpg",
+    "source_page": "https://www.adafruit.com/product/4209",
+    "source_image": "https://cdn-shop.adafruit.com/480x360/4209-05.jpg",
+    "bytes": 18766,
+    "credit": "www.adafruit.com"
+  },
+  "B17": {
+    "file": "hardware/b17.jpg",
+    "source_page": "https://www.adafruit.com/product/4483",
+    "source_image": "https://cdn-shop.adafruit.com/480x360/4483-03.jpg",
+    "bytes": 173294,
+    "credit": "www.adafruit.com"
+  },
+  "B18": {
+    "file": "hardware/b18.jpg",
+    "source_page": "https://www.adafruit.com/product/4210",
+    "source_image": "https://cdn-shop.adafruit.com/480x360/4210-00.jpg",
+    "bytes": 10991,
+    "credit": "www.adafruit.com"
+  },
+  "B21": {
+    "file": "hardware/b21.jpg",
+    "source_page": "https://www.adafruit.com/product/2786",
+    "source_image": "https://cdn-shop.adafruit.com/480x360/2786-00.jpg",
+    "bytes": 72683,
+    "credit": "www.adafruit.com"
+  },
+  "B22": {
+    "file": "hardware/b22.jpg",
+    "source_page": "https://www.adafruit.com/product/64",
+    "source_image": "https://cdn-shop.adafruit.com/480x360/64-06.jpg",
+    "bytes": 24620,
+    "credit": "www.adafruit.com"
+  },
+  "B23": {
+    "file": "hardware/b23.jpg",
+    "source_page": "https://www.adafruit.com/product/758",
+    "source_image": "https://cdn-shop.adafruit.com/480x360/758-04.jpg",
+    "bytes": 28002,
+    "credit": "www.adafruit.com"
+  },
+  "B24": {
+    "file": "hardware/b24.jpg",
+    "source_page": "https://www.adafruit.com/product/4472",
+    "source_image": "https://cdn-shop.adafruit.com/480x360/4472-00.jpg",
+    "bytes": 116642,
+    "credit": "www.adafruit.com"
+  },
+  "B25": {
+    "file": "hardware/b25.jpg",
+    "source_page": "https://www.adafruit.com/product/2999",
+    "source_image": "https://cdn-shop.adafruit.com/480x360/2999-07.jpg",
+    "bytes": 191304,
+    "credit": "www.adafruit.com"
+  },
+  "B26": {
+    "file": "hardware/b26.jpg",
+    "source_page": "https://www.adafruit.com/product/658",
+    "source_image": "https://cdn-shop.adafruit.com/480x360/658-07.jpg",
+    "bytes": 84273,
+    "credit": "www.adafruit.com"
+  },
+  "B27": {
+    "file": "hardware/b27.jpg",
+    "source_page": "https://www.adafruit.com/product/308",
+    "source_image": "https://cdn-shop.adafruit.com/480x360/308-00.jpg",
+    "bytes": 54160,
+    "credit": "www.adafruit.com"
+  },
+  "B28": {
+    "file": "hardware/b28.jpg",
+    "source_page": "https://www.adafruit.com/product/4904",
+    "source_image": "https://cdn-shop.adafruit.com/480x360/4904-02.jpg",
+    "bytes": 144229,
+    "credit": "www.adafruit.com"
+  },
+  "B31": {
+    "file": "hardware/b31.jpg",
+    "source_page": "https://www.adafruit.com/product/1317",
+    "source_image": "https://cdn-shop.adafruit.com/480x360/1317-03.jpg",
+    "bytes": 22817,
+    "credit": "www.adafruit.com"
+  },
+  "B32": {
+    "file": "hardware/b32.jpg",
+    "source_page": "https://www.adafruit.com/product/3807",
+    "source_image": "https://cdn-shop.adafruit.com/480x360/3807-01.jpg",
+    "bytes": 102722,
+    "credit": "www.adafruit.com"
+  },
+  "B19": {
+    "file": "hardware/b19.jpg",
+    "source_page": "https://www.adafruit.com/product/3568",
+    "source_image": "https://cdn-shop.adafruit.com/970x728/5786-00.jpg",
+    "bytes": 534329,
+    "credit": "adafruit.com"
+  },
+  "B20": {
+    "file": "hardware/b20.jpg",
+    "source_page": "https://www.adafruit.com/product/578",
+    "source_image": "https://cdn-shop.adafruit.com/480x360/578-02.jpg",
+    "bytes": 43907,
+    "credit": "www.adafruit.com"
+  },
+  "B30": {
+    "file": "hardware/b30.jpg",
+    "source_page": "https://www.adafruit.com/product/4062",
+    "source_image": "https://cdn-shop.adafruit.com/970x728/4062-00.jpg",
+    "bytes": 61426,
+    "credit": "adafruit.com"
+  },
+  "B29": {
+    "file": "hardware/b29.jpg",
+    "source_page": "https://www.nordicsemi.com/Products/Development-hardware/nRF9151-DK",
+    "source_image": "nRF9151 DK Hardware User Guide (Farnell 4536_001) \u2014 kit content figure",
+    "bytes": 136748,
+    "credit": "Nordic Semiconductor / Farnell datasheet 4628152"
+  }
+}
