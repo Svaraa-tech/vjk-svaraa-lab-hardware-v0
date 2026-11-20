@@ -199,11 +199,23 @@ export function HardwareParts() {
       </div>
 
       <nav className="hw-toc" aria-label="Jump to category">
-        {byCategory.map((g) => (
-          <a key={g.category} href={`#hw-${g.category.replace(/\s+/g, "-")}`}>
-            {g.category} · {g.parts.length}
-          </a>
-        ))}
+        {byCategory.map((g) => {
+          const id = `hw-${g.category.replace(/\s+/g, "-")}`;
+          return (
+            <button
+              key={g.category}
+              type="button"
+              className="hw-toc-btn"
+              onClick={() => {
+                document
+                  .getElementById(id)
+                  ?.scrollIntoView({ behavior: "smooth", block: "start" });
+              }}
+            >
+              {g.category} · {g.parts.length}
+            </button>
+          );
+        })}
       </nav>
 
       {byCategory.map((g) => (

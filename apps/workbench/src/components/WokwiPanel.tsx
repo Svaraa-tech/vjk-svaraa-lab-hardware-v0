@@ -83,9 +83,12 @@ export function WokwiPanel({
   }, [runId, paused, appendLines]);
 
   useEffect(() => {
-    if (autoScroll && !paused) {
-      serialEndRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    }
+    if (!autoScroll || paused) return;
+    // Keep scroll inside the serial console; do not scroll the document.
+    const end = serialEndRef.current;
+    const pre = end?.parentElement;
+    if (!pre) return;
+    pre.scrollTop = pre.scrollHeight;
   }, [serialLog, autoScroll, paused]);
 
   async function sync() {

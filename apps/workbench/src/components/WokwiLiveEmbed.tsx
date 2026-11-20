@@ -209,12 +209,12 @@ export function WokwiLiveEmbed() {
   }, [state, iframeKey]);
 
   useEffect(() => {
-    if (autoScroll) {
-      serialEndRef.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-      });
-    }
+    if (!autoScroll) return;
+    // Scroll only the serial <pre> — never scrollIntoView (that scrolls the page).
+    const end = serialEndRef.current;
+    const pre = end?.parentElement;
+    if (!pre) return;
+    pre.scrollTop = pre.scrollHeight;
   }, [serial, autoScroll]);
 
   async function pause() {

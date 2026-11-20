@@ -24,6 +24,17 @@ export default function App() {
   const [apiOk, setApiOk] = useState<boolean | null>(null);
   const [staticPages, setStaticPages] = useState(false);
 
+  function goTab(next: Tab) {
+    setTab(next);
+    // Avoid carrying Feature/Hardware scroll depth into other tabs / hash jumps.
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" in window ? "instant" : "auto" });
+    if (window.location.hash) {
+      const url = new URL(window.location.href);
+      url.hash = "";
+      window.history.replaceState(null, "", url.pathname + url.search);
+    }
+  }
+
   useEffect(() => {
     const initial = readStoredTheme();
     applyTheme(initial);
@@ -100,7 +111,7 @@ export default function App() {
           type="button"
           className="tab"
           aria-current={tab === "board" ? "page" : undefined}
-          onClick={() => setTab("board")}
+          onClick={() => goTab("board")}
         >
           Project Board
         </button>
@@ -108,7 +119,7 @@ export default function App() {
           type="button"
           className="tab"
           aria-current={tab === "hardware" ? "page" : undefined}
-          onClick={() => setTab("hardware")}
+          onClick={() => goTab("hardware")}
         >
           Hardware
         </button>
@@ -116,7 +127,7 @@ export default function App() {
           type="button"
           className="tab"
           aria-current={tab === "features" ? "page" : undefined}
-          onClick={() => setTab("features")}
+          onClick={() => goTab("features")}
         >
           Feature List
         </button>
@@ -124,7 +135,7 @@ export default function App() {
           type="button"
           className="tab"
           aria-current={tab === "wokwi" ? "page" : undefined}
-          onClick={() => setTab("wokwi")}
+          onClick={() => goTab("wokwi")}
         >
           Wokwi Live
         </button>
@@ -132,7 +143,7 @@ export default function App() {
           type="button"
           className="tab"
           aria-current={tab === "simulator" ? "page" : undefined}
-          onClick={() => setTab("simulator")}
+          onClick={() => goTab("simulator")}
         >
           Device Simulator
         </button>
@@ -140,7 +151,7 @@ export default function App() {
           type="button"
           className="tab"
           aria-current={tab === "integration" ? "page" : undefined}
-          onClick={() => setTab("integration")}
+          onClick={() => goTab("integration")}
         >
           BLE Integration
         </button>
@@ -148,7 +159,7 @@ export default function App() {
           type="button"
           className="tab"
           aria-current={tab === "gallery" ? "page" : undefined}
-          onClick={() => setTab("gallery")}
+          onClick={() => goTab("gallery")}
         >
           References
         </button>

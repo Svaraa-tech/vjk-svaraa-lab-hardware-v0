@@ -96,6 +96,7 @@
   padding: 0.75rem 1.5rem;
   border-bottom: 1px solid var(--c-line);
   overflow-x: auto;
+  overflow-y: clip; /* avoid overflow-x:auto forcing a vertical scrollport */
   -webkit-overflow-scrolling: touch;
 }
 
@@ -802,6 +803,7 @@
   font-size: 0.72rem;
   max-height: 5.5rem;
   overflow: auto;
+  overscroll-behavior: contain;
   white-space: pre-wrap;
   word-break: break-all;
 }
@@ -1217,9 +1219,10 @@
   padding: 0.15rem 0 0.25rem;
 }
 
-.hw-toc a {
+.hw-toc-btn {
+  font: inherit;
   color: var(--c-primary);
-  text-decoration: none;
+  cursor: pointer;
   padding: 0.25rem 0.55rem;
   border-radius: 999px;
   border: 1px solid color-mix(in srgb, var(--c-primary) 28%, var(--c-line));
@@ -1227,7 +1230,7 @@
   line-height: 1.2;
 }
 
-.hw-toc a:hover {
+.hw-toc-btn:hover {
   background: color-mix(in srgb, var(--c-primary) 12%, transparent);
 }
 
