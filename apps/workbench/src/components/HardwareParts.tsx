@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   HARDWARE_CATEGORIES,
   HARDWARE_PARTS,
@@ -34,10 +34,19 @@ function partImageSrc(id: string) {
   return `${base}hardware/${id.toLowerCase()}.jpg`;
 }
 
-function PartCard({ part }: { part: HardwarePart }) {
+function PartCard({
+  part,
+  focused,
+}: {
+  part: HardwarePart;
+  focused?: boolean;
+}) {
   const [imgOk, setImgOk] = useState(true);
   return (
-    <article className="hw-card" id={part.id}>
+    <article
+      className={`hw-card${focused ? " hw-card-focus" : ""}`}
+      id={part.id}
+    >
       <div className="hw-card-media">
         {imgOk ? (
           <img
@@ -89,10 +98,43 @@ function PartCard({ part }: { part: HardwarePart }) {
   );
 }
 
-export function HardwareParts() {
+export function HardwareParts({
+  focusPartId,
+  onFocusHandled,
+}: {
+  focusPartId?: string | null;
+  onFocusHandled?: () => void;
+} = {}) {
   const [q, setQ] = useState("");
   const [status, setStatus] = useState<PartStatus | "all">("all");
   const [category, setCategory] = useState<string>("all");
+  const [flashId, setFlashId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!focusPartId) return;
+    // Clear filters so the target part is visible.
+    setQ("");
+    setStatus("all");
+    setCategory("all");
+    setFlashId(focusPartId);
+    const frame = window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        document
+          .getElementById(focusPartId)
+          ?.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    });
+    const clear = window.setTimeout(() => {
+      setFlashId(null);
+      onFocusHandled?.();
+    }, 2200);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.clearTimeout(clear);
+    };
+    // onFocusHandled is a stable setter from App; omit to avoid re-flash loops.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focusPartId]);
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
@@ -227,7 +269,7 @@ export function HardwareParts() {
           <h3 className="hw-section-title">{g.category}</h3>
           <div className="hw-grid">
             {g.parts.map((p) => (
-              <PartCard key={p.id} part={p} />
+              <PartCard key={p.id} part={p} focused={flashId === p.id} />
             ))}
           </div>
         </section>

@@ -11,10 +11,13 @@ import {
   MATURITY_LABEL,
   PILLAR_META,
   PILLAR_ORDER,
+  PRIORITY_LABEL,
+  compareFeaturePriority,
   featureActors,
   featureSvaraas,
   type FeatureItem,
 } from "../data/featureList";
+import { featureMcuEquivalent } from "../data/mcuEquivalents";
 
 const MARGIN = 14;
 const PAGE_W = 210;
@@ -164,17 +167,22 @@ function writeFeatures(s: DocState) {
   );
   para(
     s,
-    `${FEATURE_LIST.length} features and ${subCount} sub-features for elder care on svaraa.ai. Wearers ↔ caretakers/guardians are many-to-many. Each feature lists primary Svaraa, cross-links, actors, maturity, hardware IDs, and sub-features.`,
+    `${FEATURE_LIST.length} features and ${subCount} sub-features for elder care on svaraa.ai. Wearers ↔ caretakers/guardians are many-to-many. Within each Svaraa, features are ordered P1 Must have → P2 Need to have → P3 Good to have.`,
     9,
   );
 
   for (const pillar of PILLAR_ORDER) {
-    const feats = FEATURE_LIST.filter((f) => f.pillar === pillar);
+    const feats = FEATURE_LIST.filter((f) => f.pillar === pillar)
+      .slice()
+      .sort(compareFeaturePriority);
     if (!feats.length) continue;
     const meta = PILLAR_META[pillar];
+    const p1 = feats.filter((f) => f.priority === "P1").length;
+    const p2 = feats.filter((f) => f.priority === "P2").length;
+    const p3 = feats.filter((f) => f.priority === "P3").length;
     subheading(
       s,
-      `${meta.num}  ${pillar} — ${meta.tagline}  (${feats.length})`,
+      `${meta.num}  ${pillar} — ${meta.tagline}  (${feats.length}; P1 ${p1} / P2 ${p2} / P3 ${p3})`,
     );
     for (const f of feats) {
       writeFeature(s, f);
@@ -205,7 +213,7 @@ function writeFeature(s: DocState, f: FeatureItem) {
   s.doc.setTextColor(110);
   const metaLine = wrap(
     s.doc,
-    `Svaraa: ${svaraas}  |  Actors: ${actors}  |  ${MATURITY_LABEL[f.maturity]}`,
+    `${PRIORITY_LABEL[f.priority]}  |  Svaraa: ${svaraas}  |  Actors: ${actors}  |  ${MATURITY_LABEL[f.maturity]}`,
     8,
   );
   for (const line of metaLine) {
@@ -219,6 +227,10 @@ function writeFeature(s: DocState, f: FeatureItem) {
   labeled(s, "Why elders", f.elderWhy);
   labeled(s, "How", f.how);
   labeled(s, "Hardware", f.hardware.join(", "));
+  const mcu = (f.mcuEquivalent || featureMcuEquivalent(f.id) || "")
+    .replace(/^MCU:\s*/i, "")
+    .trim();
+  if (mcu) labeled(s, "Pendant PCB", mcu);
   if (f.tags?.length) labeled(s, "Tags", f.tags.join(", "));
 
   if (f.subFeatures?.length) {

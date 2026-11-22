@@ -17,6 +17,9 @@ export type FeatureMaturity =
   | "needs_cloud"
   | "later_gated";
 
+/** Product priority for roadmap ordering within each Svaraa. */
+export type FeaturePriority = "P1" | "P2" | "P3";
+
 /** Who the feature serves in a many-to-many care graph. */
 export type CareActor =
   | "wearer"
@@ -43,6 +46,13 @@ export type FeatureItem = {
   how: string;
   hardware: string[];
   maturity: FeatureMaturity;
+  /** P1 Must have · P2 Need to have · P3 Good to have */
+  priority: FeaturePriority;
+  /**
+   * Custom PCB / Svaraa Pendant microcontroller + production parts mapping.
+   * Sourced from Svaraa_Feature_Priority_Hardware.xlsx (see mcuEquivalents.ts).
+   */
+  mcuEquivalent?: string;
   /** Many-to-many: who acts / who receives. Defaults to wearer if omitted. */
   actors?: CareActor[];
   subFeatures?: FeatureSub[];
@@ -140,6 +150,28 @@ export const MATURITY_BADGE: Record<FeatureMaturity, string> = {
   later_gated: "Later / gated",
 };
 
+export const PRIORITY_LABEL: Record<FeaturePriority, string> = {
+  P1: "P1 · Must have",
+  P2: "P2 · Need to have",
+  P3: "P3 · Good to have",
+};
+
+export const PRIORITY_BADGE: Record<FeaturePriority, string> = {
+  P1: "P1 Must",
+  P2: "P2 Need",
+  P3: "P3 Nice",
+};
+
+export const PRIORITY_ORDER: FeaturePriority[] = ["P1", "P2", "P3"];
+
+/** Sort key: P1→P2→P3, then stable by id. */
+export function compareFeaturePriority(a: FeatureItem, b: FeatureItem): number {
+  const pa = PRIORITY_ORDER.indexOf(a.priority);
+  const pb = PRIORITY_ORDER.indexOf(b.priority);
+  if (pa !== pb) return pa - pb;
+  return a.id.localeCompare(b.id);
+}
+
 function actors(...a: CareActor[]): CareActor[] {
   return a;
 }
@@ -156,6 +188,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "INMP441 capture → BLE/phone ASR or on-device keyword → MAX98357 playback of cached audio.",
     hardware: ["B01", "B06", "B07", "B08"],
     maturity: "needs_phone",
+    priority: "P1",
     actors: actors("wearer"),
     subFeatures: [
       {
@@ -183,6 +216,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Preferences stored on phone/cloud; pendant only receives playlist IDs + cached clips.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P1",
     actors: actors("wearer"),
     tags: ["i18n"],
   },
@@ -196,6 +230,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Phone schedules offline reminder; buzzer/haptic + speaker at fire time.",
     hardware: ["B01", "B07", "B08", "B11", "B12"],
     maturity: "needs_phone",
+    priority: "P2",
     actors: actors("wearer"),
     tags: ["schedule"],
   },
@@ -209,6 +244,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Cached loops on phone; pendant plays via I2S amp; px0 soft warm status.",
     hardware: ["B07", "B08", "B09"],
     maturity: "needs_phone",
+    priority: "P3",
     actors: actors("wearer"),
     tags: ["audio"],
   },
@@ -222,6 +258,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Command over BLE; amp gain table; status LED confirms change.",
     hardware: ["B01", "B07", "B09"],
     maturity: "needs_phone",
+    priority: "P2",
     actors: actors("wearer"),
   },
   {
@@ -233,6 +270,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Phone seeks in stream; pendant confirms with short haptic.",
     hardware: ["B11", "B07"],
     maturity: "needs_phone",
+    priority: "P3",
     actors: actors("wearer"),
   },
   {
@@ -245,6 +283,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "BLE push of audio blobs when docked/charging; local playlist on phone or future SPI flash.",
     hardware: ["B01", "B07", "B08"],
     maturity: "product_path",
+    priority: "P1",
     actors: actors("wearer"),
     tags: ["offline"],
   },
@@ -258,6 +297,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Cloud calendar → phone packs → Recite playlist swap.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P3",
     actors: actors("wearer"),
   },
   {
@@ -270,6 +310,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Family app upload + review; device receives signed playlist.",
     hardware: ["B01", "B07"],
     maturity: "needs_cloud",
+    priority: "P2",
     actors: actors("wearer"),
   },
   {
@@ -283,6 +324,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Firmware audio mux: alarm path owns amp; Recite paused in Pending+.",
     hardware: ["B07", "B12", "B09"],
     maturity: "v0_bench",
+    priority: "P1",
     actors: actors("wearer"),
     tags: ["safety"],
   },
@@ -295,6 +337,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Timed fade curve on amp + px bank.",
     hardware: ["B07", "B09"],
     maturity: "product_path",
+    priority: "P3",
     actors: actors("wearer"),
   },
   {
@@ -307,6 +350,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "VAD on mic to detect pause end; playback resume.",
     hardware: ["B06", "B07", "B08"],
     maturity: "needs_phone",
+    priority: "P3",
     actors: actors("wearer"),
   },
 
@@ -321,6 +365,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "I2S mic → phone ASR/LLM → TTS → amp; Nicla wake optional.",
     hardware: ["B01", "B02", "B06", "B07", "B08"],
     maturity: "needs_phone",
+    priority: "P1",
     actors: actors("wearer", "guardian"),
     tags: ["voice", "llm"],
   },
@@ -334,6 +379,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Phone/cloud session context; pendant streams short turns only.",
     hardware: ["B01", "B06"],
     maturity: "needs_cloud",
+    priority: "P1",
     actors: actors("wearer", "guardian"),
   },
   {
@@ -346,6 +392,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "LLM proposes; local confirm via voice or button; then Remind create.",
     hardware: ["B06", "B13"],
     maturity: "needs_cloud",
+    priority: "P1",
     actors: actors("wearer", "guardian"),
   },
   {
@@ -358,6 +405,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Nicla private I2C wake event → Nano opens conversational mic window.",
     hardware: ["B02", "B01", "B06"],
     maturity: "product_path",
+    priority: "P2",
     actors: actors("wearer", "guardian"),
     tags: ["privacy", "wake"],
   },
@@ -370,6 +418,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Full-duplex-ish: mic VAD cancels playback path.",
     hardware: ["B06", "B07"],
     maturity: "needs_phone",
+    priority: "P2",
     actors: actors("wearer", "guardian"),
   },
   {
@@ -383,6 +432,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Intent → family notification draft → wearer confirm.",
     hardware: ["B01", "B06"],
     maturity: "needs_cloud",
+    priority: "P2",
     actors: actors("wearer", "guardian"),
   },
   {
@@ -395,6 +445,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Recall pulls appointment; Respond coaches; Repository can save notes.",
     hardware: ["B06", "B07"],
     maturity: "needs_cloud",
+    priority: "P3",
     actors: actors("wearer", "guardian"),
   },
   {
@@ -406,6 +457,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "TTS profile + amp EQ; haptic ticks optional.",
     hardware: ["B07", "B11"],
     maturity: "needs_phone",
+    priority: "P1",
     actors: actors("wearer", "guardian"),
     tags: ["a11y"],
   },
@@ -419,6 +471,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Schedule gate on Respond volume + length policy.",
     hardware: ["B07", "B11", "B09"],
     maturity: "product_path",
+    priority: "P2",
     actors: actors("wearer", "guardian"),
   },
   {
@@ -431,6 +484,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "On-device intent table + canned TTS clips.",
     hardware: ["B01", "B07"],
     maturity: "product_path",
+    priority: "P2",
     actors: actors("wearer", "guardian"),
     tags: ["offline"],
   },
@@ -443,6 +497,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "ASR multilingual model; language preference bias.",
     hardware: ["B06"],
     maturity: "needs_cloud",
+    priority: "P1",
     actors: actors("wearer", "guardian"),
     tags: ["i18n"],
   },
@@ -455,6 +510,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Scripted Respond flow with examples that launch other pillars.",
     hardware: ["B07", "B08"],
     maturity: "needs_phone",
+    priority: "P2",
     actors: actors("wearer", "guardian"),
   },
   {
@@ -467,6 +523,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Prosody features on phone; response policy — not a clinical label.",
     hardware: ["B06"],
     maturity: "needs_cloud",
+    priority: "P3",
     actors: actors("wearer", "guardian"),
     tags: ["ethics"],
   },
@@ -480,6 +537,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Voice enrollment on phone; reject unknown speakers for care actions.",
     hardware: ["B06"],
     maturity: "needs_cloud",
+    priority: "P2",
     actors: actors("wearer", "guardian"),
     tags: ["safety"],
   },
@@ -495,6 +553,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Scheduler on phone; offline fire via BLE/local clock; amp + haptic.",
     hardware: ["B01", "B07", "B08", "B11", "B12"],
     maturity: "needs_phone",
+    priority: "P1",
     actors: actors("both_ends"),
     tags: ["meds"],
   },
@@ -507,6 +566,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Short ASR window after prompt; logs to family app.",
     hardware: ["B06", "B07", "B11"],
     maturity: "needs_phone",
+    priority: "P1",
     actors: actors("both_ends"),
     tags: ["meds"],
   },
@@ -520,6 +580,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Escalation policy engine; never auto-SOS for missed pill alone.",
     hardware: ["B12", "B11", "B09"],
     maturity: "needs_cloud",
+    priority: "P1",
     actors: actors("both_ends"),
     tags: ["meds", "safety"],
   },
@@ -532,6 +593,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Soft haptic + short spoken line; family can tune frequency.",
     hardware: ["B11", "B07"],
     maturity: "needs_phone",
+    priority: "P3",
     actors: actors("both_ends"),
   },
   {
@@ -543,6 +605,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Calendar sync → Remind instances with travel buffer.",
     hardware: ["B07", "B11"],
     maturity: "needs_cloud",
+    priority: "P2",
     actors: actors("both_ends"),
   },
   {
@@ -555,6 +618,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Push next 24–72h schedule to device RTC; local fire + deferred sync.",
     hardware: ["B01", "B07", "B12", "B11"],
     maturity: "product_path",
+    priority: "P1",
     actors: actors("both_ends"),
     tags: ["offline"],
   },
@@ -567,6 +631,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Family app CRUD; device receives signed reminder objects.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P2",
     actors: actors("both_ends"),
   },
   {
@@ -579,6 +644,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Remind fires → optional Recite launch.",
     hardware: ["B07", "B06"],
     maturity: "needs_phone",
+    priority: "P3",
     actors: actors("both_ends"),
   },
   {
@@ -591,6 +657,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Voice capture → structured note in Repository; family sees trend.",
     hardware: ["B06"],
     maturity: "needs_cloud",
+    priority: "P3",
     actors: actors("both_ends"),
     tags: ["ethics", "non-clinical"],
   },
@@ -603,6 +670,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "px bank short green pulse on ack.",
     hardware: ["B09", "B10"],
     maturity: "v0_bench",
+    priority: "P2",
     actors: actors("both_ends"),
   },
   {
@@ -614,6 +682,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Cloud TZ update; device reschedules local queue.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P3",
     actors: actors("both_ends"),
   },
   {
@@ -626,6 +695,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Local + cloud dose window policy.",
     hardware: ["B01", "B07"],
     maturity: "needs_cloud",
+    priority: "P1",
     actors: actors("both_ends"),
     tags: ["meds", "safety"],
   },
@@ -638,6 +708,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Inventory field on med object; Remind + family notification.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P2",
     actors: actors("both_ends"),
     tags: ["meds"],
   },
@@ -650,6 +721,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Policy counter on reminder instance.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P2",
     actors: actors("both_ends"),
   },
 
@@ -664,6 +736,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Debounce ~20 ms; qualify; phase machine Pending → server → ACK.",
     hardware: ["B13", "B01", "B09", "B12", "B11"],
     maturity: "v0_bench",
+    priority: "P1",
     actors: actors("care_circle", "wearer"),
     tags: ["sos", "safety"],
   },
@@ -677,6 +750,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Firmware SOS palette; buzzer path survives assistant failure.",
     hardware: ["B09", "B10", "B12", "B11"],
     maturity: "v0_bench",
+    priority: "P1",
     actors: actors("care_circle", "wearer"),
     tags: ["sos"],
   },
@@ -691,6 +765,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Cloud incident + ordered contact graph; ACK is human not ATT.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P1",
     actors: actors("care_circle", "wearer"),
     tags: ["sos", "family"],
   },
@@ -704,6 +779,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Nicla IMU heuristics → prealert amber → escalate or cancel.",
     hardware: ["B02", "B09", "B07", "B13"],
     maturity: "product_path",
+    priority: "P1",
     actors: actors("care_circle", "wearer"),
     tags: ["fall", "sos"],
   },
@@ -717,6 +793,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "MAX-M10S best-effort; payload location.source may be none.",
     hardware: ["B04", "B05", "B01"],
     maturity: "product_path",
+    priority: "P2",
     actors: actors("care_circle", "wearer"),
     tags: ["gnss", "sos"],
   },
@@ -730,6 +807,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "authenticated_return → pixel/buzzer state machine.",
     hardware: ["B09", "B07", "B11"],
     maturity: "needs_phone",
+    priority: "P1",
     actors: actors("care_circle", "wearer"),
     tags: ["sos"],
   },
@@ -743,6 +821,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "BLE/cloud incident APIs per integration guide.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P1",
     actors: actors("care_circle", "wearer"),
     tags: ["sos"],
   },
@@ -755,6 +834,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "drill_id in DeviceEvent; distinct pixel pattern.",
     hardware: ["B09", "B12", "B07"],
     maturity: "needs_cloud",
+    priority: "P2",
     actors: actors("care_circle", "wearer"),
   },
   {
@@ -767,6 +847,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "UART/power-qualified modem; data incident uplink + SIM.",
     hardware: ["B29", "B01"],
     maturity: "later_gated",
+    priority: "P3",
     actors: actors("care_circle", "wearer"),
     tags: ["cellular", "sos"],
   },
@@ -780,6 +861,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Cloud routing policy; pendant UX identical — backend differs.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P3",
     actors: actors("care_circle", "wearer"),
     tags: ["family"],
   },
@@ -793,6 +875,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Pressure samples attached to incident extras — not a fall detector alone.",
     hardware: ["B03"],
     maturity: "product_path",
+    priority: "P3",
     actors: actors("care_circle", "wearer"),
     tags: ["sensors"],
   },
@@ -806,6 +889,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Ring buffer on phone; consent flag; encrypted upload.",
     hardware: ["B06"],
     maturity: "needs_cloud",
+    priority: "P3",
     actors: actors("care_circle", "wearer"),
     tags: ["privacy", "ethics"],
   },
@@ -818,6 +902,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Incident revision + ack authority rules.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P1",
     actors: actors("care_circle", "wearer"),
   },
   {
@@ -829,6 +914,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Supervisor / wear sensor on manufacturer PCB.",
     hardware: ["B32"],
     maturity: "later_gated",
+    priority: "P3",
     actors: actors("care_circle", "wearer"),
   },
   {
@@ -841,6 +927,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Independent DK bring-up; legal Find My program separately.",
     hardware: ["B30"],
     maturity: "later_gated",
+    priority: "P3",
     actors: actors("care_circle", "wearer"),
     tags: ["find-my"],
   },
@@ -856,6 +943,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Cloud assemble → TTS → pendant; calm-mode length caps.",
     hardware: ["B07", "B08"],
     maturity: "needs_cloud",
+    priority: "P1",
     actors: actors("both_ends"),
   },
   {
@@ -867,6 +955,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Calendar + Remind merge; spoken list with confirm.",
     hardware: ["B07", "B06"],
     maturity: "needs_cloud",
+    priority: "P1",
     actors: actors("both_ends"),
   },
   {
@@ -879,6 +968,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Editorial filter + preference; TTS only.",
     hardware: ["B07"],
     maturity: "needs_cloud",
+    priority: "P3",
     actors: actors("both_ends"),
     tags: ["ethics"],
   },
@@ -891,6 +981,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Per-pillar locale settings.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P1",
     actors: actors("both_ends"),
     tags: ["i18n"],
   },
@@ -903,6 +994,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Unread queue on phone; spoken digest.",
     hardware: ["B07", "B06"],
     maturity: "needs_cloud",
+    priority: "P2",
     actors: actors("both_ends"),
   },
   {
@@ -914,6 +1006,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Aggregate Remind logs → TTS.",
     hardware: ["B07"],
     maturity: "needs_cloud",
+    priority: "P2",
     actors: actors("both_ends"),
     tags: ["meds"],
   },
@@ -927,6 +1020,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Cloud analytics → family app; optional spoken teaser on pendant.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P2",
     actors: actors("both_ends"),
     tags: ["family"],
   },
@@ -939,6 +1033,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "GNSS + maps on phone; spoken ETA only with consent.",
     hardware: ["B04", "B05"],
     maturity: "needs_phone",
+    priority: "P3",
     actors: actors("both_ends"),
     tags: ["gnss"],
   },
@@ -951,6 +1046,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Family calendar events → Recall prompt → Respond dial intent.",
     hardware: ["B07", "B06"],
     maturity: "needs_cloud",
+    priority: "P3",
     actors: actors("both_ends"),
   },
   {
@@ -963,6 +1059,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "BMP390 + weather API → careful copy.",
     hardware: ["B03"],
     maturity: "needs_cloud",
+    priority: "P3",
     actors: actors("both_ends"),
     tags: ["non-clinical"],
   },
@@ -975,6 +1072,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Priority lanes in notification policy.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P1",
     actors: actors("both_ends"),
   },
   {
@@ -987,6 +1085,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Family app upload → BLE audio → amp.",
     hardware: ["B07", "B08"],
     maturity: "needs_phone",
+    priority: "P2",
     actors: actors("both_ends"),
     tags: ["family"],
   },
@@ -1003,6 +1102,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Privacy latch + explicit consent prompt; mic window; encrypt upload.",
     hardware: ["B06", "B14", "B13"],
     maturity: "needs_phone",
+    priority: "P1",
     actors: actors("both_ends"),
     tags: ["privacy"],
   },
@@ -1015,6 +1115,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "ASR + summariser; wearer reviews before save.",
     hardware: ["B06", "B07"],
     maturity: "needs_cloud",
+    priority: "P2",
     actors: actors("both_ends"),
   },
   {
@@ -1026,6 +1127,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Pending inbox in family app + pendant confirm.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P1",
     actors: actors("both_ends"),
     tags: ["privacy", "ethics"],
   },
@@ -1039,6 +1141,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Respond interview → Repository asset; Gold ‘memory keeper’.",
     hardware: ["B06", "B07"],
     maturity: "needs_cloud",
+    priority: "P3",
     actors: actors("both_ends"),
   },
   {
@@ -1050,6 +1153,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Structured prompts; tags; export PDF for visit.",
     hardware: ["B06"],
     maturity: "needs_cloud",
+    priority: "P2",
     actors: actors("both_ends"),
     tags: ["non-clinical"],
   },
@@ -1062,6 +1166,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Access-controlled share links; audit log.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P3",
     actors: actors("both_ends"),
     tags: ["family"],
   },
@@ -1075,6 +1180,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "S2 latch → firmware mic path off; status LED.",
     hardware: ["B14", "B06", "B09"],
     maturity: "v0_bench",
+    priority: "P1",
     actors: actors("both_ends"),
     tags: ["privacy"],
   },
@@ -1087,6 +1193,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Retention jobs; pendant can wipe local buffers on privacy-on.",
     hardware: ["B01", "B14"],
     maturity: "needs_cloud",
+    priority: "P2",
     actors: actors("both_ends"),
     tags: ["privacy"],
   },
@@ -1099,6 +1206,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Phone OCR → med entities → Remind create with review.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P2",
     actors: actors("both_ends"),
     tags: ["meds"],
   },
@@ -1111,6 +1219,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Explicit session flag; review gate.",
     hardware: ["B06"],
     maturity: "needs_cloud",
+    priority: "P3",
     actors: actors("both_ends"),
     tags: ["ethics"],
   },
@@ -1123,6 +1232,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Phone/device buffer + encrypted sync.",
     hardware: ["B01", "B06"],
     maturity: "product_path",
+    priority: "P2",
     actors: actors("both_ends"),
     tags: ["offline"],
   },
@@ -1135,6 +1245,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Cloud search → TTS results with confirm to open.",
     hardware: ["B06", "B07"],
     maturity: "needs_cloud",
+    priority: "P3",
     actors: actors("both_ends"),
   },
 
@@ -1148,6 +1259,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Scripted audio; IMU can detect gross participation — not form scoring.",
     hardware: ["B07", "B08", "B11", "B02"],
     maturity: "needs_phone",
+    priority: "P2",
     actors: actors("wearer", "guardian"),
     tags: ["movement"],
   },
@@ -1160,6 +1272,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Respond-style turns; scoring optional and private.",
     hardware: ["B06", "B07"],
     maturity: "needs_cloud",
+    priority: "P2",
     actors: actors("wearer", "guardian"),
   },
   {
@@ -1171,6 +1284,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Copy & policy: never punish misses in UI or voice.",
     hardware: ["B07"],
     maturity: "needs_cloud",
+    priority: "P1",
     actors: actors("wearer", "guardian"),
     tags: ["ethics"],
   },
@@ -1183,6 +1297,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "px bank breathe pattern + spoken pace.",
     hardware: ["B09", "B07"],
     maturity: "product_path",
+    priority: "P2",
     actors: actors("wearer", "guardian"),
   },
   {
@@ -1194,6 +1309,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Audio mix of bed + coach voice.",
     hardware: ["B07", "B08"],
     maturity: "needs_phone",
+    priority: "P3",
     actors: actors("wearer", "guardian"),
   },
   {
@@ -1205,6 +1321,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Family app session; dual-presence prompts.",
     hardware: ["B07", "B06"],
     maturity: "needs_cloud",
+    priority: "P3",
     actors: actors("wearer", "guardian"),
     tags: ["family"],
   },
@@ -1217,6 +1334,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Content tags + confirm gate; IMU abort if hard impact.",
     hardware: ["B02", "B07"],
     maturity: "needs_phone",
+    priority: "P1",
     actors: actors("wearer", "guardian"),
     tags: ["safety"],
   },
@@ -1229,6 +1347,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Recall → optional Riddle launch.",
     hardware: ["B07"],
     maturity: "needs_cloud",
+    priority: "P3",
     actors: actors("wearer", "guardian"),
   },
   {
@@ -1240,6 +1359,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "TTS timing profiles; ‘again’ intent.",
     hardware: ["B06", "B07"],
     maturity: "needs_phone",
+    priority: "P2",
     actors: actors("wearer", "guardian"),
     tags: ["a11y"],
   },
@@ -1252,6 +1372,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Local counters; family sees only if shared.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P3",
     actors: actors("wearer", "guardian"),
   },
 
@@ -1265,6 +1386,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "S1 qualified hold; pixels/haptic confirm.",
     hardware: ["B13", "B09", "B11"],
     maturity: "v0_bench",
+    priority: "P1",
     actors: actors("both_ends"),
   },
   {
@@ -1277,6 +1399,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Grove motor patterns; never bare motor on GPIO.",
     hardware: ["B11"],
     maturity: "v0_bench",
+    priority: "P1",
     actors: actors("both_ends"),
     tags: ["a11y"],
   },
@@ -1290,6 +1413,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "5 logical pixels via AHCT125 level shift; indices 5–19 off.",
     hardware: ["B09", "B10"],
     maturity: "v0_bench",
+    priority: "P1",
     actors: actors("both_ends"),
   },
   {
@@ -1301,6 +1425,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "S2 → firmware policy; remote unmute blocked.",
     hardware: ["B14", "B09"],
     maturity: "v0_bench",
+    priority: "P1",
     actors: actors("both_ends"),
     tags: ["privacy"],
   },
@@ -1313,6 +1438,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "BLE command → pixels + haptic; Find My network is later/gated.",
     hardware: ["B09", "B11", "B01"],
     maturity: "needs_phone",
+    priority: "P2",
     actors: actors("both_ends"),
     tags: ["find-my"],
   },
@@ -1325,6 +1451,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Service/characteristics per BLE integration guide.",
     hardware: ["B01"],
     maturity: "needs_phone",
+    priority: "P1",
     actors: actors("both_ends"),
   },
   {
@@ -1336,6 +1463,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Phone queue + Idempotency-Key = event_id.",
     hardware: ["B01"],
     maturity: "needs_phone",
+    priority: "P1",
     actors: actors("both_ends"),
     tags: ["offline"],
   },
@@ -1349,6 +1477,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "B24–B26 practice; LiPo path gated with engineer.",
     hardware: ["B24", "B25", "B26", "B31"],
     maturity: "v0_bench",
+    priority: "P1",
     actors: actors("both_ends"),
   },
   {
@@ -1360,6 +1489,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "V0 uses USB data cables; product puck is industrial design + B31.",
     hardware: ["B24", "B31"],
     maturity: "later_gated",
+    priority: "P3",
     actors: actors("both_ends"),
   },
   {
@@ -1371,6 +1501,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Cloud presence + Reminder/SOS projections.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P2",
     actors: actors("both_ends"),
     tags: ["family"],
   },
@@ -1383,6 +1514,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "TTS packs on phone; device plays audio.",
     hardware: ["B07", "B08"],
     maturity: "needs_phone",
+    priority: "P1",
     actors: actors("both_ends"),
     tags: ["i18n"],
   },
@@ -1395,6 +1527,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Pairing-session API + button confirm.",
     hardware: ["B13", "B01"],
     maturity: "needs_phone",
+    priority: "P1",
     actors: actors("both_ends"),
     tags: ["security"],
   },
@@ -1407,6 +1540,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Fuel gauge later; V0 USB presence proxies; product B31.",
     hardware: ["B31", "B07", "B11"],
     maturity: "later_gated",
+    priority: "P1",
     actors: actors("both_ends"),
   },
   {
@@ -1418,6 +1552,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "JH1 hub, QT cables, passives per BOM.",
     hardware: ["B15", "B16", "B18", "B21", "B03", "B04"],
     maturity: "v0_bench",
+    priority: "P3",
     actors: actors("both_ends"),
   },
   {
@@ -1429,6 +1564,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "B17 + JH2 segregated hub.",
     hardware: ["B17", "B15", "B02"],
     maturity: "v0_bench",
+    priority: "P3",
     actors: actors("both_ends"),
   },
   {
@@ -1441,6 +1577,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Cloud entitlements; pendant degrades gracefully offline.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P2",
     actors: actors("both_ends"),
   },
   {
@@ -1452,6 +1589,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "TLS + device identity; privacy latch as hardware complement.",
     hardware: ["B14", "B01"],
     maturity: "needs_cloud",
+    priority: "P1",
     actors: actors("both_ends"),
     tags: ["privacy", "ethics"],
   },
@@ -1464,6 +1602,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "B27/B28 on the bench before powering assemblies.",
     hardware: ["B27", "B28", "B22", "B23"],
     maturity: "v0_bench",
+    priority: "P3",
     actors: actors("both_ends"),
   },
   {
@@ -1475,6 +1614,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Wokwi Live tab + Lab authority honesty.",
     hardware: ["B01", "B09", "B12", "B13"],
     maturity: "v0_bench",
+    priority: "P3",
     actors: actors("both_ends"),
   },
   {
@@ -1486,6 +1626,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "RBAC on incidents in cloud.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P1",
     actors: actors("both_ends"),
     tags: ["family"],
   },
@@ -1499,6 +1640,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Phone/GNSS geofence → Recall/Respond check-in; consent required.",
     hardware: ["B04", "B05"],
     maturity: "needs_phone",
+    priority: "P3",
     actors: actors("both_ends"),
     tags: ["ethics", "gnss"],
   },
@@ -1511,6 +1653,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Profile flag from family app or voice.",
     hardware: ["B09", "B11", "B07"],
     maturity: "needs_phone",
+    priority: "P2",
     actors: actors("both_ends"),
   },
   {
@@ -1522,6 +1665,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Device_id isolation; shared care circle.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P2",
     actors: actors("both_ends"),
     tags: ["family"],
   },
@@ -1534,6 +1678,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Repository ICE fields → Respond/Recall read-out; SOS can attach.",
     hardware: ["B07"],
     maturity: "needs_cloud",
+    priority: "P2",
     actors: actors("both_ends"),
     tags: ["sos"],
   },
@@ -1547,6 +1692,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Guided Respond/Recite/Rescue flow; family co-pilot on phone.",
     hardware: ["B13", "B14", "B07", "B09"],
     maturity: "needs_phone",
+    priority: "P1",
     actors: actors("both_ends"),
   },
   {
@@ -1558,6 +1704,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "App design system; pendant stays screen-free.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P2",
     actors: actors("both_ends"),
     tags: ["a11y", "family"],
   },
@@ -1571,6 +1718,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Degraded feature matrix; honest voice status.",
     hardware: ["B01", "B07", "B29"],
     maturity: "product_path",
+    priority: "P2",
     actors: actors("both_ends"),
     tags: ["offline"],
   },
@@ -1584,6 +1732,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Product copy + Lab SIM honesty mirrored in Feature List maturity tags.",
     hardware: ["B32", "B30", "B14"],
     maturity: "v0_bench",
+    priority: "P1",
     actors: actors("both_ends"),
     tags: ["ethics"],
   },
@@ -1601,6 +1750,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "wearer_id ↔ membership ↔ guardian_id with roles, scopes, and per-link consent.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P1",
     actors: actors("both_ends", "care_circle"),
     subFeatures: [
       {
@@ -1644,6 +1794,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Incident fan-out walks ordered edges; first ACK wins across the circle.",
     hardware: ["B01", "B13"],
     maturity: "needs_cloud",
+    priority: "P1",
     actors: actors("care_circle", "wearer"),
     subFeatures: [
       {
@@ -1680,6 +1831,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "RBAC on reminder objects scoped by membership; device_id binding.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P1",
     actors: actors("both_ends"),
     subFeatures: [
       {
@@ -1717,6 +1869,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Subscription prefs on membership edges; aggregate jobs fan-in per guardian.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P2",
     actors: actors("guardian", "both_ends"),
     subFeatures: [
       {
@@ -1745,6 +1898,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Capability bits on membership: sos, remind, recall, repository, riddle, location.",
     hardware: ["B01", "B14"],
     maturity: "needs_cloud",
+    priority: "P1",
     actors: actors("both_ends"),
     subFeatures: [
       {
@@ -1779,6 +1933,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Catalog assets (shared) + wearer library (private); guardians propose, wearer accepts.",
     hardware: ["B01", "B07"],
     maturity: "needs_cloud",
+    priority: "P2",
     actors: actors("both_ends"),
     subFeatures: [
       {
@@ -1807,6 +1962,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Intent resolution against membership directory; confirm before send.",
     hardware: ["B06", "B07"],
     maturity: "needs_cloud",
+    priority: "P1",
     actors: actors("both_ends"),
     subFeatures: [
       {
@@ -1835,6 +1991,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Session object carries wearer_id; BLE/audio routes to that device only.",
     hardware: ["B01", "B07", "B06"],
     maturity: "needs_cloud",
+    priority: "P3",
     actors: actors("guardian", "wearer"),
     subFeatures: [
       {
@@ -1857,6 +2014,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Time-boxed role overlay on membership; auto-revert with notice.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P2",
     actors: actors("guardian", "care_circle"),
     subFeatures: [
       {
@@ -1878,6 +2036,7 @@ export const FEATURE_LIST: FeatureItem[] = [
     how: "Entitlements on wearer; guardian UI lists entitled elders only.",
     hardware: ["B01"],
     maturity: "needs_cloud",
+    priority: "P2",
     actors: actors("both_ends"),
     subFeatures: [
       {

@@ -6,13 +6,20 @@ import {
   MATURITY_LABEL,
   PILLAR_META,
   PILLAR_ORDER,
+  PRIORITY_BADGE,
+  PRIORITY_LABEL,
+  PRIORITY_ORDER,
+  compareFeaturePriority,
   featureActors,
   featureSvaraas,
   type CareActor,
   type FeatureItem,
   type FeatureMaturity,
+  type FeaturePriority,
   type SvaraaPillar,
 } from "../data/featureList";
+import { featureMcuEquivalent } from "../data/mcuEquivalents";
+import { parsePendantPcb } from "../data/pcbParts";
 import { CatalogPdfButton } from "./CatalogPdfButton";
 
 const MATURITY_FILTERS: Array<FeatureMaturity | "all"> = [
@@ -22,6 +29,11 @@ const MATURITY_FILTERS: Array<FeatureMaturity | "all"> = [
   "needs_phone",
   "needs_cloud",
   "later_gated",
+];
+
+const PRIORITY_FILTERS: Array<FeaturePriority | "all"> = [
+  "all",
+  ...PRIORITY_ORDER,
 ];
 
 const ACTOR_FILTERS: Array<CareActor | "all" | "m2m"> = [
@@ -46,6 +58,10 @@ function maturityClass(m: FeatureMaturity) {
     default:
       return "feat-mat feat-mat-later";
   }
+}
+
+function priorityClass(p: FeaturePriority) {
+  return `feat-pri feat-pri-${p.toLowerCase()}`;
 }
 
 function SvaraaBadges({ feature }: { feature: FeatureItem }) {
@@ -87,18 +103,35 @@ function ActorChips({ feature }: { feature: FeatureItem }) {
   );
 }
 
-function FeatureCard({ feature }: { feature: FeatureItem }) {
+function FeatureCard({
+  feature,
+  onOpenHardware,
+}: {
+  feature: FeatureItem;
+  onOpenHardware?: (partId: string) => void;
+}) {
   const subs = feature.subFeatures ?? [];
+  const mcuRaw =
+    feature.mcuEquivalent?.trim() || featureMcuEquivalent(feature.id);
+  const pcb = mcuRaw ? parsePendantPcb(mcuRaw) : null;
   return (
     <article className="feat-card" id={feature.id}>
       <div className="feat-card-top">
         <SvaraaBadges feature={feature} />
-        <span
-          className={maturityClass(feature.maturity)}
-          title={MATURITY_LABEL[feature.maturity]}
-        >
-          {MATURITY_BADGE[feature.maturity]}
-        </span>
+        <div className="feat-card-badges">
+          <span
+            className={priorityClass(feature.priority)}
+            title={PRIORITY_LABEL[feature.priority]}
+          >
+            {PRIORITY_BADGE[feature.priority]}
+          </span>
+          <span
+            className={maturityClass(feature.maturity)}
+            title={MATURITY_LABEL[feature.maturity]}
+          >
+            {MATURITY_BADGE[feature.maturity]}
+          </span>
+        </div>
       </div>
       <header className="feat-card-head">
         <p className="feat-id mono">{feature.id}</p>
@@ -113,12 +146,46 @@ function FeatureCard({ feature }: { feature: FeatureItem }) {
         <dd>{feature.how}</dd>
         <dt>Hardware</dt>
         <dd className="feat-hw">
-          {feature.hardware.map((h) => (
-            <span key={h} className="feat-hw-chip mono">
-              {h}
-            </span>
-          ))}
+          {feature.hardware.map((h) =>
+            onOpenHardware ? (
+              <button
+                key={h}
+                type="button"
+                className="feat-hw-chip feat-hw-link mono"
+                title={`Open ${h} in Hardware tab`}
+                onClick={() => onOpenHardware(h)}
+              >
+                {h}
+              </button>
+            ) : (
+              <span key={h} className="feat-hw-chip mono">
+                {h}
+              </span>
+            ),
+          )}
         </dd>
+        {pcb && pcb.capsules.length ? (
+          <>
+            <dt>Pendant PCB</dt>
+            <dd className="feat-mcu">
+              <ul className="feat-mcu-capsules" aria-label="Production PCB parts">
+                {pcb.capsules.map((c) => (
+                  <li
+                    key={`${feature.id}-${c.id}`}
+                    className={`feat-mcu-capsule${
+                      c.primary ? " is-primary" : ""
+                    }${c.later ? " is-later" : ""}`}
+                    title={c.detail}
+                  >
+                    <span className="feat-mcu-id mono">{c.id}</span>
+                    <span className="feat-mcu-title">{c.title}</span>
+                  </li>
+                ))}
+              </ul>
+              {pcb.note ? <p className="feat-mcu-note">{pcb.note}</p> : null}
+            </dd>
+          </>
+        ) : null}
       </dl>
       {subs.length ? (
         <div className="feat-subs">
@@ -150,10 +217,15 @@ function FeatureCard({ feature }: { feature: FeatureItem }) {
   );
 }
 
-export function FeatureList() {
+export function FeatureList({
+  onOpenHardware,
+}: {
+  onOpenHardware?: (partId: string) => void;
+}) {
   const [q, setQ] = useState("");
   const [pillar, setPillar] = useState<SvaraaPillar | "all">("all");
   const [maturity, setMaturity] = useState<FeatureMaturity | "all">("all");
+  const [priority, setPriority] = useState<FeaturePriority | "all">("all");
   const [actor, setActor] = useState<(typeof ACTOR_FILTERS)[number]>("all");
 
   const filtered = useMemo(() => {
@@ -162,6 +234,7 @@ export function FeatureList() {
       const svaraas = featureSvaraas(f);
       if (pillar !== "all" && !svaraas.includes(pillar)) return false;
       if (maturity !== "all" && f.maturity !== maturity) return false;
+      if (priority !== "all" && f.priority !== priority) return false;
       const acts = featureActors(f);
       if (actor === "m2m") {
         if (!(f.tags?.includes("m2m") || acts.includes("both_ends"))) {
@@ -171,12 +244,16 @@ export function FeatureList() {
         return false;
       }
       if (!needle) return true;
+      const mcu = f.mcuEquivalent || featureMcuEquivalent(f.id) || "";
       const hay = [
         f.id,
         f.name,
         f.summary,
         f.elderWhy,
         f.how,
+        f.priority,
+        PRIORITY_LABEL[f.priority],
+        mcu,
         ...svaraas,
         ...acts,
         ...(f.hardware ?? []),
@@ -187,15 +264,32 @@ export function FeatureList() {
         .toLowerCase();
       return hay.includes(needle);
     });
-  }, [q, pillar, maturity, actor]);
+  }, [q, pillar, maturity, priority, actor]);
 
   const byPillar = useMemo(() => {
-    return PILLAR_ORDER.map((p) => ({
-      pillar: p,
-      meta: PILLAR_META[p],
-      features: filtered.filter((f) => f.pillar === p),
-    })).filter((g) => g.features.length > 0);
+    return PILLAR_ORDER.map((p) => {
+      const features = filtered
+        .filter((f) => f.pillar === p)
+        .slice()
+        .sort(compareFeaturePriority);
+      const counts = { P1: 0, P2: 0, P3: 0 };
+      for (const f of features) counts[f.priority] += 1;
+      return {
+        pillar: p,
+        meta: PILLAR_META[p],
+        features,
+        counts,
+      };
+    }).filter((g) => g.features.length > 0);
   }, [filtered]);
+
+  const priorityCounts = useMemo(() => {
+    const c: Record<string, number> = { all: FEATURE_LIST.length };
+    for (const f of FEATURE_LIST) {
+      c[f.priority] = (c[f.priority] ?? 0) + 1;
+    }
+    return c;
+  }, []);
 
   const pillarCounts = useMemo(() => {
     const c: Record<string, number> = { all: FEATURE_LIST.length };
@@ -240,9 +334,12 @@ export function FeatureList() {
       </header>
 
       <p className="integ-callout" role="note">
-        {FEATURE_LIST.length} features · {subCount} sub-features. Filter by
-        Svaraa, actor, or maturity. Non-clinical: no vital-sign claims. SOS does
-        not wait for GNSS. Privacy latch overrides remote unmute.
+        {FEATURE_LIST.length} features · {subCount} sub-features · ordered{" "}
+        <strong>P1 Must → P2 Need → P3 Nice</strong> within each Svaraa. P1 =
+        safety, trust, and Free-tier promises elders/families cannot ship
+        without; P2 = daily companion value; P3 = polish / later tiers. Filter
+        by Svaraa, priority, actor, or maturity. Non-clinical: no vital-sign
+        claims.
       </p>
 
       <div className="feat-controls">
@@ -290,11 +387,26 @@ export function FeatureList() {
           <input
             type="search"
             className="feat-search"
-            placeholder="Search features, hardware, tags…"
+            placeholder="Search features, hardware, MCU, tags…"
             value={q}
             onChange={(e) => setQ(e.target.value)}
             aria-label="Search features"
           />
+          <select
+            value={priority}
+            onChange={(e) =>
+              setPriority(e.target.value as FeaturePriority | "all")
+            }
+            aria-label="Priority"
+          >
+            {PRIORITY_FILTERS.map((p) => (
+              <option key={p} value={p}>
+                {p === "all"
+                  ? `All priorities (${priorityCounts.all})`
+                  : `${PRIORITY_LABEL[p]} (${priorityCounts[p] ?? 0})`}
+              </option>
+            ))}
+          </select>
           <select
             value={actor}
             onChange={(e) =>
@@ -339,10 +451,18 @@ export function FeatureList() {
             </p>
             <h3 className="feat-section-title">{g.pillar}</h3>
             <p className="feat-section-tagline">{g.meta.tagline}</p>
+            <p className="feat-section-pri mono">
+              Ordered P1→P3 · Must {g.counts.P1} · Need {g.counts.P2} · Nice{" "}
+              {g.counts.P3}
+            </p>
           </header>
           <div className="feat-grid">
             {g.features.map((f) => (
-              <FeatureCard key={f.id} feature={f} />
+              <FeatureCard
+                key={f.id}
+                feature={f}
+                onOpenHardware={onOpenHardware}
+              />
             ))}
           </div>
         </section>

@@ -23,16 +23,31 @@ export default function App() {
   const [tab, setTab] = useState<Tab>("board");
   const [apiOk, setApiOk] = useState<boolean | null>(null);
   const [staticPages, setStaticPages] = useState(false);
+  const [hardwareFocusId, setHardwareFocusId] = useState<string | null>(null);
+
+  function clearHash() {
+    if (!window.location.hash) return;
+    const url = new URL(window.location.href);
+    url.hash = "";
+    window.history.replaceState(null, "", url.pathname + url.search);
+  }
 
   function goTab(next: Tab) {
+    setHardwareFocusId(null);
     setTab(next);
     // Avoid carrying Feature/Hardware scroll depth into other tabs / hash jumps.
-    window.scrollTo({ top: 0, left: 0, behavior: "instant" in window ? "instant" : "auto" });
-    if (window.location.hash) {
-      const url = new URL(window.location.href);
-      url.hash = "";
-      window.history.replaceState(null, "", url.pathname + url.search);
-    }
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant" in window ? "instant" : "auto",
+    });
+    clearHash();
+  }
+
+  function openHardwarePart(partId: string) {
+    setHardwareFocusId(partId);
+    setTab("hardware");
+    clearHash();
   }
 
   useEffect(() => {
@@ -169,9 +184,12 @@ export default function App() {
         {tab === "board" ? (
           <ProjectBoard />
         ) : tab === "hardware" ? (
-          <HardwareParts />
+          <HardwareParts
+            focusPartId={hardwareFocusId}
+            onFocusHandled={() => setHardwareFocusId(null)}
+          />
         ) : tab === "features" ? (
-          <FeatureList />
+          <FeatureList onOpenHardware={openHardwarePart} />
         ) : tab === "wokwi" ? (
           <WokwiLiveEmbed />
         ) : tab === "simulator" ? (

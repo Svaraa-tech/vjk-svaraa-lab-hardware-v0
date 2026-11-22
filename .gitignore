@@ -44,3 +44,5 @@ evidence/**/**/svaraa_test_hal
 # Editor
 .idea/
 *.swp
+
+.xlsx-venv/
